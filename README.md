@@ -1,4 +1,4 @@
-# AlpoxDev Client
+# MediaStock Client
 
 ## Tech
 
