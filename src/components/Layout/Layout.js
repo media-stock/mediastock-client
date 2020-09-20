@@ -5,7 +5,6 @@ import * as styled from './styled';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as userActions from 'stores/user';
 
 // utils
 import { parseRefreshTimestamp } from 'lib/utils';
@@ -30,9 +29,9 @@ function Layout({ children }) {
 
 export default connect(
     (state) => ({
-        userState : state.user.toJS()
+        
     }),
     (dispatch) => ({
-        userActions : bindActionCreators(userActions, dispatch)
+        
     })
 )(Layout);

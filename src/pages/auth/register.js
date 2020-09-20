@@ -5,16 +5,14 @@ import { wrapper } from 'stores';
 import RegisterContainer from 'container/auth/register';
 
 // helmet
-import { ReactHelmet } from 'components';
-import { registerHelmet } from 'config';
+import { Helmet } from 'components';
+import { registerHelmet as helmet } from 'config';
 
-export default function RegisterPage({ helmet }) {
+export default function RegisterPage() {
     return (
         <>
-            <ReactHelmet helmet={registerHelmet} />
+            <Helmet helmet={helmet} />
             <RegisterContainer />
         </>
     );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(({ store, req, res, ...etc }) => {});

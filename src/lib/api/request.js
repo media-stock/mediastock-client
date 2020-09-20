@@ -4,7 +4,7 @@ export default class Request {
     static onError(error) {
         if (error.response) {
             // 반응은 왔지만 에러 발생
-            console.log(error.response.status, error.response.data);
+            console.log(error.response);
 
             const { status, data } = error?.response;
             return { status, data };
@@ -23,6 +23,15 @@ export default class Request {
         };
     }
 
+    static getEndpoint(isServerDev = true) {
+        if (isServerDev) return `https://gkoqmv0p8c.execute-api.ap-northeast-2.amazonaws.com/dev`;
+        return ``;
+    }
+
+    static getAuthorizationHeader(accessToken) {
+        return { Authorization: `Bearer ${accessToken}` };
+    }
+
     static async onRequestGet({ url, headers }) {
         try {
             return await this.tryRequestGet({ url, headers });
@@ -32,6 +41,8 @@ export default class Request {
     }
 
     static async tryRequestGet({ url, headers }) {
+        url = this.getEndpoint() + url;
+
         const response = await axios.get(url, { headers });
         const status = response?.status;
         const data = response?.data;
@@ -48,6 +59,8 @@ export default class Request {
     }
 
     static async tryRequestPost({ url, params, headers }) {
+        url = this.getEndpoint() + url;
+
         const response = await axios.post(url, params, { headers });
         const status = response?.status;
         const data = response?.data;
@@ -64,6 +77,8 @@ export default class Request {
     }
 
     static async tryRequestPatch({ url, params, headers }) {
+        url = this.getEndpoint() + url;
+
         const response = await axios({
             method: 'PATCH',
             url,
@@ -76,17 +91,23 @@ export default class Request {
         return { status, data };
     }
 
-    static async onRequestDelete({ url, params, headers }){
-        try{
+    static async onRequestDelete({ url, params, headers }) {
+        try {
             return await this.tryRequestDelete({ url, params, headers });
-        }catch(error){
-            return this.onError(error);
+        } catch (error) {
+            this.onError(error);
         }
     }
 
-    static async tryRequestDelete({ url, params, headers }){
-        console.log(url, params, headers);
-        const response = await axios.delete(url, { data : params, headers });
+    static async tryRequestDelete({ url, params, headers }) {
+        url = this.getEndpoint() + url;
+
+        const response = await axios({
+            method: 'DELETE',
+            url,
+            data: params,
+            headers,
+        });
         const status = response?.status;
         const data = response?.data;
 

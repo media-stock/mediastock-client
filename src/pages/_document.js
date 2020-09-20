@@ -1,6 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import { Helmet } from 'react-helmet';
 
 const GA_TRACKING_ID = '';
 
@@ -24,35 +23,16 @@ export default class MyDocument extends Document {
                         {sheet.getStyleElement()}
                     </>
                 ),
-                helmet: Helmet.renderStatic(),
             };
         } finally {
             sheet.seal();
         }
     }
 
-    // should render on <html>
-    get helmetHtmlAttrComponents() {
-        return this.props.helmet.htmlAttributes.toComponent();
-    }
-
-    // should render on <body>
-    get helmetBodyAttrComponents() {
-        return this.props.helmet.bodyAttributes.toComponent();
-    }
-
-    // should render on <head>
-    get helmetHeadComponents() {
-        return Object.keys(this.props.helmet)
-            .filter((el) => el !== 'htmlAttributes' && el !== 'bodyAttributes')
-            .map((el) => this.props.helmet[el].toComponent());
-    }
-
     render() {
         return (
-            <Html {...this.helmetHtmlAttrComponents}>
+            <Html>
                 <Head>
-                    {this.helmetHeadComponents}
                     {this.props.styles}
                     <link rel="icon" href="" type="image/x-icon" />
                     <link rel="apple-touch-icon" href="" />
@@ -72,7 +52,7 @@ export default class MyDocument extends Document {
                     />
                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css" />
                 </Head>
-                <body {...this.helmetBodyAttrComponents}>
+                <body>
                     <Main />
                     <NextScript />
                 </body>

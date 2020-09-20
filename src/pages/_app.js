@@ -1,5 +1,4 @@
 import React from 'react';
-import App, { Container } from 'next/app';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 // redux
@@ -8,8 +7,8 @@ import { wrapper } from 'stores';
 import { PersistGate } from 'redux-persist/integration/react';
 
 // components
-import { Layout, ReactHelmet } from 'components';
-import { theme, defaultHelmet as helmet } from 'config';
+import { Layout, DefaultHelmet } from 'components';
+import { theme } from 'config';
 
 const isBrowser = () => typeof window !== 'undefined';
 
@@ -30,6 +29,7 @@ function MyApp({ Component, pageProps }) {
     return isBrowser() ? (
         <PersistGate persistor={store.__persistor} loading={null}>
             <GlobalStyle />
+            <DefaultHelmet/>
             <ThemeProvider theme={theme}>
                 <Layout>
                     <Component {...pageProps} />
@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }) {
     ) : (
         <>
             <GlobalStyle />
-            <ReactHelmet helmet={helmet} />
+            <DefaultHelmet/>
             <ThemeProvider theme={theme}>
                 <Layout>
                     <Component {...pageProps} />

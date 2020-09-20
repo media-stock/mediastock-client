@@ -2,13 +2,11 @@ import { combineReducers } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 import { fromJS } from 'immutable';
 
-import login from './login';
-import register from './register';
+import auth from './auth';
 import user from './user';
 
 const combinedReducers = combineReducers({
-    login,
-    register,
+    auth,
     user
 });
 

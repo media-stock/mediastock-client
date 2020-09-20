@@ -1,1 +1,2 @@
-import dynamic from 'next/dynamic';
+export * from './Login';
+export * from './Social';
