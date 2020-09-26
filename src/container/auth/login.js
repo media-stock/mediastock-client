@@ -26,10 +26,10 @@ function LoginContainer({ authState, authActions }) {
         <>
             <LoginForm>
                 <LoginInput
-                    name="id"
-                    value={input.id}
+                    name="email"
+                    value={input.email}
                     onChange={setInput}
-                    placeholder={"id"}/>
+                    placeholder={"email"}/>
                 <LoginInput
                     name="password"
                     value={input.password}

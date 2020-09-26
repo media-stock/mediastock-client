@@ -13,3 +13,7 @@ export const loginHelmet = {
 export const registerHelmet = {
     title : '회원가입 - 미디어스톡'
 }
+
+export const adminHelmet = {
+    title : '어드민 - 미디어스톡'
+}

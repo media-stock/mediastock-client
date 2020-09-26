@@ -1,16 +1,16 @@
 import Request from './request';
 
-export const onLogin = async({ id, password }) => {
-    const url = `/auth/login`;
-    const params = { id, password };
+export const onLogin = async({ email, password }) => {
+    const url = `/sign-in`;
+    const params = { email, password };
     
     const response = await Request.onRequestPost({ url, params });
     return response;
 }
 
-export const onRegister = async({ email, password, nickname }) => {
-    const url = `/auth/register`;
-    const params = { email, password, nickname };
+export const onRegister = async({ email, password, name }) => {
+    const url = `/sign-up`;
+    const params = { email, password, name };
     
     const response = await Request.onRequestPost({ url, params });
     return response;

@@ -4,4 +4,5 @@ export * from './Helmet';
 export * from './Loading';
 
 // pages component
+export * from './Admin';
 export * from './Auth';
