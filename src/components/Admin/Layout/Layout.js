@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
     DesktopOutlined,
@@ -16,6 +17,13 @@ const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 export default function AdminLayout({ children }) {
+    const router = useRouter();
+    const { user } = useSelector((state) => state.user?.toJS());
+
+    React.useEffect(() => {
+        // if (user?.role !== 'admin') router.replace('/auth');
+    }, [user, user?.role]);
+
     const [collapsed, setCollapsed] = useState(false);
 
     return (
