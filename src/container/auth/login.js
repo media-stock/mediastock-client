@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import * as authActions from 'stores/auth';
 
 // components
-import { Loading, LoginForm, LoginInput, LoginButton, SocialWrapper, SocialButton } from 'components';
+import { LoginForm, LoginInput, LoginButton, SocialWrapper, SocialButton } from 'components';
 
 function LoginContainer({ authState, authActions }) {
     const { login, social } = authState;
@@ -44,7 +44,6 @@ function LoginContainer({ authState, authActions }) {
                     <SocialButton type="facebook" text="페이스북으로 로그인하기" onClick={redirectSocial}/>
                 </SocialWrapper>
             </LoginForm>
-            <Loading view={pending}/>
         </>
     );
 }
