@@ -1,8 +1,8 @@
 myNextApplication:
     component: '@sls-next/serverless-component@latest'
-    name: 'mediastock-client'
     inputs:
         bucketName: 'mediastock-client'
+        description: 'https://mediastock.alpox.kr'
         publicDirectoryCache:
             value: public, max-age=604800
             test: /\.(gif|jpe?g|png|txt|xml)$/i

@@ -5,7 +5,7 @@ export default function FirstPage() {
     return (
         <FirstPageView>
             <LeftSection>
-                <Cover src="/static/main/main-cover1.jpg" />
+                <Cover src="main-cover1.jpg" />
             </LeftSection>
 
             <RightSection>
@@ -21,7 +21,7 @@ export default function FirstPage() {
                         become together
                     </Description>
                 </TextView>
-                <Logo src="/static/main/logo.png" />
+                <Logo src="logo.png" />
             </RightSection>
         </FirstPageView>
     );

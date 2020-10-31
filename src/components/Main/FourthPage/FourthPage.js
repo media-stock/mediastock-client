@@ -5,7 +5,7 @@ import { Checkbox } from 'antd';
 export default function FourthPage({ onEmail }) {
     return (
         <FourthPageView>
-            <Cover src="/static/main/main-cover4.jpg" />
+            <Cover src="/main-cover4.jpg" />
             <FourthPageContent>
                 <SubTitle>
                     <Accent>Media Stoc</Accent>k

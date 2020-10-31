@@ -21,7 +21,7 @@ export default function SecondPage() {
                 </Description>
             </LeftSection>
             <RightSection>
-                <Cover src="/static/main/main-cover2.jpg" />
+                <Cover src="/main-cover2.jpg" />
             </RightSection>
         </SecondPageView>
     );

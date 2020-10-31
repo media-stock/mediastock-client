@@ -5,7 +5,7 @@ export default function ThirdPage() {
     return (
         <ThirdPageView>
             <LeftSection>
-                <Slogan src="/static/main/slogan.jpg" />
+                <Slogan src="/slogan.jpg" />
 
                 <Description>
                     투자자(시청자)에겐 영상을 <Accent>보는 즐거움</Accent>과<br />
@@ -17,7 +17,7 @@ export default function ThirdPage() {
                 </Description>
             </LeftSection>
             <RightSection>
-                <Cover src="/static/main/main-cover3.jpg" />
+                <Cover src="/main-cover3.jpg" />
             </RightSection>
         </ThirdPageView>
     );
