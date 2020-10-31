@@ -11,15 +11,15 @@ export default handleActions(
     {
         [MAIN_TYPES.ON_EMAIL]: (state, action) => {
             const pendingState = createPromiseState.pending();
-            return setImmutableState(state, 'onEmail', pendingState);
+            return setImmutableState(state, 'email', pendingState);
         },
         [MAIN_TYPES.ON_EMAIL_DONE]: (state, action) => {
             const doneState = createPromiseState.done();
-            return setImmutableState(state, 'onEmail', doneState);
+            return setImmutableState(state, 'email', doneState);
         },
         [MAIN_TYPES.ON_EMAIL_ERROR]: (state, action) => {
             const errorState = createPromiseState.error(action.payload);
-            return setImmutableState(state, 'onEmail', errorState);
+            return setImmutableState(state, 'email', errorState);
         },
     },
     mainState,

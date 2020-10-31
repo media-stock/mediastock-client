@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as mainActions from 'stores/main';
+
 // components
-import { MainFirstPage, MainSecondPage } from 'components';
+import { MainFirstPage, MainSecondPage, MainThirdPage, MainFourthPage, Spinner } from 'components';
 
 export default function IndexContainer() {
+    const { email } = useSelector((state) => ({
+        email: state.main.toJS().email,
+    }));
+    const { pending, done } = email;
+
+    const dispatch = useDispatch();
+    const { onEmail } = bindActionCreators(mainActions, dispatch);
+
     return (
         <IndexContainerView>
             <MainFirstPage />
             <MainSecondPage />
+            <MainThirdPage />
+            <MainFourthPage onEmail={onEmail} />
+            <Spinner view={pending} />
         </IndexContainerView>
     );
 }
