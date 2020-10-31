@@ -23,25 +23,40 @@ export default class Request {
         };
     }
 
-    static getEndpoint(isServerDev = true) {
-        if (isServerDev) return `https://gkoqmv0p8c.execute-api.ap-northeast-2.amazonaws.com/dev`;
-        return ``;
+    static onQuery(query = null) {
+        if (!query) return '';
+
+        let queryString = null;
+
+        for (const [key, value] of Object.entries(query)) {
+            if (value) {
+                if (!queryString) queryString = `?${key}=${value}`;
+                else queryString += `&${key}=${value}`;
+            }
+        }
+
+        console.log(queryString);
+        return queryString || '';
+    }
+
+    static getEndpoint() {
+        return 'https://gkoqmv0p8c.execute-api.ap-northeast-2.amazonaws.com/dev';
     }
 
     static getAuthorizationHeader(accessToken) {
         return { Authorization: `Bearer ${accessToken}` };
     }
 
-    static async onRequestGet({ url, headers }) {
+    static async onRequestGet({ url, query, headers }) {
         try {
-            return await this.tryRequestGet({ url, headers });
+            return await this.tryRequestGet({ url, query, headers });
         } catch (error) {
             return this.onError(error);
         }
     }
 
-    static async tryRequestGet({ url, headers }) {
-        url = this.getEndpoint() + url;
+    static async tryRequestGet({ url, query, headers }) {
+        url = this.getEndpoint() + url + this.onQuery(query);
 
         const response = await axios.get(url, { headers });
         const status = response?.status;

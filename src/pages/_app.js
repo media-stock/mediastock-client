@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }) {
     return isBrowser() ? (
         <PersistGate persistor={store.__persistor} loading={null}>
             <GlobalStyle />
-            <DefaultHelmet/>
+            <DefaultHelmet />
             <ThemeProvider theme={theme}>
                 <Layout>
                     <Component {...pageProps} />
@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }) {
     ) : (
         <>
             <GlobalStyle />
-            <DefaultHelmet/>
+            <DefaultHelmet />
             <ThemeProvider theme={theme}>
                 <Layout>
                     <Component {...pageProps} />

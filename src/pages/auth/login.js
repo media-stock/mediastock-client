@@ -10,7 +10,7 @@ import { loginHelmet as helmet } from 'config';
 export default function LoginPage() {
     return (
         <>
-            <Helmet helmet={helmet}/>
+            <Helmet helmet={helmet} />
             <LoginContainer />
         </>
     );

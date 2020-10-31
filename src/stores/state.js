@@ -1,32 +1,19 @@
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 
-const initialDataState = Map({
-    pending: false,
-    done: false,
-    error: null,
-    data: null,
-});
-
-export const authState = Map({
-    login: initialDataState.merge(
-        Map({
-            input: Map({
-                email: '',
-                password: '',
-            }),
-        }),
-    ),
-    register: initialDataState.merge({
-        input: Map({
-            email: '',
-            password: '',
-            name: '',
-        }),
+export const initialDataState = {
+    list: Map({
+        pending: false,
+        done: false,
+        error: null,
+        data: List([]),
+        dataCount: 0,
+        page: 0,
+        offset: 20,
     }),
-    social: initialDataState,
-});
-
-export const userState = Map({
-    user: null,
-    accessToken: null,
-});
+    object: Map({
+        pending: false,
+        done: false,
+        error: null,
+        data: Map({}),
+    }),
+};

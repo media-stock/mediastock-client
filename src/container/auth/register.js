@@ -1,24 +1,8 @@
 import React, { useCallback } from 'react';
-import Router from 'next/router';
 
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
-function RegisterContainer(props) {
-
-    return (
-        <>
-            Register Container
-        </>
-    );
+export default function RegisterContainer() {
+    return null;
 }
-
-export default connect(
-    (state) => ({
-        
-    }),
-    (dispatch) => ({
-        
-    })
-)(RegisterContainer);
-

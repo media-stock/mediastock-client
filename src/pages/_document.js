@@ -37,7 +37,10 @@ export default class MyDocument extends Document {
                     <link rel="icon" href="" type="image/x-icon" />
                     <link rel="apple-touch-icon" href="" />
                     <link rel="shortcut icon" href="" />
-                    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+                    <script
+                        async
+                        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+                    />
                     <script
                         dangerouslySetInnerHTML={{
                             __html: `
@@ -50,8 +53,16 @@ export default class MyDocument extends Document {
                         `,
                         }}
                     />
-                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css" />
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.6/antd.min.css" integrity="sha512-oj9Gb7rxUS/DmRO4hBFmw984VCy/BlgtLlCoyCaFG23aFz55dgqURNaYzZoVfgdyqVlI8W81ppg2exob2J4SRg==" crossorigin="anonymous" />
+                    <link
+                        rel="stylesheet"
+                        href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css"
+                    />
+                    <link
+                        rel="stylesheet"
+                        href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.6.6/antd.min.css"
+                        integrity="sha512-oj9Gb7rxUS/DmRO4hBFmw984VCy/BlgtLlCoyCaFG23aFz55dgqURNaYzZoVfgdyqVlI8W81ppg2exob2J4SRg=="
+                        crossOrigin="anonymous"
+                    />
                 </Head>
                 <body>
                     <Main />

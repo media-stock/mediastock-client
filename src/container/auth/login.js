@@ -1,58 +1,52 @@
-import React, { useCallback } from 'react';
-import Router from 'next/router';
+import React, { useCallback, useState } from 'react';
 
 // redux
+import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import * as authActions from 'stores/auth';
 
 // components
-import { LoginForm, LoginInput, LoginButton, SocialWrapper, SocialButton } from 'components';
+import { LoginForm, LoginInput, LoginButton } from 'components';
 
-function LoginContainer({ authState, authActions }) {
-    const { login, social } = authState;
-    const { input, pending, done, error } = login;
-    const { setLoginInput, onLogin, onSocial } = authActions;
-
-    const setInput = useCallback((e)=>{
-        setLoginInput(e.target);
+export default function LoginContainer() {
+    const [input, setInput] = useState({
+        email: '',
+        password: '',
     });
 
-    const redirectSocial = useCallback((type)=>{
-        onSocial(type);
-    });
-    
-    return(
-        <>
-            <LoginForm>
-                <LoginInput
-                    name="email"
-                    value={input.email}
-                    onChange={setInput}
-                    placeholder={"email"}/>
-                <LoginInput
-                    name="password"
-                    value={input.password}
-                    onChange={setInput}
-                    placeholder={"password"}/>
-                <LoginButton onLogin={onLogin} pending={pending}/>
+    const dispatch = useDispatch();
+    const { onLogin } = bindActionCreators(authActions, dispatch);
 
-                <SocialWrapper>
-                    <SocialButton type="google" text="구글로 로그인하기" onClick={redirectSocial}/>
-                    <SocialButton type="naver" text="네이버로 로그인하기" onClick={redirectSocial}/>
-                    <SocialButton type="kakao" text="카카오로 로그인하기" onClick={redirectSocial}/>
-                    <SocialButton type="facebook" text="페이스북으로 로그인하기" onClick={redirectSocial}/>
-                </SocialWrapper>
-            </LoginForm>
-        </>
+    const { login } = useSelector((state) => ({
+        login: state.auth.toJS().login,
+    }));
+    const { pending, done, error } = login;
+
+    const onChange = useCallback((e) => {
+        const { name, value } = e.target;
+        setInput({ ...input, [name]: value });
+    });
+
+    const onClick = useCallback(() => {
+        onLogin({ ...input });
+    });
+
+    return (
+        <LoginForm>
+            <LoginInput
+                name="email"
+                value={input.email}
+                onChange={onChange}
+                placeholder="이메일을 입력해주세요"
+            />
+            <LoginInput
+                name="password"
+                value={input.password}
+                onChange={onChange}
+                placeholder="비밀번호를 입력해주세요"
+            />
+
+            <LoginButton onClick={onClick} loading={pending} />
+        </LoginForm>
     );
 }
-
-export default connect(
-    (state) => ({
-        authState : state.auth.toJS()
-    }),
-    (dispatch) => ({
-        authActions : bindActionCreators(authActions, dispatch)
-    }),
-)(LoginContainer);

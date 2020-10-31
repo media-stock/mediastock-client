@@ -1,22 +1,23 @@
 import React from 'react';
+import styled from 'styled-components';
 
-// redux
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+// components
+import { MainFirstPage, MainSecondPage } from 'components';
 
-// component
-import { } from 'components';
-
-function IndexContainer() {
-
-    return <>IndexContainer</>;
+export default function IndexContainer() {
+    return (
+        <IndexContainerView>
+            <MainFirstPage />
+            <MainSecondPage />
+        </IndexContainerView>
+    );
 }
 
-export default connect(
-    (state) => ({
-        
-    }),
-    (dispatch) => ({
-        
-    }),
-)(IndexContainer);
+const IndexContainerView = styled.div`
+    width: 100%;
+    min-height: 100vh;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+`;

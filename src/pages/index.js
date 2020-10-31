@@ -3,11 +3,10 @@ import React from 'react';
 // container
 import IndexContainer from 'container/index';
 
-export default function IndexPage(props) {
-
+export default function IndexPage() {
     return (
         <>
-            <IndexContainer/>
+            <IndexContainer />
         </>
     );
 }

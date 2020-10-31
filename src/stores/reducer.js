@@ -4,10 +4,12 @@ import { fromJS } from 'immutable';
 
 import auth from './auth';
 import user from './user';
+import main from './main';
 
 const combinedReducers = combineReducers({
     auth,
-    user
+    user,
+    main,
 });
 
 const reducers = (state, action) => {
@@ -21,7 +23,7 @@ const reducers = (state, action) => {
     }
 
     return combinedReducers(state, action);
-}
+};
 
 export const serializeState = (state) => {
     const serialized = [];
@@ -30,7 +32,7 @@ export const serializeState = (state) => {
     }
 
     return serialized;
-}
+};
 
 export const deserializeState = (state) => {
     const deserialized = [];
@@ -39,7 +41,6 @@ export const deserializeState = (state) => {
     }
 
     return deserialized;
-}
-
+};
 
 export default reducers;

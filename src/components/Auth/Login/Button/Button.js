@@ -1,10 +1,14 @@
 import React from 'react';
-import * as styled from './styled';
+import styled from 'styled-components';
+import { Button } from 'lib/styles';
 
-export default function LoginButton({ onLogin }){
-    return(
-        <styled.LoginButton onClick={onLogin}>
-            로그인
-        </styled.LoginButton>
-    )
+export default function LoginButton({ onClick, loading }) {
+    return <LoginButtonView onClick={onClick}>로그인{loading && '중...'}</LoginButtonView>;
 }
+
+const LoginButtonView = styled(Button)`
+    width: 100%;
+    margin-top: 3.5rem;
+
+    background-color: ${(props) => props.theme.primaryColor};
+`;
