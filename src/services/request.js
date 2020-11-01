@@ -76,6 +76,8 @@ export default class Request {
     static async tryRequestPost({ url, params, headers }) {
         url = this.getEndpoint() + url;
 
+        console.log(`tryRequestPost`, url, params, headers);
+
         const response = await axios.post(url, params, { headers });
         const status = response?.status;
         const data = response?.data;
