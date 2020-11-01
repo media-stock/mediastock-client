@@ -34,6 +34,11 @@ const SecondPageView = styled.div`
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+        margin-bottom: 3rem;
+    }
 `;
 
 const LeftSection = styled.section`
@@ -45,6 +50,11 @@ const LeftSection = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        height: 45vh;
+    }
 `;
 
 const RightSection = styled.section`
@@ -53,15 +63,25 @@ const RightSection = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        height: 45vh;
+    }
 `;
 
 const Description = styled.p`
+    font-family: 'NanumSquare', sans-serif !important;
     font-size: 38px;
     text-align: center;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 22px;
+    }
 `;
 
 const Accent = styled.span`
-    font-weight: bold;
+    font-weight: 700;
     color: red;
 `;
 
@@ -69,4 +89,12 @@ const Cover = styled.img`
     width: 80%;
     margin-right: auto;
     object-fit: contain;
+
+    @media only screen and (max-width: 600px) {
+        width: auto;
+        height: 45vh;
+
+        margin: 0 auto;
+        margin-top: 20px;
+    }
 `;

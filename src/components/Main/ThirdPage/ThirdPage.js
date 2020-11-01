@@ -30,6 +30,12 @@ const ThirdPageView = styled.div`
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+
+        position: relative;
+    }
 `;
 
 const LeftSection = styled.section`
@@ -38,6 +44,15 @@ const LeftSection = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        height: 100vh;
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        justify-content: center;
+    }
 `;
 
 const RightSection = styled.section`
@@ -47,6 +62,15 @@ const RightSection = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        height: 100vh;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 `;
 
 const Slogan = styled.img`
@@ -55,11 +79,22 @@ const Slogan = styled.img`
     margin-top: -15vh;
 
     object-fit: contain;
+
+    @media only screen and (max-width: 600px) {
+        width: 60%;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
 `;
 
 const Description = styled.p`
+    font-family: 'NanumSquare', sans-serif !important;
     font-size: 34px;
     text-align: center;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 20px;
+    }
 `;
 
 const Accent = styled.span`
@@ -71,4 +106,6 @@ const Cover = styled.img`
     width: 100%;
     height: 90vh;
     object-fit: cover;
+
+    opacity: 0.4;
 `;

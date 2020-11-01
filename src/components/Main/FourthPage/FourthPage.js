@@ -74,6 +74,10 @@ const SubTitle = styled.h3`
     font-weight: bold;
     line-height: 1;
     margin: 0;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 25px;
+    }
 `;
 
 const Accent = styled.span`
@@ -86,14 +90,30 @@ const Title = styled.h1`
     line-height: 1;
     margin: 0;
     margin-top: 10px;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 35px;
+    }
 `;
 
 const Description = styled.p`
     font-size: 22px;
     margin-top: 15px;
+    text-align: center;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 19px;
+        padding: 0 1rem;
+    }
 `;
 
-const InputForm = styled.form``;
+const InputForm = styled.form`
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+`;
 
 const InputTopWrapper = styled.div`
     display: flex;
@@ -106,11 +126,20 @@ const InputBottomWrapper = styled(InputTopWrapper)`
 
     margin-top: 12px;
     margin-left: auto;
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+    }
 `;
 
 const InputLabel = styled.label`
     font-size: 32px;
     margin-right: 20px;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 14.5px;
+        margin-bottom: 0.3rem;
+    }
 `;
 
 const Input = styled.input`
@@ -120,18 +149,29 @@ const Input = styled.input`
     outline: 0;
 
     border-radius: 10px;
+
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        padding: 0.4rem 1rem;
+    }
 `;
 
 const InputDescription = styled.p`
     margin: 0;
 
     font-size: 19px;
+
+    @media only screen and (max-width: 600px) {
+        max-width: 85%;
+        font-size: 15px;
+    }
 `;
 
 const OKButton = styled.button`
     display: block;
     margin: 0 auto;
     margin-top: 30px;
+    margin-bottom: auto;
 
     padding: 0.6rem 2rem;
 
@@ -143,4 +183,9 @@ const OKButton = styled.button`
     outline: none;
     border: 2px solid #ddd;
     border-radius: 40px;
+
+    @media only screen and (max-width: 600px) {
+        font-size: 20px;
+        padding: 0.3rem 1.2rem;
+    }
 `;
