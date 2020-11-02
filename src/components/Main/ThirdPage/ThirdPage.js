@@ -108,4 +108,8 @@ const Cover = styled.img`
     object-fit: cover;
 
     opacity: 0.4;
+
+    @media only screen and (max-width: 600px) {
+        opacity: 0;
+    }
 `;
