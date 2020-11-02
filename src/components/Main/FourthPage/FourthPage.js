@@ -70,6 +70,7 @@ const Cover = styled.img`
 `;
 
 const SubTitle = styled.h3`
+    font-family: 'NanumSquare', sans-serif !important;
     font-size: 38px;
     font-weight: bold;
     line-height: 1;
@@ -85,6 +86,7 @@ const Accent = styled.span`
 `;
 
 const Title = styled.h1`
+    font-family: 'NanumSquare', sans-serif !important;
     font-size: 65px;
     font-weight: bolder;
     line-height: 1;
@@ -97,6 +99,7 @@ const Title = styled.h1`
 `;
 
 const Description = styled.p`
+    font-family: 'NanumSquare', sans-serif !important;
     font-size: 22px;
     margin-top: 15px;
     text-align: center;
@@ -178,10 +181,10 @@ const OKButton = styled.button`
     color: #666;
     font-weight: bold;
     font-size: 32px;
-    background-color: #eee;
+    background-color: transparent;
 
     outline: none;
-    border: 2px solid #ddd;
+    border: 3px solid #999;
     border-radius: 40px;
 
     @media only screen and (max-width: 600px) {

@@ -7,7 +7,14 @@ import { bindActionCreators } from 'redux';
 import * as mainActions from 'stores/main';
 
 // components
-import { MainFirstPage, MainSecondPage, MainThirdPage, MainFourthPage, Spinner } from 'components';
+import {
+    MainFirstPage,
+    MainSecondPage,
+    MainThirdPage,
+    MainFourthPage,
+    MainFooter,
+    Spinner,
+} from 'components';
 
 export default function IndexContainer() {
     const { email } = useSelector((state) => ({
@@ -24,6 +31,7 @@ export default function IndexContainer() {
             <MainSecondPage />
             <MainThirdPage />
             <MainFourthPage onEmail={onEmail} />
+            <MainFooter />
             <Spinner view={pending} />
         </IndexContainerView>
     );
