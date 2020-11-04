@@ -7,3 +7,4 @@ export * from './Spinner';
 export * from './Admin';
 export * from './Main';
 export * from './Auth';
+export * from './Test';

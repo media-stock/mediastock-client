@@ -5,11 +5,13 @@ import { fromJS } from 'immutable';
 import auth from './auth';
 import user from './user';
 import main from './main';
+import article from './article';
 
 const combinedReducers = combineReducers({
     auth,
     user,
     main,
+    article,
 });
 
 const reducers = (state, action) => {

@@ -40,7 +40,7 @@ export default class Request {
     }
 
     static getEndpoint() {
-        return 'https://gkoqmv0p8c.execute-api.ap-northeast-2.amazonaws.com/dev';
+        return 'https://oy7hwv9o88.execute-api.ap-northeast-2.amazonaws.com/dev';
     }
 
     static getAuthorizationHeader(accessToken) {
