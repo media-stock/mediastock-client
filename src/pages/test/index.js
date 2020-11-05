@@ -15,9 +15,7 @@ const dev = process.env.NODE_ENV === 'development';
 export default function TestPage() {
     const [label, setLabel] = useState(null);
 
-    if (!dev) return null;
-
-    console.log(label);
+    // if (!dev) return null;
 
     return (
         <>
