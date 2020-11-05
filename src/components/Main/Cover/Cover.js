@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function MainCover() {
+export default function MainCover({ cover }) {
     return (
         <MainCoverView>
-            <CoverImage src="/main-cover.png" />
+            <CoverImage src={cover} />
         </MainCoverView>
     );
 }

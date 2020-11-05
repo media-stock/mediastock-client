@@ -9,7 +9,13 @@ import * as mainActions from 'stores/main';
 // components
 import { MainCover, MainEmail, MainFooter, Spinner } from 'components';
 
+// utils
+import { useWindowDimensions } from 'lib/utils';
+
 export default function IndexContainer() {
+    const { width } = useWindowDimensions();
+    const isMobile = width < 500;
+
     const { email } = useSelector((state) => ({
         email: state.main.toJS().email,
     }));
@@ -20,8 +26,8 @@ export default function IndexContainer() {
 
     return (
         <IndexContainerView>
-            <MainCover />
-            <MainEmail onEmail={onEmail} />
+            <MainCover cover={isMobile ? '/main-cover-mobile.png' : '/main-cover.png'} />
+            <MainEmail onEmail={onEmail} isMobile={isMobile} />
             <MainFooter />
             <Spinner view={pending} />
         </IndexContainerView>

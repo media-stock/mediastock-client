@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 
-export default function FourthPage({ onEmail }) {
+export default function FourthPage({ onEmail, isMobile }) {
     const [email, setEmail] = useState('');
 
     const onKeyPress = useCallback((e) => {
@@ -15,9 +15,12 @@ export default function FourthPage({ onEmail }) {
             <SubTitle>MEDIA STOCK</SubTitle>
             <Title>소식 알림 신청</Title>
             <Description>
-                미디어스톡의 론칭 및 각종 소식을 가장 먼저 받아보고 싶으신 분께서는
-                <br />
-                카카오톡 플러스친구 추가 혹은 이메일 주소를 남겨주세요!
+                미디어스톡의 론칭 및 각종 소식을 {isMobile && <br />}
+                가장 먼저 받아보고 싶으신분께서는
+            </Description>
+            <Description>
+                카카오톡 플러스친구 추가 혹은{isMobile && <br />}
+                이메일 주소를 남겨주세요!
             </Description>
 
             <InputForm onSubmit={(e) => e.preventDefault()}>
@@ -41,6 +44,10 @@ const FourthPageView = styled.div`
     align-items: center;
 
     background-color: #223351;
+
+    @media only screen and (max-width: 600px) {
+        height: 55vh;
+    }
 `;
 
 const SubTitle = styled.h3`
@@ -82,7 +89,7 @@ const Description = styled.p`
     text-align: center;
 
     @media only screen and (max-width: 600px) {
-        font-size: 19px;
+        font-size: 16.5px;
         padding: 0 1rem;
     }
 `;
