@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export default function MainFooter() {
     return (
         <FooterView>
-            <Title href="/미디어스톡 개인정보처리방침.pdf" target="_blank">
+            <Title href="/privacy.pdf" target="_blank">
                 개인정보처리방침
             </Title>
             <Description>사업자등록번호: 413-43-00542</Description>
@@ -24,7 +24,7 @@ const FooterView = styled.div`
 const Title = styled.a`
     font-family: 'NanumSquare', sans-serif !important;
     font-weight: bold;
-    font-size: 27px;
+    font-size: 19px;
     color: #000;
     margin: 0;
 
@@ -35,7 +35,7 @@ const Title = styled.a`
 
 const Description = styled.p`
     font-family: 'NanumSquare', sans-serif !important;
-    font-size: 16px;
+    font-size: 15px;
     color: #000;
     margin: 0;
 `;

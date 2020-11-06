@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // redux
@@ -7,12 +7,14 @@ import { bindActionCreators } from 'redux';
 import * as mainActions from 'stores/main';
 
 // components
-import { MainCover, MainEmail, MainFooter, Spinner } from 'components';
+import { MainCover, MainEmail, MainFooter, MainAlert, Spinner } from 'components';
 
 // utils
 import { useWindowDimensions } from 'lib/utils';
 
 export default function IndexContainer() {
+    const [error, setError] = useState('');
+
     const { width } = useWindowDimensions();
     const isMobile = width < 500;
 
@@ -27,9 +29,10 @@ export default function IndexContainer() {
     return (
         <IndexContainerView>
             <MainCover cover={isMobile ? '/main-cover-mobile.png' : '/main-cover.png'} />
-            <MainEmail onEmail={onEmail} isMobile={isMobile} />
+            <MainEmail onEmail={onEmail} isMobile={isMobile} setError={setError} />
             <MainFooter />
             <Spinner view={pending} />
+            <MainAlert error={error} setError={setError} />
         </IndexContainerView>
     );
 }
