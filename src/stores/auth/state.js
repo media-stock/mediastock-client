@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { initialDataState } from '../state';
+import { initialDataState } from '../utils';
 
 export const authState = Map({
     login: initialDataState.object,

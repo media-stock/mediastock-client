@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 // containers
 import TestArticlesContainer from 'container/test/articles';
 import TestArticleContainer from 'container/test/article';
+import TestChannelsContainer from 'container/test/channels';
+import TestChannelContainer from 'container/test/channel';
 
 // components
 import { Helmet, TestCascader } from 'components';
@@ -24,6 +26,8 @@ export default function TestPage() {
 
             {label === 'articles' && <TestArticlesContainer />}
             {label === 'article' && <TestArticleContainer />}
+            {label === 'channels' && <TestChannelsContainer />}
+            {label === 'channel' && <TestChannelContainer />}
         </>
     );
 }

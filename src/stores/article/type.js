@@ -1,4 +1,4 @@
-import { TYPE_DONE, TYPE_ERROR } from '../type';
+import { TYPE_DONE, TYPE_ERROR } from '../utils';
 
 export const ARTICLE_TYPES = {
     GET_ARTICLES: 'article/GET_ARTICLES',

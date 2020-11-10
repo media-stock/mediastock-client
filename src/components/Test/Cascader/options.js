@@ -25,4 +25,30 @@ export const options = [
             },
         ],
     },
+    {
+        value: 'Channel',
+        label: 'Channel',
+        children: [
+            {
+                value: 'channels',
+                label: 'GET /channels',
+            },
+            {
+                value: 'channel',
+                label: 'GET /channels/:id',
+            },
+            {
+                value: 'createChannels',
+                label: 'POST /channels',
+            },
+            {
+                value: 'deleteChannel',
+                label: 'DELETE /channels/:id',
+            },
+            {
+                value: 'updateChannel',
+                label: 'PATCH /channels/:id',
+            },
+        ],
+    },
 ];

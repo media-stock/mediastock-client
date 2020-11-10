@@ -1,4 +1,4 @@
-import { Map } from 'immutable';
+import { List, Map } from 'immutable';
 
 export const createPromiseState = {
     pending: () =>
@@ -13,6 +13,14 @@ export const createPromiseState = {
             done: true,
             error: null,
             data,
+            dataCount,
+        }),
+    more: (beforeData, data, dataCount = 0) =>
+        Map({
+            pending: false,
+            done: true,
+            error: null,
+            data: List([...beforeData, ...data]),
             dataCount,
         }),
     error: (error) =>

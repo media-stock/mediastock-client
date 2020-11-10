@@ -1,5 +1,4 @@
 import { createAction, handleActions } from 'redux-actions';
-import { List } from 'immutable';
 
 import { articleState } from './state';
 import { ARTICLE_TYPES } from './type';

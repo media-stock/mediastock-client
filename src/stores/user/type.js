@@ -1,4 +1,4 @@
-import { TYPE_DONE, TYPE_ERROR } from '../type';
+import { TYPE_DONE, TYPE_ERROR } from '../utils';
 
 export const USER_TYPES = {
     SET_USER: 'user/SET_USER',

@@ -1,0 +1,11 @@
+import { TYPE_DONE, TYPE_ERROR } from '../utils';
+
+export const CHANNEL_TYPES = {
+    GET_CHANNELS: 'channel/GET_CHANNELS',
+    GET_CHANNELS_DONE: TYPE_DONE('channel/GET_CHANNELS'),
+    GET_CHANNELS_ERROR: TYPE_ERROR('channel/GET_CHANNELS'),
+
+    GET_CHANNEL: 'channel/GET_CHANNEL',
+    GET_CHANNEL_DONE: TYPE_DONE('channel/GET_CHANNEL'),
+    GET_CHANNEL_ERROR: TYPE_ERROR('channel/GET_CHANNEL'),
+};

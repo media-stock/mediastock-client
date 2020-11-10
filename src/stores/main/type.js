@@ -1,4 +1,4 @@
-import { TYPE_DONE, TYPE_ERROR } from '../type';
+import { TYPE_DONE, TYPE_ERROR } from '../utils';
 
 export const MAIN_TYPES = {
     ON_EMAIL: 'main/ON_EMAIL',

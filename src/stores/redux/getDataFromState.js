@@ -9,8 +9,8 @@ export const getUserIdFromState = (getState) => {
 };
 
 export const getDataPageAndOffset = (getState, reducer, key) => {
-    const { page, offset } = getState()[reducer].toJS()[key];
-    return { page, offset };
+    const { limit, offset } = getState()[reducer].toJS()[key];
+    return { limit, offset };
 };
 
 export const getLoginInput = (getState) => {

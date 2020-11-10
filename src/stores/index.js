@@ -3,8 +3,8 @@ import { createWrapper } from 'next-redux-wrapper';
 import immutableTransform from 'redux-persist-transform-immutable';
 
 // reducers & middleware
-import middleware from './middleware';
-import reducers, { serializeState, deserializeState } from './reducer';
+import middleware from './utils/middleware';
+import reducers, { serializeState, deserializeState } from './utils/reducer';
 
 const makeStore = ({ isServer = typeof window === 'undefined' }) => {
     if (isServer) {

@@ -1,4 +1,4 @@
-import { TYPE_DONE, TYPE_ERROR } from '../type';
+import { TYPE_DONE, TYPE_ERROR } from '../utils';
 
 export const AUTH_TYPES = {
     ON_LOGIN: 'auth/ON_LOGIN',

@@ -2,16 +2,18 @@ import { combineReducers } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 import { fromJS } from 'immutable';
 
-import auth from './auth';
-import user from './user';
-import main from './main';
-import article from './article';
+import auth from '../auth';
+import user from '../user';
+import main from '../main';
+import article from '../article';
+import channel from '../channel';
 
 const combinedReducers = combineReducers({
     auth,
     user,
     main,
     article,
+    channel,
 });
 
 const reducers = (state, action) => {
