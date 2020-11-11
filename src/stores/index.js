@@ -15,8 +15,8 @@ const makeStore = ({ isServer = typeof window === 'undefined' }) => {
     const storage = require('redux-persist/lib/storage').default;
     const persistConfig = {
         transforms: [immutableTransform()],
-        key: 'apick-client',
-        whitelist: ['user'],
+        key: 'mediastock',
+        whitelist: [''],
         storage,
     };
 

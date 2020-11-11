@@ -17,7 +17,6 @@ export const onRegister = async ({ email, password, name }) => {
 };
 
 export const onSocial = async (socialType) => {
-    // https://gkoqmv0p8c.execute-api.ap-northeast-2.amazonaws.com/dev/oauth/google/authorize
     const url = `/oauth/${socialType}/authorize`;
 
     const response = await Request.onRequestGet({ url });

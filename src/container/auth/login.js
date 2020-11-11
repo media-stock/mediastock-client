@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +10,7 @@ import * as authActions from 'stores/auth';
 import { LoginForm, LoginInput, LoginButton } from 'components';
 
 export default function LoginContainer() {
+    const router = useRouter();
     const [input, setInput] = useState({
         email: '',
         password: '',
@@ -17,9 +19,11 @@ export default function LoginContainer() {
     const dispatch = useDispatch();
     const { onLogin } = bindActionCreators(authActions, dispatch);
 
-    const { login } = useSelector((state) => ({
+    const { login, logined } = useSelector((state) => ({
         login: state.auth.toJS().login,
+        logined: state.user.toJS().logined,
     }));
+    const { user, accessToken } = logined;
     const { pending, done, error } = login;
 
     const onChange = useCallback((e) => {
@@ -30,6 +34,16 @@ export default function LoginContainer() {
     const onClick = useCallback(() => {
         onLogin({ ...input });
     });
+
+    React.useEffect(() => {
+        if (user?.role === 'USER' && done) {
+            router.replace('/');
+        }
+
+        if (user?.role === 'ADMIN' && done) {
+            router.replace('/admin');
+        }
+    }, [done]);
 
     return (
         <LoginForm>

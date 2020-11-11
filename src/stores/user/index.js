@@ -12,7 +12,7 @@ export default handleActions(
             const user = action.payload;
             return state.setIn(['logined', 'user'], user);
         },
-        [USER_TYPES.SET_TOKEN]: (state, action) => {
+        [USER_TYPES.SET_ACCESS_TOKEN]: (state, action) => {
             const accessToken = action.payload;
             return state.setIn(['logined', 'accessToken'], accessToken);
         },

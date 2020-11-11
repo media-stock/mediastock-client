@@ -18,8 +18,6 @@ const combinedReducers = combineReducers({
 
 const reducers = (state, action) => {
     if (action?.type === HYDRATE) {
-        // console.log(state);
-        // console.log(action.payload.tag.toJS());
         for (const [key, value] of Object.entries(action.payload)) {
             state[key] = value;
         }
