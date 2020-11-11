@@ -24,17 +24,14 @@ export default handleActions(
             return setImmutableState(state, 'channels', pendingState);
         },
         [CHANNEL_TYPES.GET_CHANNELS_DONE]: (state, action) => {
-            const beforeChannels = state.getIn(['channels', 'data']);
-            const channels = action.payload?.channels;
-            const totalCount = action.payload?.totalCount;
-
-            let doneState = null;
-            if (beforeChannels?.length > 0) {
-                doneState = createPromiseState.more(beforeChannels, channels, totalCount);
-            } else {
-                doneState = createPromiseState.done(channels, totalCount);
-            }
-            return setImmutableState(state, 'channels', doneState);
+            return state
+                .setIn(['channels', 'pending'], false)
+                .setIn(['channels', 'error'], null)
+                .setIn(
+                    ['channels', 'data'],
+                    [...state.getIn(['channels', 'data']), ...action.payload?.channels],
+                )
+                .setIn(['channels', 'dataCount'], action.payload?.totalCount);
         },
         [CHANNEL_TYPES.GET_CHANNELS_ERROR]: (state, action) => {
             const errorState = createPromiseState.error(action?.payload);
@@ -45,7 +42,7 @@ export default handleActions(
             return setImmutableState(state, 'channel', pendingState);
         },
         [CHANNEL_TYPES.GET_CHANNEL_DONE]: (state, action) => {
-            const doneState = createPromiseState.done(state, 'channel', action.payload?.channel);
+            const doneState = createPromiseState.done(action.payload?.channel);
             return setImmutableState(state, 'channel', doneState);
         },
         [CHANNEL_TYPES.GET_CHANNEL_ERROR]: (state, action) => {

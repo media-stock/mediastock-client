@@ -15,14 +15,6 @@ export const createPromiseState = {
             data,
             dataCount,
         }),
-    more: (beforeData, data, dataCount = 0) =>
-        Map({
-            pending: false,
-            done: true,
-            error: null,
-            data: List([...beforeData, ...data]),
-            dataCount,
-        }),
     error: (error) =>
         Map({
             pending: false,

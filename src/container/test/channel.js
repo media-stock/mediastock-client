@@ -26,8 +26,6 @@ export default function TestArticles() {
         setId(value);
     });
 
-    console.log(channel);
-
     return (
         <>
             <Input style={{ margin: '2rem 0' }} value={id} onChange={onChange} />

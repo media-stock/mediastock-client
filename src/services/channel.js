@@ -13,5 +13,6 @@ export const onGetChannel = async ({ id }) => {
     const url = `/channels/${id}`;
 
     const response = await Request.onRequestGet({ url });
+    console.log(url, response);
     return response;
 };
