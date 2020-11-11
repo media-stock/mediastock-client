@@ -6,3 +6,4 @@ export const AdminTable = dynamic(() => import('./Table'));
 // export * from './User';
 export * from './Channel';
 export * from './Article';
+export * from './Stock';

@@ -7,6 +7,7 @@ import user from '../user';
 import main from '../main';
 import article from '../article';
 import channel from '../channel';
+import stock from '../stock';
 
 const combinedReducers = combineReducers({
     auth,
@@ -14,6 +15,7 @@ const combinedReducers = combineReducers({
     main,
     article,
     channel,
+    stock,
 });
 
 const reducers = (state, action) => {

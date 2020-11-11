@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import UserContainer from './user';
 import ArticleContainer from './article';
 import ChannelContainer from './channel';
+import StockContainer from './stock';
 
 export default function AdminContainer() {
     const router = useRouter();
@@ -14,6 +15,7 @@ export default function AdminContainer() {
             {page === 'user' && <UserContainer subPage={subPage} />}
             {page === 'article' && <ArticleContainer subPage={subPage} />}
             {page === 'channel' && <ChannelContainer subPage={subPage} />}
+            {page === 'stock' && <StockContainer subPage={subPage} />}
         </>
     );
 }
