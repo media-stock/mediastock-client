@@ -7,17 +7,38 @@ import {
     createPromiseThunk,
     createPromiseState,
     setImmutableState,
+    getDataPageAndOffset,
     getAccessTokenFromState,
 } from '../redux';
+
+export const setArticleReset = createAction(ARTICLE_TYPES.SET_ARTICLES_RESET);
+export const setArticlePage = createAction(ARTICLE_TYPES.SET_ARTICLES_PAGE);
 
 export const onGetArticles = createPromiseThunk(
     ARTICLE_TYPES.GET_ARTICLES,
     articleAPI.onGetArticles,
+    (getState) => getDataPageAndOffset(getState, 'article', 'articles'),
 );
 export const onGetArticle = createPromiseThunk(ARTICLE_TYPES.GET_ARTICLE, articleAPI.onGetArticle);
 
 export default handleActions(
     {
+        [ARTICLE_TYPES.SET_ARTICLES_RESET]: (state, _) => {
+            return state.setIn(['articles', 'data'], []);
+        },
+        [ARTICLE_TYPES.SET_ARTICLES_PAGE]: (state, action) => {
+            const offset = action.payload?.offset;
+            const limit = action.payload?.limit;
+
+            if (limit) {
+                return state.setIn(['articles', 'offset'], 0).setIn(['articles', 'limit'], limit);
+            }
+            if (offset) {
+                return state.setIn(['articles', 'offset'], offset);
+            }
+
+            return state;
+        },
         [ARTICLE_TYPES.GET_ARTICLES]: (state, action) => {
             const pendingState = createPromiseState.pending();
             return setImmutableState(state, 'articles', pendingState);

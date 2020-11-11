@@ -2,6 +2,7 @@ import { Map, List } from 'immutable';
 
 export const TYPE_DONE = (type) => `${type}_DONE`;
 export const TYPE_ERROR = (type) => `${type}_ERROR`;
+export const TYPE_REFRESH = (type) => `${type}_REFERSH`;
 
 export const initialDataState = {
     list: Map({

@@ -35,7 +35,6 @@ export default class Request {
             }
         }
 
-        console.log(queryString);
         return queryString || '';
     }
 

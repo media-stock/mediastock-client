@@ -9,6 +9,9 @@ import {
 } from '../redux';
 import * as channelAPI from 'services/channel';
 
+export const setChannelsReset = createAction(CHANNEL_TYPES.SET_CHANNELS_RESET);
+export const setChannelsPage = createAction(CHANNEL_TYPES.SET_CHANNELS_PAGE);
+
 export const onGetChannels = createPromiseThunk(
     CHANNEL_TYPES.GET_CHANNELS,
     channelAPI.onGetChannels,
@@ -19,6 +22,22 @@ export const onGetChannel = createPromiseThunk(CHANNEL_TYPES.GET_CHANNEL, channe
 
 export default handleActions(
     {
+        [CHANNEL_TYPES.SET_CHANNELS_RESET]: (state, action) => {
+            return state.setIn(['channels', 'data'], []);
+        },
+        [CHANNEL_TYPES.SET_CHANNELS_PAGE]: (state, action) => {
+            const offset = action.payload?.offset;
+            const limit = action.payload?.limit;
+
+            if (limit) {
+                return state.setIn(['channels', 'offset'], 0).setIn(['channels', 'limit'], limit);
+            }
+            if (offset) {
+                return state.setIn(['channels', 'offset'], offset);
+            }
+
+            return state;
+        },
         [CHANNEL_TYPES.GET_CHANNELS]: (state, _) => {
             const pendingState = createPromiseState.pending();
             return setImmutableState(state, 'channels', pendingState);

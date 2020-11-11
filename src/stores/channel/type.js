@@ -1,6 +1,9 @@
 import { TYPE_DONE, TYPE_ERROR } from '../utils';
 
 export const CHANNEL_TYPES = {
+    SET_CHANNELS_RESET: 'channel/SET_CHANNELS_RESET',
+    SET_CHANNELS_PAGE: 'channel/SET_CHANNELS_PAGE',
+
     GET_CHANNELS: 'channel/GET_CHANNELS',
     GET_CHANNELS_DONE: TYPE_DONE('channel/GET_CHANNELS'),
     GET_CHANNELS_ERROR: TYPE_ERROR('channel/GET_CHANNELS'),
