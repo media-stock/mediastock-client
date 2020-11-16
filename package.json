@@ -6,7 +6,8 @@
         "dev": "next",
         "build": "next build",
         "start": "next start",
-        "serverless:test": "export AWS_PROFILE=default &&  rm -rf .next && serverless"
+        "deploy": "export AWS_PROFILE=mediastock && yarn clear && serverless",
+        "clear": "rm -rf .next && rm -rf .serverless && rm -rf .serverless_nextjs"
     },
     "dependencies": {
         "antd": "4.6.6",
