@@ -94,10 +94,10 @@ export default function AdminLayout({ children }) {
 
                         <SubMenu key="stock" icon={<TeamOutlined />} title="주식">
                             <Menu.Item
-                                key="stock-list"
-                                onClick={() => onClickMenu('stock', 'list')}
+                                key="ipo-list"
+                                onClick={() => onClickMenu('stock', 'ipo-list')}
                             >
-                                주식 목록
+                                IPO 목록
                             </Menu.Item>
                         </SubMenu>
 

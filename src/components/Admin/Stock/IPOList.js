@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +18,8 @@ const columns = () => [
 ];
 
 export default function AdminStockList() {
+    const router = useRouter();
+
     const dispatch = useDispatch();
     const { setIPOsReset, setIPOsPage, onGetIPOs, onGetIPO } = bindActionCreators(
         stockActions,
@@ -30,7 +33,10 @@ export default function AdminStockList() {
     const { data, dataCount, pending, limit, offset } = ipos;
 
     const onItemClick = React.useCallback((id) => {
-        onGetIPO({ id });
+        router.push({
+            pathname: '/admin',
+            query: { page: 'ipo', subPage: 'detail', id },
+        });
     });
 
     React.useEffect(() => {

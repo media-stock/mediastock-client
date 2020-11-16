@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
-import { AdminArticleList } from 'components';
+import { AdminArticleList, AdminArticleDetail } from 'components';
 
 export default function AdminArticleContainer({ subPage }) {
-    return <>{(subPage === 'list' || subPage === 'detail') && <AdminArticleList />}</>;
+    return (
+        <>
+            {(subPage === 'list' || subPage === 'detail') && <AdminArticleList />}
+            {subPage === 'detail' && <AdminArticleDetail subPage={subPage} />}
+        </>
+    );
 }

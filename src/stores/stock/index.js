@@ -33,19 +33,19 @@ export default handleActions(
                 )
                 .setIn(['ipos', 'dataCount'], action.payload?.totalCount);
         },
-        [STOCK_TYPES.GET_STOCKS_ERROR]: (state, action) => {
+        [STOCK_TYPES.GET_IPOS_ERROR]: (state, action) => {
             const errorState = createPromiseState.error(action.payload);
             return setImmutableState(state, 'ipos', errorState);
         },
-        [STOCK_TYPES.GET_STOCK]: (state, action) => {
+        [STOCK_TYPES.GET_IPO]: (state, action) => {
             const pendingState = createPromiseState.pending();
             return setImmutableState(state, 'ipo', pendingState);
         },
-        [STOCK_TYPES.GET_STOCK_DONE]: (state, action) => {
+        [STOCK_TYPES.GET_IPO_DONE]: (state, action) => {
             const doneState = createPromiseState.done(action.payload?.ipo);
             return setImmutableState(state, 'ipo', doneState);
         },
-        [STOCK_TYPES.GET_STOCK_ERROR]: (state, action) => {
+        [STOCK_TYPES.GET_IPO_ERROR]: (state, action) => {
             const errorState = createPromiseState.error(action.payload);
             return setImmutableState(state, 'ipo', errorState);
         },

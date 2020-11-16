@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useRouter } from 'next/router';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,6 +38,8 @@ const columns = () => [
 ];
 
 export default function ChannelList() {
+    const router = useRouter();
+
     const dispatch = useDispatch();
     const { setChannelsReset, setChannelsPage, onGetChannels, onGetChannel } = bindActionCreators(
         channelActions,
@@ -49,7 +52,10 @@ export default function ChannelList() {
     const { data, dataCount, pending, limit, offset } = channels;
 
     const onItemClick = useCallback((id) => {
-        onGetChannel({ id });
+        router.push({
+            pathname: '/admin',
+            query: { page: 'channel', subPage: 'detail', id },
+        });
     });
 
     React.useEffect(() => {

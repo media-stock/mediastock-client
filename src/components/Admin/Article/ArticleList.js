@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,8 +40,10 @@ const columns = () => [
 ];
 
 export default function ArticleList() {
+    const router = useRouter();
+
     const dispatch = useDispatch();
-    const { setArticleReset, setArticlePage, onGetArticles, onGetArticle } = bindActionCreators(
+    const { setArticleReset, setArticlePage, onGetArticles } = bindActionCreators(
         articleActions,
         dispatch,
     );
@@ -51,7 +54,10 @@ export default function ArticleList() {
     const { data, dataCount, pending, limit, offset } = articles;
 
     const onItemClick = React.useCallback((id) => {
-        onGetArticle({ id });
+        router.push({
+            pathname: '/admin',
+            query: { page: 'article', subPage: 'detail', id },
+        });
     });
 
     React.useEffect(() => {
