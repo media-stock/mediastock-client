@@ -17,8 +17,17 @@ export const onGetChannels = createPromiseThunk(
     channelAPI.onGetChannels,
     (getState) => getDataPageAndOffset(getState, 'channel', 'channels'),
 );
-
 export const onGetChannel = createPromiseThunk(CHANNEL_TYPES.GET_CHANNEL, channelAPI.onGetChannel);
+export const onGetChannelVideos = createPromiseThunk(
+    CHANNEL_TYPES.GET_CHANNEL_VIDEOS,
+    channelAPI.onGetChannelVideos,
+    (getState) => getDataPageAndOffset(getState, 'channel', 'channelVideos'),
+);
+export const onGetChannelStatistics = createPromiseThunk(
+    CHANNEL_TYPES.GET_CHANNEL_STATISTICS,
+    channelAPI.onGetChannelStatistics,
+    (getState) => getDataPageAndOffset(getState, 'channel', 'channelStatistics'),
+);
 
 export default handleActions(
     {
@@ -26,14 +35,15 @@ export default handleActions(
             return state.setIn(['channels', 'data'], []);
         },
         [CHANNEL_TYPES.SET_CHANNELS_PAGE]: (state, action) => {
+            const stateType = action.payload?.state || 'channels';
             const offset = action.payload?.offset;
             const limit = action.payload?.limit;
 
             if (limit) {
-                return state.setIn(['channels', 'offset'], 0).setIn(['channels', 'limit'], limit);
+                return state.setIn([stateType, 'offset'], 0).setIn([stateType, 'limit'], limit);
             }
             if (offset) {
-                return state.setIn(['channels', 'offset'], offset);
+                return state.setIn([stateType, 'offset'], offset);
             }
 
             return state;
@@ -67,6 +77,43 @@ export default handleActions(
         [CHANNEL_TYPES.GET_CHANNEL_ERROR]: (state, action) => {
             const errorState = createPromiseState.error(action?.payload);
             return setImmutableState(state, 'channel', errorState);
+        },
+        [CHANNEL_TYPES.GET_CHANNEL_VIDEOS]: (state, _) => {
+            const pendingState = createPromiseState.pending();
+            return setImmutableState(state, 'channelVideos', pendingState);
+        },
+        [CHANNEL_TYPES.GET_CHANNEL_VIDEOS_DONE]: (state, action) => {
+            const { totalCount, videos } = action.payload;
+
+            return state
+                .setIn(['channelVideos', 'pending'], false)
+                .setIn(['channelVideos', 'error'], null)
+                .setIn(['channelVideos', 'dataCount'], totalCount)
+                .setIn(
+                    ['channelVideos', 'data'],
+                    [...state.getIn(['channelVideos', 'data']), ...videos],
+                );
+        },
+        [CHANNEL_TYPES.GET_CHANNEL_VIDEOS_ERROR]: (state, action) => {
+            const errorState = createPromiseState.error(action?.payload);
+            return setImmutableState(state, 'channelVideos', errorState);
+        },
+        [CHANNEL_TYPES.GET_CHANNEL_STATISTICS]: (state, action) => {
+            const pendingState = createPromiseState.pending();
+            return setImmutableState(state, 'channelStatistics', pendingState);
+        },
+        [CHANNEL_TYPES.GET_CHANNEL_STATISTICS_DONE]: (state, action) => {
+            const { statistics } = action.payload;
+
+            return state
+                .setIn(['channelStatistics', 'pending'], false)
+                .setIn(['channelStatistics', 'error'], null)
+                .setIn(['channelStatistics', 'dataCount'], statistics?.length)
+                .setIn(['channelStatistics', 'data'], statistics);
+        },
+        [CHANNEL_TYPES.GET_CHANNEL_STATISTICS_ERROR]: (state, action) => {
+            const errorState = createPromiseState.error(action.payload);
+            return setImmutableState(state, 'channelStatistics', errorState);
         },
     },
     channelState,

@@ -37,8 +37,8 @@ const columns = () => [
     },
 ];
 
-export default function ChannelList({ subPage }) {
-    if (subPage !== 'list') return null;
+export default function ChannelVideoList({ subPage }) {
+    if (subPage !== 'video-list') return null;
 
     const router = useRouter();
 

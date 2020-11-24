@@ -60,6 +60,7 @@ export default class Request {
         const response = await axios.get(url, { headers });
         const status = response?.status;
         const data = response?.data;
+        console.log(`tryRequestGet`, url, query, headers, response);
 
         return { status, data };
     }

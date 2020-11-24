@@ -14,3 +14,19 @@ export const onGetChannel = async ({ id }) => {
     const response = await Request.onRequestGet({ url });
     return response;
 };
+
+export const onGetChannelVideos = async ({ id, sort, limit, offset }) => {
+    const url = `/channels/${id}/videos`;
+    const query = { sort, limit, offset };
+
+    const response = await Request.onRequestGet({ url, query });
+    return response;
+};
+
+export const onGetChannelStatistics = async ({ id, limit, offset }) => {
+    const url = `/channels/${id}/statistics`;
+    const query = { limit, offset };
+
+    const response = await Request.onRequestGet({ url, query });
+    return response;
+};

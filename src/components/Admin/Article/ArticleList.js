@@ -39,7 +39,9 @@ const columns = () => [
     },
 ];
 
-export default function ArticleList() {
+export default function ArticleList({ subPage }) {
+    if (subPage !== 'list') return null;
+
     const router = useRouter();
 
     const dispatch = useDispatch();
@@ -56,7 +58,7 @@ export default function ArticleList() {
     const onItemClick = React.useCallback((id) => {
         router.push({
             pathname: '/admin',
-            query: { page: 'article', subPage: 'detail', id },
+            query: { ...router.query, articleId: id },
         });
     });
 
