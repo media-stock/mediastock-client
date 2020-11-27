@@ -12,7 +12,7 @@ export default function AdminChannelContainer({ subPage }) {
         <>
             <AdminChannelList subPage={subPage} />
             <AdminChannelDetail subPage={subPage} />
-            <AdminChannelVideoList subPage={subPage} />
+            <AdminChannelVideoList />
             <AdminChannelVideoDetail subPage={subPage} />
         </>
     );

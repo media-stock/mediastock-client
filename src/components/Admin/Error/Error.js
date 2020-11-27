@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Alert } from 'antd';
+import { message } from 'antd';
 
-export default function AdminError({ view, error }) {
-    if (!view) return null;
+export default function AdminError({ error }) {
+    React.useEffect(() => {
+        if (error) {
+            message.error(JSON.stringify(error));
+        }
+    }, [error]);
 
-    return (
-        <ErrorView>
-            <Alert message="Error" description={JSON.stringify(error)} type="error" showIcon />
-        </ErrorView>
-    );
+    return null;
 }
 
 const ErrorView = styled.div`

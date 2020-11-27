@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import * as channelActions from 'stores/channel';
 
 // components
-import { AdminTable } from 'components';
+import { AdminTable, AdminButton } from 'components';
 
 const columns = () => [
     {
@@ -37,21 +37,18 @@ const columns = () => [
     },
 ];
 
-export default function ChannelVideoList({ subPage }) {
+export default function ChannelVideoList() {
+    const router = useRouter();
+    const subPage = router.query?.subPage;
     if (subPage !== 'video-list') return null;
 
-    const router = useRouter();
-
     const dispatch = useDispatch();
-    const { setChannelsReset, setChannelsPage, onGetChannels, onGetChannel } = bindActionCreators(
-        channelActions,
-        dispatch,
-    );
+    const { setPage, onGetChannels, onGetChannel } = bindActionCreators(channelActions, dispatch);
 
     const { channels } = useSelector((state) => ({
         channels: state.channel.toJS().channels,
     }));
-    const { data, dataCount, pending, limit, offset } = channels;
+    const { data, dataCount, pending, page, offset } = channels;
 
     const onItemClick = useCallback((id) => {
         router.push({
@@ -60,22 +57,40 @@ export default function ChannelVideoList({ subPage }) {
         });
     });
 
-    React.useEffect(() => {
-        if (offset === 0) setChannelsReset();
+    const setPagination = useCallback((state) => {
+        const { page, offset } = state;
+        setPage({ page, offset, type: 'channels' });
+    });
+
+    const onReload = useCallback(() => {
+        setPage({ page: 0, offset, type: 'channels' });
         onGetChannels();
-    }, [limit, offset]);
+    });
+
+    React.useEffect(() => {
+        onReload();
+    }, [subPage]);
+
+    React.useEffect(() => {
+        onGetChannels();
+    }, [page, offset]);
 
     return (
         <>
+            <AdminButton
+                createText="채널 생성"
+                onCreate={() => {}}
+                reloadText="채널 새로고침"
+                onReload={onReload}
+            />
             <AdminTable
                 columns={columns}
                 data={data}
                 dataCount={dataCount}
-                pending={pending}
-                limit={limit}
+                page={page}
                 offset={offset}
-                setPage={setChannelsPage}
                 onItemClick={onItemClick}
+                setPagination={setPagination}
             />
         </>
     );

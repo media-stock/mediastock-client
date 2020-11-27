@@ -1,8 +1,7 @@
 import { TYPE_DONE, TYPE_ERROR } from '../utils';
 
 export const ARTICLE_TYPES = {
-    SET_ARTICLES_RESET: 'article/SET_ARTICLES_RESET',
-    SET_ARTICLES_PAGE: 'articel/SET_ARTICLES_PAGE',
+    SET_PAGE: 'article/SET_PAGE',
 
     GET_ARTICLES: 'article/GET_ARTICLES',
     GET_ARTICLES_DONE: TYPE_DONE('article/GET_ARTICLES'),

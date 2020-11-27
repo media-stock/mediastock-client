@@ -89,12 +89,12 @@ export default function AdminLayout({ children }) {
                             </Menu.Item>
                         </SubMenu>
 
-                        <SubMenu key="article" icon={<TeamOutlined />} title="영상">
+                        <SubMenu key="article" icon={<TeamOutlined />} title="게시판">
                             <Menu.Item
                                 key="article-list"
                                 onClick={() => onClickMenu('article', 'list')}
                             >
-                                영상 목록
+                                게시판 목록
                             </Menu.Item>
                         </SubMenu>
 

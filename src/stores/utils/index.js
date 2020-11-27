@@ -10,8 +10,8 @@ export const initialDataState = {
         error: null,
         data: List([]),
         dataCount: 0,
-        limit: 20,
-        offset: 0,
+        page: 0,
+        offset: 20,
     }),
     object: Map({
         pending: false,

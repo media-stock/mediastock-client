@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Modal, Descriptions } from 'antd';
+import { Modal, Descriptions, Dropdown, Menu } from 'antd';
 import styled from 'styled-components';
 
 // components
-import { AdminSpinner, AdminError } from 'components';
+import { AdminSpinner, AdminError, AdminButton } from 'components';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,6 +32,10 @@ export default function AdminChannelDetail({ subPage }) {
         router.back();
     });
 
+    const onReload = useCallback(() => {
+        onGetChannelStatistics({ id });
+    });
+
     useEffect(() => {
         onGetChannel({ id });
         onGetChannelStatistics({ id });
@@ -46,6 +50,12 @@ export default function AdminChannelDetail({ subPage }) {
                 visible={!!id}
                 onCancel={onCancel}
             >
+                <AdminButton
+                    updateText="채널 수정"
+                    deleteText="채널 삭제"
+                    reloadText="통계 새로고침"
+                    onReload={onReload}
+                />
                 <AdminChannelDetailView>
                     <Descriptions bordered column={3}>
                         <Descriptions.Item label="채널 ID" span={2}>
@@ -65,11 +75,18 @@ export default function AdminChannelDetail({ subPage }) {
                         </Descriptions.Item>
 
                         {/* 채널 상태 */}
+
                         <Descriptions.Item label="채널 통계" span={3}>
-                            조회수: {recentStatistics?.viewCount} | 구독자 수:
-                            {` ${recentStatistics?.subscriberCount}`} | 영상 수:{' '}
-                            {` ${recentStatistics?.videoCount}`} | 날짜:{' '}
-                            {` ${recentStatistics?.date}`}
+                            <Dropdown
+                                overlay={<ChannelStatistics data={channelStatistics?.data} />}
+                            >
+                                <span>
+                                    조회수: {recentStatistics?.viewCount} | 구독자 수:
+                                    {` ${recentStatistics?.subscriberCount}`} | 영상 수:{' '}
+                                    {` ${recentStatistics?.videoCount}`} | 날짜:{' '}
+                                    {` ${recentStatistics?.date}`}
+                                </span>
+                            </Dropdown>
                         </Descriptions.Item>
                     </Descriptions>
                 </AdminChannelDetailView>
@@ -81,4 +98,38 @@ export default function AdminChannelDetail({ subPage }) {
     );
 }
 
+function ChannelStatistics({ data }) {
+    const statisticList = data?.map((statistic) => (
+        <ChannelStatistic key={statistic?.id} statistic={statistic} />
+    ));
+
+    return <ChannelStatisticsView>{statisticList}</ChannelStatisticsView>;
+}
+
+function ChannelStatistic({ statistic }) {
+    return (
+        <ChannelStatisticView>
+            조회수: {statistic?.viewCount} | 구독자 수:
+            {` ${statistic?.subscriberCount}`} | 영상 수: {` ${statistic?.videoCount}`} | 날짜:{' '}
+            {` ${statistic?.date}`}
+        </ChannelStatisticView>
+    );
+}
+
 const AdminChannelDetailView = styled.div``;
+
+const ChannelStatisticsView = styled.div`
+    padding: 1.5rem;
+
+    background-color: white;
+`;
+
+const ChannelStatisticView = styled.div`
+    padding: 0.6rem 1.2rem;
+
+    border-bottom: 1px solid #ddd;
+
+    &:last-child {
+        border-bottom: 0px;
+    }
+`;

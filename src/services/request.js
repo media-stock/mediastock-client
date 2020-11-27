@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+const dev = process.env.NODE_ENV === 'development';
+const SERVER = 'https://oy7hwv9o88.execute-api.ap-northeast-2.amazonaws.com/dev';
+
 export default class Request {
     static onError(error) {
         if (error.response) {
@@ -39,7 +42,7 @@ export default class Request {
     }
 
     static getEndpoint() {
-        return 'https://oy7hwv9o88.execute-api.ap-northeast-2.amazonaws.com/dev';
+        return SERVER;
     }
 
     static getAuthorizationHeader(accessToken) {
@@ -60,39 +63,40 @@ export default class Request {
         const response = await axios.get(url, { headers });
         const status = response?.status;
         const data = response?.data;
-        console.log(`tryRequestGet`, url, query, headers, response);
+        dev && console.log(`tryRequestGet`, url, query, headers, response);
 
         return { status, data };
     }
 
-    static async onRequestPost({ url, params, headers }) {
+    static async onRequestPost({ url, query, params, headers }) {
         try {
-            return await this.tryRequestPost({ url, params, headers });
+            return await this.tryRequestPost({ url, query, params, headers });
         } catch (error) {
             return this.onError(error);
         }
     }
 
-    static async tryRequestPost({ url, params, headers }) {
-        url = this.getEndpoint() + url;
+    static async tryRequestPost({ url, query, params, headers }) {
+        url = this.getEndpoint() + url + this.onQuery(query);
 
         const response = await axios.post(url, params, { headers });
         const status = response?.status;
         const data = response?.data;
+        dev && console.log(`tryRequestPost`, url, query, params, headers, response);
 
         return { status, data };
     }
 
-    static async onRequestPatch({ url, params, headers }) {
+    static async onRequestPatch({ url, query, params, headers }) {
         try {
-            return await this.tryRequestPatch({ url, params, headers });
+            return await this.tryRequestPatch({ url, query, params, headers });
         } catch (error) {
             return this.onError(error);
         }
     }
 
-    static async tryRequestPatch({ url, params, headers }) {
-        url = this.getEndpoint() + url;
+    static async tryRequestPatch({ url, query, params, headers }) {
+        url = this.getEndpoint() + url + this.onQuery(query);
 
         const response = await axios({
             method: 'PATCH',
@@ -102,20 +106,21 @@ export default class Request {
         });
         const status = response?.status;
         const data = response?.data;
+        dev && console.log(`tryRequestPatch`, url, query, params, headers, response);
 
         return { status, data };
     }
 
-    static async onRequestDelete({ url, params, headers }) {
+    static async onRequestDelete({ url, query, params, headers }) {
         try {
-            return await this.tryRequestDelete({ url, params, headers });
+            return await this.tryRequestDelete({ url, query, params, headers });
         } catch (error) {
             this.onError(error);
         }
     }
 
-    static async tryRequestDelete({ url, params, headers }) {
-        url = this.getEndpoint() + url;
+    static async tryRequestDelete({ url, query, params, headers }) {
+        url = this.getEndpoint() + url + this.onQuery(query);
 
         const response = await axios({
             method: 'DELETE',
@@ -125,6 +130,7 @@ export default class Request {
         });
         const status = response?.status;
         const data = response?.data;
+        dev && console.log(`tryRequestDelete`, url, query, params, headers, response);
 
         return { status, data };
     }

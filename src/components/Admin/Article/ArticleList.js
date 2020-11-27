@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 
 // redux
@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import * as articleActions from 'stores/article';
 
 // components
-import { AdminTable } from 'components';
+import { AdminTable, AdminButton, Spinner, AdminError } from 'components';
 
 const columns = () => [
     {
@@ -39,46 +39,58 @@ const columns = () => [
     },
 ];
 
-export default function ArticleList({ subPage }) {
+export default function ArticleList() {
+    const router = useRouter();
+    const subPage = router.query?.subPage;
     if (subPage !== 'list') return null;
 
-    const router = useRouter();
-
     const dispatch = useDispatch();
-    const { setArticleReset, setArticlePage, onGetArticles } = bindActionCreators(
-        articleActions,
-        dispatch,
-    );
+    const { setPage, onGetArticles } = bindActionCreators(articleActions, dispatch);
 
     const { articles } = useSelector((state) => ({
         articles: state.article.toJS().articles,
     }));
-    const { data, dataCount, pending, limit, offset } = articles;
+    const { data, dataCount, page, offset, pending, error } = articles;
 
-    const onItemClick = React.useCallback((id) => {
+    const onItemClick = useCallback((id) => {
         router.push({
             pathname: '/admin',
             query: { ...router.query, articleId: id },
         });
     });
 
-    React.useEffect(() => {
-        if (offset === 0) setArticleReset();
+    const setPagination = useCallback((state) => {
+        const { page, offset } = state;
+        setPage({ page, offset });
+    });
+
+    const onReload = useCallback(() => {
+        setPage({ page: 0, offset });
         onGetArticles();
-    }, [limit, offset]);
+    });
+
+    React.useEffect(() => {
+        onReload();
+    }, [subPage]);
 
     return (
         <>
+            <AdminButton
+                createText="게시판 추가"
+                reloadText="게시판 새로고침"
+                onReload={onReload}
+            />
             <AdminTable
                 columns={columns}
                 data={data}
                 dataCount={dataCount}
-                pending={pending}
-                limit={limit}
+                page={page}
                 offset={offset}
-                setPage={setArticlePage}
                 onItemClick={onItemClick}
+                setPagination={setPagination}
             />
+            <Spinner view={pending} />
+            <AdminError error={error} />
         </>
     );
 }

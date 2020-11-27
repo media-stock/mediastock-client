@@ -1,15 +1,15 @@
 import React, { useState, useCallback } from 'react';
-import { Table } from 'antd';
+import { Table, Tag, Space, Typography } from 'antd';
 
 export default function AdminTable({
     columns,
     data,
     dataCount = data?.length,
+    page = 0,
+    offset = 20,
     pending = false,
-    limit,
-    setPage = () => {},
+    setPagination = () => {},
     onItemClick = () => {},
-    onChangePage = () => {},
 }) {
     const [info, setInfo] = useState({
         sortedInfo: null,
@@ -17,8 +17,6 @@ export default function AdminTable({
     });
 
     const onChange = useCallback((pagination, filters, sorter) => {
-        // / console.log('Various parameters', pagination, filters, sorter);
-
         setInfo({
             sortedInfo: sorter,
             filterInfo: filters,
@@ -39,16 +37,13 @@ export default function AdminTable({
             pagination={{
                 total: dataCount,
                 showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+                current: page ? page + 1 : 1,
+                pageSize: offset,
                 onChange: (page, pageSize) => {
-                    if (limit !== pageSize) {
-                        setPage({ limit: pageSize });
-                    } else {
-                        setPage({ offset: (page - 1) * pageSize });
-                    }
+                    setPagination({ page: page - 1, offset: pageSize });
                 },
                 disabled: pending,
                 showSizeChanger: true,
-                pageSize: limit,
                 pageSizeOptions: [10, 20, 50, 100, 200],
             }}
         />

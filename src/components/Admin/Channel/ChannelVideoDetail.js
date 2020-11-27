@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 // antd
-import { Modal, Descriptions } from 'antd';
+import { Modal } from 'antd';
 
 // components
 import { AdminTable, AdminSpinner, AdminError } from 'components';
@@ -36,38 +36,59 @@ const columns = () => [
     },
 ];
 
-export default function AdminChannelDetail({ subPage }) {
+export default function AdminChannelDetail() {
+    const router = useRouter();
+    const subPage = router.query?.subPage;
+    const channelId = router.query?.channelId;
     if (subPage !== 'video-list') return null;
 
-    const router = useRouter();
-    const id = router.query?.channelId;
-
     const dispatch = useDispatch();
-    const { onGetChannelVideos } = bindActionCreators(channelActions, dispatch);
+    const { setPage, onGetChannelVideos } = bindActionCreators(channelActions, dispatch);
 
     const { channelVideos } = useSelector((state) => ({
         channelVideos: state.channel.toJS().channelVideos,
     }));
-    const { data, dataCount, pending, error } = channelVideos;
+    const { data, dataCount, pending, error, page, offset } = channelVideos;
+
+    const onItemClick = useCallback((id) => {
+        console.log(`AdminChannelDetail`, id);
+    });
+
+    const setPagination = useCallback((state) => {
+        const { page, offset } = state;
+        setPage({ page, offset, type: 'channelVideos' });
+    });
 
     const onCancel = useCallback(() => {
         router.back();
     });
 
     useEffect(() => {
-        onGetChannelVideos({ id, sort: 'likeCount' });
-    }, [id]);
+        onGetChannelVideos({ id: channelId, sort: 'viewCount' });
+    }, [channelId]);
+
+    useEffect(() => {
+        onGetChannelVideos({ id: channelId, sort: 'viewCount' });
+    }, [page, offset]);
 
     return (
         <>
             <Modal
-                title={`채널 자세히 보기 - ${id}`}
+                title={`채널 자세히 보기 - ${channelId}`}
                 centered
                 width="95%"
-                visible={!!id}
+                visible={!!channelId}
                 onCancel={onCancel}
             >
-                <AdminTable columns={columns} data={data} dataCount={dataCount} />
+                <AdminTable
+                    columns={columns}
+                    data={data}
+                    dataCount={dataCount}
+                    page={page}
+                    offset={offset}
+                    onItemClick={onItemClick}
+                    setPagination={setPagination}
+                />
                 <AdminSpinner view={pending} />
                 <AdminError view={!!error} error={error} />
             </Modal>
