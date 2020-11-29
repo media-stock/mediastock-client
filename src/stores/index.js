@@ -16,7 +16,7 @@ const makeStore = ({ isServer = typeof window === 'undefined' }) => {
     const persistConfig = {
         transforms: [immutableTransform()],
         key: 'mediastock',
-        whitelist: [''],
+        whitelist: ['user'],
         storage,
     };
 

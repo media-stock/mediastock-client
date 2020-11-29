@@ -11,11 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as channelActions from 'stores/channel';
 
-export default function AdminChannelDetail({ subPage }) {
-    if (subPage !== 'list') return null;
-
+export default function AdminChannelDetail() {
     const router = useRouter();
+    const subPage = router.query?.subPage;
     const id = router.query?.channelId;
+    if (!id || subPage !== 'list') return null;
 
     const dispatch = useDispatch();
     const { onGetChannel, onGetChannelStatistics } = bindActionCreators(channelActions, dispatch);
@@ -34,6 +34,13 @@ export default function AdminChannelDetail({ subPage }) {
 
     const onReload = useCallback(() => {
         onGetChannelStatistics({ id });
+    });
+
+    const onVideoList = useCallback(() => {
+        router.push({
+            pathname: '/admin',
+            query: { ...router.query, video: true },
+        });
     });
 
     useEffect(() => {
@@ -55,6 +62,13 @@ export default function AdminChannelDetail({ subPage }) {
                     deleteText="채널 삭제"
                     reloadText="통계 새로고침"
                     onReload={onReload}
+                    after={[
+                        {
+                            text: '채널 영상 목록 보기',
+                            style: { border: '1px solid #1890ff' },
+                            onClick: onVideoList,
+                        },
+                    ]}
                 />
                 <AdminChannelDetailView>
                     <Descriptions bordered column={3}>

@@ -38,9 +38,9 @@ const columns = () => [
 
 export default function AdminChannelDetail() {
     const router = useRouter();
-    const subPage = router.query?.subPage;
+    const video = router.query?.video;
     const channelId = router.query?.channelId;
-    if (subPage !== 'video-list') return null;
+    if (video !== 'true') return null;
 
     const dispatch = useDispatch();
     const { setPage, onGetChannelVideos } = bindActionCreators(channelActions, dispatch);

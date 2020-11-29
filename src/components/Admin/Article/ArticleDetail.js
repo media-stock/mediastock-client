@@ -27,7 +27,9 @@ export default function AdminArticleDetail({ subPage }) {
     });
 
     useEffect(() => {
-        onGetArticle({ id });
+        if (id) {
+            onGetArticle({ id });
+        }
     }, [id]);
 
     return (

@@ -59,6 +59,13 @@ export default function ArticleList() {
         });
     });
 
+    const onCreateClick = useCallback(() => {
+        router.push({
+            pathname: '/admin',
+            query: { ...router.query, create: true },
+        });
+    });
+
     const setPagination = useCallback((state) => {
         const { page, offset } = state;
         setPage({ page, offset });
@@ -77,6 +84,7 @@ export default function ArticleList() {
         <>
             <AdminButton
                 createText="게시판 추가"
+                onCreate={onCreateClick}
                 reloadText="게시판 새로고침"
                 onReload={onReload}
             />

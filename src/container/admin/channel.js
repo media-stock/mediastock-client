@@ -10,10 +10,9 @@ import {
 export default function AdminChannelContainer({ subPage }) {
     return (
         <>
-            <AdminChannelList subPage={subPage} />
-            <AdminChannelDetail subPage={subPage} />
-            <AdminChannelVideoList />
-            <AdminChannelVideoDetail subPage={subPage} />
+            <AdminChannelList />
+            <AdminChannelDetail />
+            <AdminChannelVideoDetail />
         </>
     );
 }

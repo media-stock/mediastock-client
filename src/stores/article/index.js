@@ -13,6 +13,10 @@ import {
 
 export const setPage = createAction(ARTICLE_TYPES.SET_PAGE);
 
+export const onResetArticleState = ({ dispatch, data }) => {
+    dispatch({ type: ARTICLE_TYPES.RESET });
+};
+
 export const onGetArticles = createPromiseThunk(
     ARTICLE_TYPES.GET_ARTICLES,
     articleAPI.onGetArticles,
@@ -21,8 +25,21 @@ export const onGetArticles = createPromiseThunk(
 
 export const onGetArticle = createPromiseThunk(ARTICLE_TYPES.GET_ARTICLE, articleAPI.onGetArticle);
 
+export const onCreateArticle = createPromiseThunk(
+    ARTICLE_TYPES.CREATE_ARTICLE,
+    articleAPI.onCreateArticle,
+    getAccessTokenFromState,
+    { after: [onResetArticleState] },
+);
+
 export default handleActions(
     {
+        [ARTICLE_TYPES.RESET]: (state, action) => {
+            return state
+                .set('create', articleState.get('create'))
+                .set('update', articleState.get('update'))
+                .set('delete', articleState.get('delete'));
+        },
         [ARTICLE_TYPES.SET_PAGE]: (state, action) => {
             const { page, offset, type = 'articles' } = action.payload;
 
@@ -58,6 +75,18 @@ export default handleActions(
         [ARTICLE_TYPES.GET_ARTICLE_ERROR]: (state, action) => {
             const errorState = createPromiseState.error(action.payload);
             return setImmutableState(state, 'article', errorState);
+        },
+        [ARTICLE_TYPES.CREATE_ARTICLE]: (state, action) => {
+            const pendingState = createPromiseState.pending();
+            return setImmutableState(state, 'create', pendingState);
+        },
+        [ARTICLE_TYPES.CREATE_ARTICLE_DONE]: (state, action) => {
+            const doneState = createPromiseState.done(action.payload);
+            return setImmutableState(state, 'create', doneState);
+        },
+        [ARTICLE_TYPES.CREATE_ARTICLE_ERROR]: (state, action) => {
+            const errorState = createPromiseState.error(action.payload);
+            return setImmutableState(state, 'create', errorState);
         },
     },
     articleState,

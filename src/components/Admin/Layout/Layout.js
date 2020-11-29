@@ -81,12 +81,6 @@ export default function AdminLayout({ children }) {
                             >
                                 채널 목록
                             </Menu.Item>
-                            <Menu.Item
-                                key="channel-video-list"
-                                onClick={() => onClickMenu('channel', 'video-list')}
-                            >
-                                채널 영상 목록
-                            </Menu.Item>
                         </SubMenu>
 
                         <SubMenu key="article" icon={<TeamOutlined />} title="게시판">

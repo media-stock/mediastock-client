@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
+import { AdminArticleList, AdminArticleDetail, AdminArticleCreate } from 'components';
 
-import { AdminArticleList, AdminArticleDetail } from 'components';
-
-export default function AdminArticleContainer({ subPage }) {
+export default function AdminArticleContainer() {
     return (
         <>
-            <AdminArticleList subPage={subPage} />
-            <AdminArticleDetail subPage={subPage} />
+            <AdminArticleList />
+            <AdminArticleDetail />
+            <AdminArticleCreate width={900} />
         </>
     );
 }

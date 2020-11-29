@@ -13,3 +13,13 @@ export const onGetArticle = async ({ id }) => {
     const response = await Request.onRequestGet({ url });
     return response;
 };
+
+export const onCreateArticle = async ({ accessToken, article }) => {
+    const url = `/articles`;
+    const params = article;
+    const headers = Request.getAuthorizationHeader(accessToken);
+
+    const response = await Request.onRequestPost({ url, headers, params });
+    console.log(response, url, params, headers);
+    return response;
+};

@@ -1,6 +1,7 @@
 import { TYPE_DONE, TYPE_ERROR } from '../utils';
 
 export const ARTICLE_TYPES = {
+    RESET: 'article/RESET',
     SET_PAGE: 'article/SET_PAGE',
 
     GET_ARTICLES: 'article/GET_ARTICLES',
@@ -11,7 +12,7 @@ export const ARTICLE_TYPES = {
     GET_ARTICLE_DONE: TYPE_DONE('article/GET_ARTICLE'),
     GET_ARTICLE_ERROR: TYPE_ERROR('article/GET_ARTICLE'),
 
-    CRAETE_ARTICLE: 'article/CREATE_ARTICLE',
+    CREATE_ARTICLE: 'article/CREATE_ARTICLE',
     CREATE_ARTICLE_DONE: TYPE_DONE('article/CREATE_ARTICLE'),
     CREATE_ARTICLE_ERROR: TYPE_ERROR('article/CREATE_ARTICLE'),
 };
