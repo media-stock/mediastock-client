@@ -13,13 +13,12 @@ import * as articleActions from 'stores/article';
 import MobileArticleDetailContainer from 'container/article/detail-mobile';
 
 export default function ArticleDetailPage({ article }) {
-    const [data, setData] = useState({});
+    const data = article?.article?.data;
 
     const dispatch = useDispatch();
     const { setState } = bindActionCreators(articleActions, dispatch);
 
     React.useEffect(() => {
-        setData(article?.article?.data || null);
         setState(article);
     }, [article]);
 
