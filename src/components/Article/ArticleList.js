@@ -34,6 +34,7 @@ const ArticleItemView = styled.div`
     padding: 0.5rem 1rem;
 
     border-bottom: 1px solid #ddd;
+    cursor: pointer;
 `;
 
 const Title = styled.h1`

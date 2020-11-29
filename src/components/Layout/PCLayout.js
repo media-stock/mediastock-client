@@ -4,8 +4,10 @@ import styled from 'styled-components';
 
 export default function PCLayout({ children }) {
     const router = useRouter();
-    const mobile = router?.query?.mobile;
+    const { pathname, query } = router;
+    const mobile = query?.mobile;
     if (mobile === 'true') return null;
+    if (pathname === '/') return null;
 
     return (
         <PCWrapper>

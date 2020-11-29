@@ -37,10 +37,20 @@ export default function Layout({ children }) {
                     content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover"
                 />
             </Head>
+
+            <LandingPageLayout>{children}</LandingPageLayout>
             <MobileLayout>{children}</MobileLayout>
             <PCLayout>{children}</PCLayout>
         </>
     );
+}
+
+function LandingPageLayout({ children }) {
+    const router = useRouter();
+    const { pathname } = router;
+    if (pathname !== '/') return null;
+
+    return children;
 }
 
 const LayoutWrapperView = styled.div``;
