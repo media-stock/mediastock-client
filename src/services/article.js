@@ -20,6 +20,5 @@ export const onCreateArticle = async ({ accessToken, article }) => {
     const headers = Request.getAuthorizationHeader(accessToken);
 
     const response = await Request.onRequestPost({ url, headers, params });
-    console.log(response, url, params, headers);
     return response;
 };

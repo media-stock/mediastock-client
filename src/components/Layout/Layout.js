@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Head from 'next/head';
-import * as styled from './styled';
+import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
-// redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import PCLayout from './PCLayout';
+import MobileLayout from './MobileLayout';
 
-// utils
-import { parseRefreshTimestamp } from 'lib/utils';
+import { useWindowDimensions } from 'lib/utils';
 
-function Layout({ children }) {
+export default function Layout({ children }) {
+    const router = useRouter();
+    const { pathname, query } = router;
+    const size = useWindowDimensions();
+
+    const redirect = useCallback((mobile) => {
+        router.replace({
+            pathname,
+            query: { ...query, mobile },
+        });
+    });
+
+    React.useEffect(() => {
+        if (size?.width < 740) {
+            redirect(true);
+        } else {
+            redirect(false);
+        }
+    }, [size]);
+
     return (
         <>
             <Head>
@@ -19,19 +37,12 @@ function Layout({ children }) {
                     content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover"
                 />
             </Head>
-
-            <styled.LayoutWrapper>
-                <styled.Layout>{children}</styled.Layout>
-            </styled.LayoutWrapper>
+            <MobileLayout>{children}</MobileLayout>
+            <PCLayout>{children}</PCLayout>
         </>
     );
 }
 
-export default connect(
-    (state) => ({
-        
-    }),
-    (dispatch) => ({
-        
-    })
-)(Layout);
+const LayoutWrapperView = styled.div``;
+
+const LayoutView = styled.div``;

@@ -10,15 +10,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as articleActions from 'stores/article';
 
-const { TextArea, Search } = Input;
-const { Option } = Select;
+const { Search } = Input;
+// const { Option } = Select;
 
 export default function AdminArticleCreate({ width = 1000 }) {
     const router = useRouter();
     const create = router.query?.create;
+    if (create !== 'true') return null;
 
     const dispatch = useDispatch();
-    const { onCreateArticle } = bindActionCreators(articleActions, dispatch);
+    const { setPage, onGetArticles, onCreateArticle } = bindActionCreators(
+        articleActions,
+        dispatch,
+    );
 
     const { createArticle } = useSelector((state) => ({
         createArticle: state.article.toJS().create,
@@ -68,7 +72,8 @@ export default function AdminArticleCreate({ width = 1000 }) {
 
     useEffect(() => {
         if (done) {
-            //
+            setPage({ page: 0, offset: 20 });
+            onGetArticles();
 
             message.success('글이 생성되었습니다.');
             onCancel();

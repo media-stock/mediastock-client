@@ -18,6 +18,10 @@ export const adminHelmet = {
     title: '어드민 - 미디어스톡',
 };
 
-export const testHelmet = {
-    title: '테스트 - 미디어스톡',
-};
+export const articleListHelmet = (image) => ({
+    title: `Media's Talk - 미디어스톡`,
+});
+
+export const articleDetailHelmet = (title) => ({
+    title: `${title} - 미디어스톡`,
+});

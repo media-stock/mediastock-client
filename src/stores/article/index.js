@@ -1,4 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
+import { fromJS } from 'immutable';
 
 import { articleState } from './state';
 import { ARTICLE_TYPES } from './type';
@@ -11,6 +12,7 @@ import {
     getAccessTokenFromState,
 } from '../redux';
 
+export const setState = createAction(ARTICLE_TYPES.SET_STATE);
 export const setPage = createAction(ARTICLE_TYPES.SET_PAGE);
 
 export const onResetArticleState = ({ dispatch, data }) => {
@@ -39,6 +41,9 @@ export default handleActions(
                 .set('create', articleState.get('create'))
                 .set('update', articleState.get('update'))
                 .set('delete', articleState.get('delete'));
+        },
+        [ARTICLE_TYPES.SET_STATE]: (state, action) => {
+            return fromJS(action.payload);
         },
         [ARTICLE_TYPES.SET_PAGE]: (state, action) => {
             const { page, offset, type = 'articles' } = action.payload;

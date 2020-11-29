@@ -3,6 +3,7 @@ import { TYPE_DONE, TYPE_ERROR } from '../utils';
 export const ARTICLE_TYPES = {
     RESET: 'article/RESET',
     SET_PAGE: 'article/SET_PAGE',
+    SET_STATE: 'article/SET_STATE',
 
     GET_ARTICLES: 'article/GET_ARTICLES',
     GET_ARTICLES_DONE: TYPE_DONE('article/GET_ARTICLES'),
