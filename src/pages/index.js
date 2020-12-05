@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 // container
 import LandingContainer from 'container/landing';
@@ -7,6 +8,9 @@ import LoadingContainer from 'container/loading';
 // import HomeContainer from 'container/home';
 
 export default function IndexPage({ isLanding = false }) {
+    const router = useRouter();
+    const landing = router.query?.landing === 'true';
+
     return (
         <>
             <Head>
@@ -17,7 +21,7 @@ export default function IndexPage({ isLanding = false }) {
                 />
             </Head>
 
-            {isLanding ? <LandingContainer /> : <LoadingContainer />}
+            {isLanding || landing ? <LandingContainer /> : <LoadingContainer />}
         </>
     );
 }
