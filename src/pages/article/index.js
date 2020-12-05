@@ -29,9 +29,8 @@ export default function ArticleList({ article }) {
     );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(
-    async ({ store, req, res, ...etc }) => {
-        // console.log(`getServerSideProps`, store.getState());
+export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
+    if (typeof window === 'undefined') {
         const { dispatch, getState } = store;
         await dispatch(articleActions.onGetArticles());
 
@@ -40,5 +39,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
         return {
             props: { article },
         };
-    },
-);
+    }
+});

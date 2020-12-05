@@ -1,32 +1,14 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 
 import PCLayout from './PCLayout';
 import MobileLayout from './MobileLayout';
 
-import { useWindowDimensions } from 'lib/utils';
+import { useMobileCheck } from 'lib/hooks';
 
 export default function Layout({ children }) {
-    const router = useRouter();
-    const { pathname, query } = router;
-    const size = useWindowDimensions();
-
-    const redirect = useCallback((mobile) => {
-        router.replace({
-            pathname,
-            query: { ...query, mobile },
-        });
-    });
-
-    React.useEffect(() => {
-        if (size?.width < 740) {
-            redirect(true);
-        } else {
-            redirect(false);
-        }
-    }, [size]);
+    useMobileCheck();
 
     return (
         <>
@@ -52,7 +34,3 @@ function LandingPageLayout({ children }) {
 
     return children;
 }
-
-const LayoutWrapperView = styled.div``;
-
-const LayoutView = styled.div``;

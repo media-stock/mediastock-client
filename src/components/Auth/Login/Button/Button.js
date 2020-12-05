@@ -11,4 +11,5 @@ const LoginButtonView = styled(Button)`
     margin-top: 3.5rem;
 
     background-color: ${(props) => props.theme.primaryColor};
+    color: white;
 `;

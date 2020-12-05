@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Input = styled.input`
     padding: 0.5rem 0.8rem;
 
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     box-sizing: border-box;
     border: 0;
 

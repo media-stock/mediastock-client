@@ -10,13 +10,12 @@ import * as mainActions from 'stores/main';
 import { MainCover, MainEmail, MainFooter, MainAlert, Spinner } from 'components';
 
 // utils
-import { useWindowDimensions } from 'lib/utils';
+import { useMobileCheck } from 'lib/hooks';
 
 export default function IndexContainer() {
     const [error, setError] = useState('');
 
-    const { width } = useWindowDimensions();
-    const isMobile = width < 500;
+    const isMobile = useMobileCheck();
 
     const { email } = useSelector((state) => ({
         email: state.main.toJS().email,

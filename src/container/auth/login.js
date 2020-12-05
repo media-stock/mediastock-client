@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,10 +8,23 @@ import { bindActionCreators } from 'redux';
 import * as authActions from 'stores/auth';
 
 // components
-import { LoginForm, LoginInput, LoginButton } from 'components';
+import {
+    Helmet,
+    Modal,
+    LoginHeader,
+    LoginForm,
+    LoginInput,
+    LoginButton,
+    LoginToRegisterButton,
+} from 'components';
+
+// config
+import { loginHelmet as helmet } from 'config';
 
 export default function LoginContainer() {
     const router = useRouter();
+    const view = router.query?.auth === 'login';
+
     const [input, setInput] = useState({
         email: '',
         password: '',
@@ -26,14 +40,24 @@ export default function LoginContainer() {
     const { user, accessToken } = logined;
     const { pending, done, error } = login;
 
-    const onChange = useCallback((e) => {
-        const { name, value } = e.target;
-        setInput({ ...input, [name]: value });
-    });
+    const onChange = useCallback(
+        (e) => {
+            const { name, value } = e.target;
+            setInput({ ...input, [name]: value });
+        },
+        [input],
+    );
 
     const onClick = useCallback(() => {
         onLogin({ ...input });
-    });
+    }, [input]);
+
+    const onLoginToRegisterClick = useCallback(() => {
+        router.replace({
+            pathname: router.pathname,
+            query: { ...router.query, auth: 'register' },
+        });
+    }, []);
 
     React.useEffect(() => {
         if (user?.role === 'USER' && done) {
@@ -46,21 +70,37 @@ export default function LoginContainer() {
     }, [done]);
 
     return (
-        <LoginForm>
-            <LoginInput
-                name="email"
-                value={input.email}
-                onChange={onChange}
-                placeholder="이메일을 입력해주세요"
-            />
-            <LoginInput
-                name="password"
-                value={input.password}
-                onChange={onChange}
-                placeholder="비밀번호를 입력해주세요"
-            />
+        <Modal view={view}>
+            <Helmet helmet={helmet} />
+            <LoginView>
+                <LoginHeader />
+                <LoginForm>
+                    <LoginInput
+                        name="email"
+                        value={input.email}
+                        onChange={onChange}
+                        placeholder="이메일을 입력해주세요"
+                    />
+                    <LoginInput
+                        name="password"
+                        value={input.password}
+                        onChange={onChange}
+                        placeholder="비밀번호를 입력해주세요"
+                    />
 
-            <LoginButton onClick={onClick} loading={pending} />
-        </LoginForm>
+                    <LoginButton onClick={onClick} loading={pending} />
+                    <LoginToRegisterButton onClick={onLoginToRegisterClick} />
+                </LoginForm>
+            </LoginView>
+        </Modal>
     );
 }
+
+const LoginView = styled.div`
+    width: 100%;
+    height: 85vh;
+
+    border: 2px solid #415982;
+    background-color: white;
+    overflow: hidden;
+`;

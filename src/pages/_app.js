@@ -14,7 +14,7 @@ const isBrowser = () => typeof window !== 'undefined';
 
 export const GlobalStyle = createGlobalStyle`
     html,
-    body {
+    body, h1, h2, h3, h4, h5, p {
         margin: 0;
     }
 

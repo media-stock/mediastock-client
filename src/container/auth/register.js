@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,10 +8,23 @@ import { bindActionCreators } from 'redux';
 import * as authActions from 'stores/auth';
 
 // components
-import { RegisterForm, RegisterInput, RegisterButton } from 'components';
+import {
+    Helmet,
+    Modal,
+    RegisterHeader,
+    RegisterForm,
+    RegisterInput,
+    RegisterButton,
+    RegisterToLoginButton,
+} from 'components';
+
+// config
+import { registerHelmet as helmet } from 'config';
 
 export default function RegisterContainer() {
     const router = useRouter();
+    const view = router.query?.auth === 'register';
+
     const [input, setInput] = useState({
         email: '',
         password: '',
@@ -36,35 +50,60 @@ export default function RegisterContainer() {
         onRegister({ ...input });
     });
 
+    const onRegisterToLoginClick = useCallback(() => {
+        router.replace({
+            pathname: router.pathname,
+            query: { ...router.query, auth: 'login' },
+        });
+    }, []);
+
     React.useEffect(() => {
         if (done) {
             router.replace('/auth/login');
         }
     }, [done]);
 
+    if (!view) return null;
+
     return (
-        <RegisterForm>
-            <RegisterInput
-                name="email"
-                value={input.email}
-                onChange={onChange}
-                placeholder="이메일을 입력해주세요"
-            />
-            <RegisterInput
-                name="password"
-                value={input.password}
-                onChange={onChange}
-                placeholder="비밀번호를 입력해주세요"
-            />
+        <Modal view={view}>
+            <Helmet helmet={helmet} />
+            <RegisterView>
+                <RegisterHeader />
+                <RegisterForm>
+                    <RegisterInput
+                        name="email"
+                        value={input.email}
+                        onChange={onChange}
+                        placeholder="이메일을 입력해주세요"
+                    />
+                    <RegisterInput
+                        name="password"
+                        value={input.password}
+                        onChange={onChange}
+                        placeholder="비밀번호를 입력해주세요"
+                    />
 
-            <RegisterInput
-                name="name"
-                value={input.name}
-                onChange={onChange}
-                placeholder="이름를 입력해주세요"
-            />
+                    <RegisterInput
+                        name="name"
+                        value={input.name}
+                        onChange={onChange}
+                        placeholder="이름를 입력해주세요"
+                    />
 
-            <RegisterButton onClick={onClick} loading={pending} />
-        </RegisterForm>
+                    <RegisterButton onClick={onClick} loading={pending} />
+                    <RegisterToLoginButton onClick={onRegisterToLoginClick} />
+                </RegisterForm>
+            </RegisterView>
+        </Modal>
     );
 }
+
+const RegisterView = styled.div`
+    width: 100%;
+    height: 85vh;
+
+    border: 2px solid ${(props) => props.theme.primaryColor};
+    background-color: white;
+    overflow: hidden;
+`;

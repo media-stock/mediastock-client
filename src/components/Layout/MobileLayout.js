@@ -2,12 +2,15 @@ import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-// assets
+// container
+import LoginContainer from 'container/auth/login';
+import RegisterContainer from 'container/auth/register';
 
 export default function MobileLayout({ children }) {
     const router = useRouter();
     const { pathname, query } = router;
     const mobile = query?.mobile;
+
     if (mobile !== 'true') return null;
     if (pathname === '/') return null;
 
@@ -16,39 +19,42 @@ export default function MobileLayout({ children }) {
             <MobileHeader />
             <MobileView>{children}</MobileView>
             <MobileFooter />
+
+            <LoginContainer />
+            <RegisterContainer />
         </MobileWrapper>
     );
 }
 
 function MobileHeader() {
     return (
-        <MobileHeaderWrapperView>
-            <MobileHeaderView>
-                <Logo>MediaStock</Logo>
-            </MobileHeaderView>
-        </MobileHeaderWrapperView>
+        <MobileHeaderView>
+            <Logo>MediaStock</Logo>
+        </MobileHeaderView>
     );
 }
 
 function MobileFooter() {
     const router = useRouter();
 
-    const onClickItem = useCallback((pathname) => {
+    const onClickItem = useCallback((pathname, query = null) => {
         router.push({
             pathname,
-            query: { ...router.query },
+            query: { ...router.query, ...query },
         });
     });
 
     return (
         <MobileFooterWrapper>
-            <MobileFooterItem onClick={() => onClickItem('/')}>경매</MobileFooterItem>
-            <MobileFooterItem onClick={() => onClickItem('/')}>미톡마켓</MobileFooterItem>
-            <MobileFooterItem onClick={() => onClickItem('/')} />
+            <MobileFooterItem onClick={() => onClickItem('/home')}>경매</MobileFooterItem>
+            <MobileFooterItem onClick={() => onClickItem('/home')}>미톡마켓</MobileFooterItem>
+            <MobileFooterItem onClick={() => onClickItem('/home', { auth: 'login' })}>
+                Home
+            </MobileFooterItem>
             <MobileFooterItem onClick={() => onClickItem('/article')}>
                 Media's talk
             </MobileFooterItem>
-            <MobileFooterItem onClick={() => onClickItem('/')}>더보기</MobileFooterItem>
+            <MobileFooterItem onClick={() => onClickItem('/home')}>더보기</MobileFooterItem>
         </MobileFooterWrapper>
     );
 }
@@ -63,25 +69,20 @@ const MobileView = styled.div`
     padding: 23px;
 `;
 
-const MobileHeaderWrapperView = styled.div`
-    height: 127px;
+const MobileHeaderView = styled.div`
+    height: 63px;
     background-color: #223351;
 
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-`;
 
-const MobileHeaderView = styled.div`
-    height: 53px;
-    margin-top: auto;
-
-    display: flex;
+    justify-content: center;
     align-items: center;
 `;
 
 const Logo = styled.h1`
-    margin: 0 auto;
+    margin-bottom: 0;
 
     color: #fff;
     font-size: 18px;

@@ -2,9 +2,11 @@ import React from 'react';
 import Head from 'next/head';
 
 // container
-import IndexContainer from 'container/index';
+import LandingContainer from 'container/landing';
+import LoadingContainer from 'container/loading';
+// import HomeContainer from 'container/home';
 
-export default function IndexPage() {
+export default function IndexPage({ isLanding = false }) {
     return (
         <>
             <Head>
@@ -14,7 +16,16 @@ export default function IndexPage() {
                     href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css"
                 />
             </Head>
-            <IndexContainer />
+
+            {isLanding ? <LandingContainer /> : <LoadingContainer />}
         </>
     );
+}
+
+export async function getServerSideProps(context) {
+    return {
+        props: {
+            isLanding: process.env.LANDING === 'true',
+        },
+    };
 }

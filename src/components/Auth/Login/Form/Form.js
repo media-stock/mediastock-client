@@ -6,8 +6,9 @@ export default function LoginForm({ children }) {
 }
 
 const LoginFormView = styled.form`
-    width: 400px;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    padding: 0 22px;
 
     display: flex;
     flex-wrap: wrap;
@@ -15,10 +16,6 @@ const LoginFormView = styled.form`
 
     justify-content: center;
     align-items: center;
-
-    position: absolute;
-    top: 0;
-    left: calc(50% - 200px);
 
     @media only screen and (max-width: 399px) {
         width: 100%;
