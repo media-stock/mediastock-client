@@ -67,6 +67,7 @@ const MobileWrapper = styled.div`
 const MobileView = styled.div`
     min-height: calc(100vh - 127px);
     padding: 23px;
+    margin-bottom: 70px;
 `;
 
 const MobileHeaderView = styled.div`
