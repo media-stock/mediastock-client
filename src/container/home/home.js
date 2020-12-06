@@ -10,7 +10,17 @@ import {
     HomeMediaTalkRanking,
 } from 'components';
 
+// redux
+import { useSelector } from 'react-redux';
+
 export default function HomeContainer() {
+    const { channelRealTime, channelNew } = useSelector((state) => ({
+        channelRealTime: state.home.toJS().channelRealTime,
+        channelNew: state.home.toJS().channelNew,
+    }));
+
+    console.log(channelRealTime?.data, channelNew?.data);
+
     return (
         <HomeView>
             <HomeSearchInput />

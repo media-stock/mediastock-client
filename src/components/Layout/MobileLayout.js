@@ -11,8 +11,8 @@ export default function MobileLayout({ children }) {
     const { pathname, query } = router;
     const mobile = query?.mobile;
 
-    if (mobile !== 'true') return null;
-    if (pathname === '/') return null;
+    if (mobile === 'false') return null;
+    if (pathname === '/landing') return null;
 
     return (
         <MobileWrapper>

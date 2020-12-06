@@ -1,16 +1,22 @@
 import React from 'react';
 
-// helmet
-import { Helmet } from 'components';
-import { defaultHelmet as helmet } from 'config';
-
 // container
 import HomeContainer from 'container/home';
 
-export default function HomePage() {
+// redux
+import { wrapper } from 'stores';
+import { useDispatch, useSelector } from 'react-redux';
+import * as homeActions from 'stores/home';
+
+export default function IndexPage() {
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        dispatch(homeActions.onGetHome());
+    }, []);
+
     return (
         <>
-            <Helmet helmet={helmet} />
             <HomeContainer />
         </>
     );

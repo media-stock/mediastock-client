@@ -30,7 +30,7 @@ export default function Layout({ children }) {
 function LandingPageLayout({ children }) {
     const router = useRouter();
     const { pathname } = router;
-    if (pathname !== '/') return null;
+    if (pathname !== '/landing') return null;
 
     return children;
 }

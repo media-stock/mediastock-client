@@ -12,10 +12,10 @@ import { MainCover, MainEmail, MainFooter, MainAlert, Spinner } from 'components
 // utils
 import { useMobileCheck } from 'lib/hooks';
 
-export default function IndexContainer() {
-    const [error, setError] = useState('');
-
+export default function LandingContainer() {
     const isMobile = useMobileCheck();
+
+    const [error, setError] = useState('');
 
     const { email } = useSelector((state) => ({
         email: state.main.toJS().email,
@@ -26,17 +26,17 @@ export default function IndexContainer() {
     const { onEmail } = bindActionCreators(mainActions, dispatch);
 
     return (
-        <IndexContainerView>
+        <LandingContainerView>
             <MainCover cover={isMobile ? '/main-cover-mobile.png' : '/main-cover.png'} />
             <MainEmail onEmail={onEmail} isMobile={isMobile} setError={setError} />
             <MainFooter />
             <Spinner view={pending} />
             <MainAlert error={error} setError={setError} />
-        </IndexContainerView>
+        </LandingContainerView>
     );
 }
 
-const IndexContainerView = styled.div`
+const LandingContainerView = styled.div`
     width: 100%;
     min-height: 100vh;
 
