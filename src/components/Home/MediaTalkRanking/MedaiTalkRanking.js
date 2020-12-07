@@ -38,7 +38,6 @@ export default function MediaTalkRanking({ rankings = [] }) {
 
 function MediaTalkRankingItem({ ranking }) {
     const { diff, color, percent } = getPercentData(ranking?.talk + ranking?.top, ranking?.top);
-    console.log(`diff`, diff);
 
     return (
         <MediaTalkRankingItemView color={color}>
