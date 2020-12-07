@@ -19,8 +19,6 @@ export default function HomeContainer() {
         channelNew: state.home.toJS().channelNew,
     }));
 
-    console.log(channelRealTime?.data, channelNew?.data);
-
     return (
         <HomeView>
             <HomeSearchInput />
