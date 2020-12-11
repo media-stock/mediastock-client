@@ -38,10 +38,12 @@ const ArticleItemView = styled.div`
 `;
 
 const Title = styled.h1`
-    margin: 0;
     margin-bottom: 7px;
+
+    font-size: ${(props) => props.theme.fontSizeH1};
+    font-weight: bold;
 `;
 
 const Content = styled.p`
-    margin: 0;
+    font-size: ${(props) => props.theme.fontSizeNormal};
 `;

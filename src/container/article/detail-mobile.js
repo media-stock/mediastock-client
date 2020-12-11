@@ -5,6 +5,12 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
 // components
+import {
+    ArticleDetailHeader,
+    ArticleDetailContent,
+    ArticleDetailCommentList,
+    ArticleDetailCommentInput,
+} from 'components';
 
 export default function MobileArticleDetailContainer() {
     const router = useRouter();
@@ -18,7 +24,11 @@ export default function MobileArticleDetailContainer() {
 
     return (
         <>
-            <span>{JSON.stringify(data)}</span>
+            <ArticleDetailHeader article={data} />
+            <ArticleDetailContent article={data} />
+            <ArticleDetailCommentList article={data} />
+
+            <ArticleDetailCommentInput />
         </>
     );
 }

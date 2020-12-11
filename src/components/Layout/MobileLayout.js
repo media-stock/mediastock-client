@@ -37,18 +37,24 @@ function MobileHeader() {
 function MobileFooter() {
     const router = useRouter();
 
-    const onClickItem = useCallback((pathname, query = null) => {
-        router.push({
-            pathname,
-            query: { ...router.query, ...query },
-        });
-    });
+    const onClickItem = useCallback(
+        (pathname, query = null) => {
+            const target = {
+                pathname,
+                query: { ...router.query, ...query },
+            };
+            if (!target?.pathname) delete target.pathname;
+
+            router.push(target);
+        },
+        [router.query],
+    );
 
     return (
         <MobileFooterWrapper>
             <MobileFooterItem onClick={() => onClickItem('/home')}>경매</MobileFooterItem>
             <MobileFooterItem onClick={() => onClickItem('/home')}>미톡마켓</MobileFooterItem>
-            <MobileFooterItem onClick={() => onClickItem('/home', { auth: 'login' })}>
+            <MobileFooterItem onClick={() => onClickItem(null, { auth: 'login' })}>
                 Home
             </MobileFooterItem>
             <MobileFooterItem onClick={() => onClickItem('/article')}>

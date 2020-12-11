@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from 'config';
+import { API_URL, isDev as dev } from 'config';
 
 export default class Request {
     static onError(error) {
