@@ -28,7 +28,8 @@ export default function OAuthCallbackPage({ provider }) {
 
     return (
         <div>
-            {accessToken} {provider}
+            <p>{accessToken}</p>
+            <p>{provider}</p>
         </div>
     );
 }
