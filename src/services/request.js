@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const dev = process.env.NODE_ENV === 'development';
-const SERVER = 'https://oy7hwv9o88.execute-api.ap-northeast-2.amazonaws.com/dev';
+import { API_URL } from 'config';
 
 export default class Request {
     static onError(error) {
@@ -42,7 +40,7 @@ export default class Request {
     }
 
     static getEndpoint() {
-        return SERVER;
+        return API_URL;
     }
 
     static getAuthorizationHeader(accessToken) {

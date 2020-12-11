@@ -1,25 +1,23 @@
 import { createAction, handleActions } from 'redux-actions';
-import jwtDecode from 'jwt-decode';
 
 import { authState } from './state';
 import { AUTH_TYPES } from './type';
 import { USER_TYPES } from '../user/type';
 import { createPromiseThunk, createPromiseState, setImmutableState } from '../redux';
+import { getJWTDecoded } from 'lib/utils';
 import * as authAPI from 'services/auth';
 
 export const onLoginSuccess = ({ data, dispatch }) => {
     const accessToken = data?.accessToken;
 
     if (accessToken) {
-        const decoded = jwtDecode(accessToken);
-        const user = decoded?.user;
-        // console.log(user, accessToken);
+        const user = getJWTDecoded(accessToken);
 
         dispatch({ type: USER_TYPES.SET_USER, payload: user });
         dispatch({ type: USER_TYPES.SET_ACCESS_TOKEN, payload: accessToken });
     }
 
-    console.log(`onLoginSuccess`, data?.accessToken);
+    // console.log(`onLoginSuccess`, data?.accessToken);
 };
 
 export const onLogin = createPromiseThunk(AUTH_TYPES.ON_LOGIN, authAPI.onLogin, {
