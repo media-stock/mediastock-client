@@ -8,10 +8,12 @@ import * as userActions from 'stores/user';
 // utils
 import { getJWTDecoded } from 'lib/utils';
 
-export default function OAuthCallbackPage({ provider }) {
+export default function OAuthCallbackPage() {
     const router = useRouter();
     const { query } = router;
-    const accessToken = query?.code;
+    const accessToken = query?.accessToken;
+
+    // console.log(query);
 
     const dispatch = useDispatch();
     const setLogined = () => {
@@ -29,12 +31,6 @@ export default function OAuthCallbackPage({ provider }) {
     return (
         <div>
             <p>{accessToken}</p>
-            <p>{provider}</p>
         </div>
     );
-}
-
-export async function getServerSideProps({ params }) {
-    const { provider } = params;
-    return { props: { provider } };
 }
