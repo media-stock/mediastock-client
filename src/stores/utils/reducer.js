@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 import { fromJS } from 'immutable';
 
+import socket from '../socket';
 import auth from '../auth';
 import user from '../user';
 import main from '../main';
@@ -12,6 +13,8 @@ import stock from '../stock';
 import home from '../home';
 
 const combinedReducers = combineReducers({
+    socket,
+
     auth,
     user,
     main,

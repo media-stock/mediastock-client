@@ -4,7 +4,8 @@ import { API_URL } from 'config';
 export default function AuthSocialPage({ provider }) {
     useEffect(() => {
         if (typeof window !== 'undefined' && provider) {
-            window.location.href = `${API_URL}/oauth/${provider}/authorize`;
+            const SOCIAL_URL = `${API_URL}/oauth/${provider}/authorize`;
+            window.location.href = SOCIAL_URL;
         }
     }, []);
 

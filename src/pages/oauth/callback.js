@@ -1,27 +1,22 @@
+/* eslint-disable camelcase */
 import React from 'react';
-import { useRouter } from 'next/router';
 import { API_URL } from 'config';
 
 // redux
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userActions from 'stores/user';
 
 // utils
 import { getJWTDecoded } from 'lib/utils';
 
-export default function OAuthCallbackPage() {
-    const router = useRouter();
-
-    const { query } = router;
-    const accessToken = query?.access_token;
-    const provider = query?.provider;
-    const error = query?.error;
-
-    // console.log(query);
-
+export default function OAuthCallbackPage({ provider, accessToken, error }) {
     const dispatch = useDispatch();
     const { setUser, setAccessToken } = bindActionCreators(userActions, dispatch);
+
+    const { logined } = useSelector((state) => ({
+        logined: state.user.toJS().logined,
+    }));
 
     const setLogined = () => {
         setAccessToken(accessToken);
@@ -30,21 +25,26 @@ export default function OAuthCallbackPage() {
 
     React.useEffect(() => {
         if (typeof window !== 'undefined') {
-            // console.log(`useEffect`, router.query);
-
             if (accessToken) {
                 setLogined();
             }
 
-            if (error) {
-                window.location.href = `${API_URL}/oauth/${provider}/register`;
+            if (provider && error) {
+                const REGISTER_URL = `${API_URL}/oauth/${provider}/register`;
+                window.location.href = REGISTER_URL;
             }
         }
-    }, [typeof window, query]);
+    }, [accessToken, provider, error]);
 
     return (
         <div>
-            <p>{accessToken}</p>
+            <p>{JSON.stringify(logined?.user)}</p>
+            <p>{logined?.accessToken}</p>
         </div>
     );
+}
+
+export async function getServerSideProps({ query }) {
+    const { provider, accessToken, error } = query;
+    return { props: { provider, accessToken, error } };
 }
