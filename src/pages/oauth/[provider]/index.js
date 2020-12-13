@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-// import { useRouter } from 'next/router';
 import { API_URL } from 'config';
 
 export default function AuthSocialPage({ provider }) {
