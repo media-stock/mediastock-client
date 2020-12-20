@@ -54,7 +54,7 @@ function MobileFooter() {
 
     return (
         <MobileFooterWrapper>
-            <MobileFooterItem onClick={() => onClickItem('/home')}>경매</MobileFooterItem>
+            <MobileFooterItem onClick={() => onClickItem('/')}>경매</MobileFooterItem>
             <MobileFooterItem onClick={() => onClickItem('/market')}>미톡마켓</MobileFooterItem>
             <MobileFooterItem onClick={() => onClickItem(null, { auth: 'login' })}>
                 Home
@@ -62,7 +62,7 @@ function MobileFooter() {
             <MobileFooterItem onClick={() => onClickItem('/article')}>
                 Media's talk
             </MobileFooterItem>
-            <MobileFooterItem onClick={() => onClickItem('/home')}>더보기</MobileFooterItem>
+            <MobileFooterItem onClick={() => onClickItem('/more')}>더보기</MobileFooterItem>
         </MobileFooterWrapper>
     );
 }
