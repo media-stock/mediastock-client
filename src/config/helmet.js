@@ -29,3 +29,7 @@ export const articleDetailHelmet = (title) => ({
 export const myChannelHelmet = {
     title: '내 채널 - 미디어스톡',
 };
+
+export const metalkMarketHelmet = {
+    title: '미톡마켓 - 미디어스톡',
+};
