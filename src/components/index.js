@@ -14,3 +14,4 @@ export * from './Home';
 export * from './Article';
 export * from './Market';
 export * from './My';
+export * from './More';
