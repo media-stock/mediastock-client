@@ -25,3 +25,7 @@ export const articleListHelmet = (image) => ({
 export const articleDetailHelmet = (title) => ({
     title: `${title} - 미디어스톡`,
 });
+
+export const metalkMarketHelmet = {
+    title: '미톡마켓 - 미디어스톡',
+};
