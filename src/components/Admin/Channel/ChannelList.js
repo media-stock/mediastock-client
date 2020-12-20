@@ -57,15 +57,15 @@ export default function ChannelVideoList() {
         });
     });
 
-    const setPagination = useCallback((state) => {
+    const setPagination = (state) => {
         const { page, offset } = state;
         setPage({ page, offset, type: 'channels' });
-    });
+    };
 
-    const onReload = useCallback(() => {
+    const onReload = () => {
         setPage({ page: 0, offset, type: 'channels' });
         onGetChannels();
-    });
+    };
 
     React.useEffect(() => {
         onReload();

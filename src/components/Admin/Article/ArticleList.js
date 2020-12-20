@@ -66,15 +66,15 @@ export default function ArticleList() {
         });
     });
 
-    const setPagination = useCallback((state) => {
+    const setPagination = (state) => {
         const { page, offset } = state;
-        setPage({ page, offset });
-    });
+        setPage({ page: 0, offset, type: 'articles' });
+    };
 
-    const onReload = useCallback(() => {
-        setPage({ page: 0, offset });
+    const onReload = () => {
+        setPage({ page: 0, offset, type: 'articles' });
         onGetArticles();
-    });
+    };
 
     React.useEffect(() => {
         onReload();
