@@ -19,6 +19,10 @@ export default function PCLayout({ children }) {
 const PCWrapper = styled.div`
     width: 100%;
     min-height: 100vh;
+
+    @media (max-width: 740px) {
+        display: none;
+    }
 `;
 
 const PCView = styled.div``;

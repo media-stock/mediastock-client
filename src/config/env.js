@@ -1,5 +1,5 @@
 export const { NODE_ENV } = process.env;
-export const isDev = NODE_ENV === 'development';
+export const isDev = NODE_ENV === 'development' && false;
 
 export const API_URL = isDev
     ? 'http://localhost:8080'

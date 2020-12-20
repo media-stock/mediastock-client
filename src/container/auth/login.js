@@ -16,6 +16,8 @@ import {
     LoginInput,
     LoginButton,
     LoginToRegisterButton,
+    SocialKakaoButton,
+    SocialGoogleButton,
 } from 'components';
 
 // config
@@ -60,13 +62,7 @@ export default function LoginContainer() {
     }, []);
 
     React.useEffect(() => {
-        if (user?.role === 'USER' && done) {
-            router.replace('/');
-        }
-
-        if (user?.role === 'ADMIN' && done) {
-            router.replace('/admin');
-        }
+        if (done) router.replace('/');
     }, [done]);
 
     return (
@@ -90,6 +86,9 @@ export default function LoginContainer() {
 
                     <LoginButton onClick={onClick} loading={pending} />
                     <LoginToRegisterButton onClick={onLoginToRegisterClick} />
+
+                    <SocialKakaoButton />
+                    <SocialGoogleButton />
                 </LoginForm>
             </LoginView>
         </Modal>
