@@ -9,14 +9,13 @@ import RegisterContainer from 'container/auth/register';
 export default function MobileLayout({ children }) {
     const router = useRouter();
     const { pathname, query } = router;
-    const mobile = query?.mobile;
 
-    if (mobile === 'false') return null;
     if (pathname === '/landing') return null;
 
     return (
         <MobileWrapper>
             <MobileHeader />
+
             <MobileView>{children}</MobileView>
             <MobileFooter />
 
@@ -53,7 +52,7 @@ function MobileFooter() {
     return (
         <MobileFooterWrapper>
             <MobileFooterItem onClick={() => onClickItem('/home')}>경매</MobileFooterItem>
-            <MobileFooterItem onClick={() => onClickItem('/home')}>미톡마켓</MobileFooterItem>
+            <MobileFooterItem onClick={() => onClickItem('/market')}>미톡마켓</MobileFooterItem>
             <MobileFooterItem onClick={() => onClickItem(null, { auth: 'login' })}>
                 Home
             </MobileFooterItem>
@@ -68,6 +67,10 @@ function MobileFooter() {
 const MobileWrapper = styled.div`
     width: 100%;
     min-height: 100vh;
+
+    @media (min-width: 740px) {
+        display: none;
+    }
 `;
 
 const MobileView = styled.div`

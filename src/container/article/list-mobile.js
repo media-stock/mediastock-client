@@ -8,10 +8,6 @@ import { useSelector } from 'react-redux';
 import { ArticleList, ArticleListSearch } from 'components';
 
 export default function MobileArticleListContainer() {
-    const router = useRouter();
-    const mobile = router.query?.mobile === 'true';
-    if (!mobile) return null;
-
     const { articles } = useSelector((state) => ({
         articles: state.article.toJS().articles,
     }));

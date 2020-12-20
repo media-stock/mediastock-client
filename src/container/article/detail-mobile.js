@@ -13,10 +13,6 @@ import {
 } from 'components';
 
 export default function MobileArticleDetailContainer() {
-    const router = useRouter();
-    const mobile = router.query?.mobile === 'true';
-    if (!mobile) return null;
-
     const { article } = useSelector((state) => ({
         article: state.article?.toJS().article,
     }));
