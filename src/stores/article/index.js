@@ -15,6 +15,7 @@ import {
 } from '../redux';
 
 export const setState = createAction(ARTICLE_TYPES.SET_STATE);
+export const setPage = createAction(ARTICLE_TYPES.SET_PAGE);
 
 export const onGetArticles = createPromiseThunk(
     ARTICLE_TYPES.GET_ARTICLES,
