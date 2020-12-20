@@ -3,25 +3,25 @@ export const getFontSize = (type = 'p') => {
 
     switch (type) {
         case 'h1':
-            size = 22;
+            size = 25;
             break;
         case 'h2':
-            size = 20;
+            size = 23;
             break;
         case 'h3':
-            size = 18;
+            size = 21;
             break;
         case 'h4':
-            size = 17;
+            size = 19;
             break;
         case 'h5':
-            size = 16;
+            size = 17;
             break;
         case 'p':
-            size = 14;
+            size = 16;
             break;
         case 'info':
-            size = 12;
+            size = 14;
             break;
         default:
             break;

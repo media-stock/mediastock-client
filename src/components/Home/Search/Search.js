@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Input } from 'lib/styles';
+import { UIInput } from 'ui';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -29,7 +29,7 @@ const SearchIcon = styled.div`
     left: 31.5px;
 `;
 
-const SearchInput = styled(Input)`
+const SearchInput = styled(UIInput)`
     width: 100%;
     padding: 0.2rem 1rem;
     padding-left: 35px;

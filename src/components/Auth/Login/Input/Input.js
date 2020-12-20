@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Input } from 'lib/styles';
+import { UIInput } from 'ui';
 
 export default function LoginInput({ name, value, onChange, placeholder }) {
     return (
@@ -13,7 +13,7 @@ export default function LoginInput({ name, value, onChange, placeholder }) {
         />
     );
 }
-export const LoginInputView = styled(Input)`
+export const LoginInputView = styled(UIInput)`
     width: 100%;
     margin-bottom: 1rem;
 
