@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { UIButton } from 'ui';
 
 export default function RegisterToLoginButton({ onClick }) {
-    return <LoginButtonView onClick={onClick}>로그인하기</LoginButtonView>;
+    return <Button onClick={onClick}>로그인하기</Button>;
 }
 
-const LoginButtonView = styled.p`
+const Button = styled(UIButton)`
     width: 100%;
-    margin-top: 0.7rem;
-
-    text-align: center;
-    color: #555;
+    margin-top: 10px;
 `;

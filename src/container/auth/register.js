@@ -16,6 +16,8 @@ import {
     RegisterInput,
     RegisterButton,
     RegisterToLoginButton,
+    SocialKakaoButton,
+    SocialGoogleButton,
 } from 'components';
 
 // config
@@ -93,6 +95,9 @@ export default function RegisterContainer() {
 
                     <RegisterButton onClick={onClick} loading={pending} />
                     <RegisterToLoginButton onClick={onRegisterToLoginClick} />
+
+                    <SocialKakaoButton />
+                    <SocialGoogleButton />
                 </RegisterForm>
             </RegisterView>
         </Modal>
