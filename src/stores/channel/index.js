@@ -4,11 +4,17 @@ import { CHANNEL_TYPES } from './type';
 import {
     createPromiseThunk,
     createPromiseState,
+    createInitialState,
+    setStateFromData,
+    setStatePageAndOffset,
+    setInitialState,
     setImmutableState,
     getDataPageAndOffset,
+    getAccessTokenFromState,
 } from '../redux';
 import * as channelAPI from 'services/channel';
 
+export const setState = createAction(CHANNEL_TYPES.SET_STATE);
 export const setPage = createAction(CHANNEL_TYPES.SET_PAGE);
 
 export const onGetChannels = createPromiseThunk(
@@ -31,17 +37,20 @@ export const onGetChannelStatistics = createPromiseThunk(
     (getState) => getDataPageAndOffset(getState, 'channel', 'channelStatistics'),
 );
 
+export const onGetMyChannels = createPromiseThunk(
+    CHANNEL_TYPES.GET_MY_CHANNEL,
+    channelAPI.onGetMyChannels,
+    getAccessTokenFromState,
+    (getState) => getDataPageAndOffset(getState, 'channel', 'myChannels'),
+);
+
 export default handleActions(
     {
-        [CHANNEL_TYPES.SET_PAGE]: (state, action) => {
-            const { page, offset, type = 'channels' } = action.payload;
+        [CHANNEL_TYPES.SET_STATE]: setStateFromData,
+        [CHANNEL_TYPES.SET_PAGE]: setStatePageAndOffset,
+        [CHANNEL_TYPES.SET_RESET]: (state, action) =>
+            createInitialState(state, action, channelState),
 
-            let nextState = state;
-            if (page >= 0) nextState = nextState.setIn([type, 'page'], page);
-            if (offset >= 0) nextState = nextState.setIn([type, 'offset'], offset);
-
-            return nextState;
-        },
         [CHANNEL_TYPES.GET_CHANNELS]: (state, _) => {
             const pendingState = createPromiseState.pending();
             return setImmutableState(state, 'channels', pendingState);
@@ -99,6 +108,18 @@ export default handleActions(
         [CHANNEL_TYPES.GET_CHANNEL_STATISTICS_ERROR]: (state, action) => {
             const errorState = createPromiseState.error(action.payload);
             return setImmutableState(state, 'channelStatistics', errorState);
+        },
+        [CHANNEL_TYPES.GET_MY_CHANNEL]: (state, action) => {
+            const pendingState = createPromiseState.pending();
+            return setImmutableState(state, 'myChannels', pendingState);
+        },
+        [CHANNEL_TYPES.GET_MY_CHANNEL_DONE]: (state, action) => {
+            const doneState = createPromiseState.done([]);
+            return setImmutableState(state, 'myChannels', doneState);
+        },
+        [CHANNEL_TYPES.GET_MY_CHANNEL]: (state, action) => {
+            const errorState = createPromiseState.error(action.payload);
+            return setImmutableState(state, 'myChannels', errorState);
         },
     },
     channelState,

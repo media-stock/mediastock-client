@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Carousel from '@brainhubeu/react-carousel';
 import styled from 'styled-components';
+
+import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 
 export default function CustomCarousel({ images = [] }) {

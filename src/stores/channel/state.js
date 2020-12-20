@@ -6,4 +6,5 @@ export const channelState = Map({
     channel: initialDataState.object,
     channelVideos: initialDataState.list,
     channelStatistics: initialDataState.list,
+    myChannels: initialDataState.list,
 });
