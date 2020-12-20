@@ -10,9 +10,12 @@ export default function MenuList() {
             <MenuItemView>
                 <UIText>미디어스톡이란</UIText>
             </MenuItemView>
-            <MenuItemView>
-                <UIText>이용방법</UIText>
-            </MenuItemView>
+
+            <Link href="/more/info">
+                <MenuItemView>
+                    <UIText>이용방법</UIText>
+                </MenuItemView>
+            </Link>
 
             <Link href="/more/notice">
                 <MenuItemView>
