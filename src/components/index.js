@@ -13,3 +13,4 @@ export * from './Auth';
 export * from './Home';
 export * from './Article';
 export * from './Market';
+export * from './More';
