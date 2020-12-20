@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MarketMainListItem } from '../ListItem';
+import MarketMainListItem from './MainListItem';
 
 export default function MarketMainList({ active }) {
     if (active === 'detail') return null;

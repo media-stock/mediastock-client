@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faStream } from '@fortawesome/free-solid-svg-icons';
 
-import { MarketMainList, MarketDetailList } from 'components';
+import { Header, MarketMainList, MarketDetailList } from 'components';
 import { UIHeaderText, UIInput, UIText } from 'ui';
 
 export default function MeTalkMarktetContainer() {
@@ -16,7 +16,7 @@ export default function MeTalkMarktetContainer() {
 
     return (
         <>
-            <HeaderText size="h3">미톡마켓</HeaderText>
+            <Header logo="미톡마켓" />
             <SearchInputView>
                 <SearchIcon>
                     <FontAwesomeIcon icon={faSearch} />
