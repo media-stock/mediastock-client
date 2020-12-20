@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 // container
 import LoginContainer from 'container/auth/login';
@@ -9,14 +10,13 @@ import RegisterContainer from 'container/auth/register';
 export default function MobileLayout({ children }) {
     const router = useRouter();
     const { pathname, query } = router;
-    const mobile = query?.mobile;
 
-    if (mobile === 'false') return null;
     if (pathname === '/landing') return null;
 
     return (
         <MobileWrapper>
             <MobileHeader />
+
             <MobileView>{children}</MobileView>
             <MobileFooter />
 
@@ -29,7 +29,9 @@ export default function MobileLayout({ children }) {
 function MobileHeader() {
     return (
         <MobileHeaderView>
-            <Logo>MediaStock</Logo>
+            <Link href="/">
+                <Logo>MediaStock</Logo>
+            </Link>
         </MobileHeaderView>
     );
 }
@@ -53,7 +55,7 @@ function MobileFooter() {
     return (
         <MobileFooterWrapper>
             <MobileFooterItem onClick={() => onClickItem('/home')}>경매</MobileFooterItem>
-            <MobileFooterItem onClick={() => onClickItem('/home')}>미톡마켓</MobileFooterItem>
+            <MobileFooterItem onClick={() => onClickItem('/market')}>미톡마켓</MobileFooterItem>
             <MobileFooterItem onClick={() => onClickItem(null, { auth: 'login' })}>
                 Home
             </MobileFooterItem>
@@ -68,12 +70,16 @@ function MobileFooter() {
 const MobileWrapper = styled.div`
     width: 100%;
     min-height: 100vh;
+
+    @media (min-width: 740px) {
+        display: none;
+    }
 `;
 
 const MobileView = styled.div`
     min-height: calc(100vh - 127px);
     padding: 23px;
-    margin-bottom: 70px;
+    padding-bottom: 80px;
 `;
 
 const MobileHeaderView = styled.div`

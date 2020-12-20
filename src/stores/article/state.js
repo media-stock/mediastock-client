@@ -7,4 +7,5 @@ export const articleState = Map({
     create: initialDataState.object,
     delete: initialDataState.object,
     update: initialDataState.object,
+    createComment: initialDataState.object,
 });

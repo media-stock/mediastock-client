@@ -5,10 +5,10 @@ import { useRouter } from 'next/router';
 import PCLayout from './PCLayout';
 import MobileLayout from './MobileLayout';
 
-import { useMobileCheck } from 'lib/hooks';
+// import { useMobileCheck } from 'lib/hooks';
 
 export default function Layout({ children }) {
-    useMobileCheck();
+    // useMobileCheck();
 
     return (
         <>

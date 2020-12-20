@@ -5,6 +5,7 @@ export const theme = {
     textColor: '#222',
     boldTextColor: '#000',
     infoColor: '#e1e1e1',
+    infoTextColor: '#b2b2b2',
     redColor: 'red',
     blueColor: 'blue',
 

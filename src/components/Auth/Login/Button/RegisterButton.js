@@ -9,6 +9,4 @@ export default function LoginToRegisterButton({ onClick }) {
 const RegisterButtonView = styled(UIButton)`
     width: 100%;
     margin-top: 0.7rem;
-    color: white;
-    background-color: ${(props) => props.theme.infoColor};
 `;

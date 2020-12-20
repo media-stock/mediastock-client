@@ -1,6 +1,9 @@
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
+
+// style
 import styled from 'styled-components';
+import { UIHeaderText, UIText } from 'ui';
 
 export default function ArticleList({ articles = [] }) {
     const articleList = articles?.map((article) => (
@@ -22,8 +25,12 @@ function ArticleItem({ article }) {
 
     return (
         <ArticleItemView onClick={onItemClick}>
-            <Title>{article?.title}</Title>
-            <Content>{article?.content?.slice(0, 20)}</Content>
+            <UIHeaderText size="h3">{article?.title}</UIHeaderText>
+            <UIText>{article?.content?.slice(0, 20)}</UIText>
+            <InfoView>
+                <Date info>{article?.createdAt}</Date>
+                <Username info>{article?.user?.name}</Username>
+            </InfoView>
         </ArticleItemView>
     );
 }
@@ -37,13 +44,13 @@ const ArticleItemView = styled.div`
     cursor: pointer;
 `;
 
-const Title = styled.h1`
-    margin-bottom: 7px;
-
-    font-size: ${(props) => props.theme.fontSizeH1};
-    font-weight: bold;
+const InfoView = styled.div`
+    display: flex;
+    flex-wrap: wrap;
 `;
 
-const Content = styled.p`
-    font-size: ${(props) => props.theme.fontSizeNormal};
+const Date = styled(UIText)``;
+
+const Username = styled(UIText)`
+    margin-left: 5px;
 `;

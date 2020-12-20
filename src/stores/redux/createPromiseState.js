@@ -22,3 +22,8 @@ export const createPromiseState = {
             error,
         }),
 };
+
+export const createInitialState = (state, action, initialState) => {
+    const newState = action.payload;
+    return state.set(newState, initialState.get(newState));
+};
