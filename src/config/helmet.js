@@ -25,3 +25,7 @@ export const articleListHelmet = (image) => ({
 export const articleDetailHelmet = (title) => ({
     title: `${title} - 미디어스톡`,
 });
+
+export const moreHelmet = {
+    title: '더보기 - 미디어스톡',
+};
