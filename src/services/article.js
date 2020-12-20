@@ -31,3 +31,12 @@ export const onUpdateArticle = async ({ accessToken, id, article }) => {
     const response = await Request.onRequestPatch({ url, params, headers });
     return response;
 };
+
+export const onCreateArticleComment = async ({ accessToken, id, content }) => {
+    const url = `/articles/${id}/comments`;
+    const headers = Request.getAuthorizationHeader(accessToken);
+    const params = { content };
+
+    const response = await Request.onRequestPost({ url, headers, params });
+    return response;
+};

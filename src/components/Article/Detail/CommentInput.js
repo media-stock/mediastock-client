@@ -1,20 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 
-export default function CommentInput() {
-    const [input, setInput] = useState('');
-    const onChange = useCallback(
-        (e) => {
-            const { value } = e.target;
-            setInput(value);
-        },
-        [input],
-    );
+export default function CommentInput({ value, onChange, onCreate }) {
     return (
         <CommentInputView>
-            <Input name="comment" value={input} onChange={onChange} />
+            <Input name="comment" value={value} onChange={onChange} />
 
-            <UploadButton>등록</UploadButton>
+            <UploadButton onClick={onCreate}>등록</UploadButton>
         </CommentInputView>
     );
 }

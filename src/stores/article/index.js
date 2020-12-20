@@ -43,6 +43,13 @@ export const onUpdateArticle = createPromiseThunk(
     { after: [(props) => setInitialState(props, ARTICLE_TYPES.SET_RESET, 'update')] },
 );
 
+export const onCreateArticleComment = createPromiseThunk(
+    ARTICLE_TYPES.CREATE_COMMENT,
+    articleAPI.onCreateArticleComment,
+    getAccessTokenFromState,
+    { after: [(props) => setInitialState(props, ARTICLE_TYPES.SET_RESET, 'createComment')] },
+);
+
 export default handleActions(
     {
         [ARTICLE_TYPES.SET_STATE]: setStateFromData,
@@ -87,6 +94,30 @@ export default handleActions(
         [ARTICLE_TYPES.CREATE_ARTICLE_ERROR]: (state, action) => {
             const errorState = createPromiseState.error(action.payload);
             return setImmutableState(state, 'create', errorState);
+        },
+        [ARTICLE_TYPES.UPDATE_ARTICLE]: (state, action) => {
+            const pendingState = createPromiseState.pending();
+            return setImmutableState(state, 'update', pendingState);
+        },
+        [ARTICLE_TYPES.UPDATE_ARTICLE_DONE]: (state, action) => {
+            const doneState = createPromiseState.done({});
+            return setImmutableState(state, 'update', doneState);
+        },
+        [ARTICLE_TYPES.UPDATE_ARTICLE_ERROR]: (state, action) => {
+            const errorState = createPromiseState.error(action.payload);
+            return setImmutableState(state, 'update', errorState);
+        },
+        [ARTICLE_TYPES.CREATE_COMMENT]: (state, action) => {
+            const pendingState = createPromiseState.pending();
+            return setImmutableState(state, 'createComment', pendingState);
+        },
+        [ARTICLE_TYPES.CREATE_COMMENT_DONE]: (state, action) => {
+            const doneState = createPromiseState.done({});
+            return setImmutableState(state, 'createComment', doneState);
+        },
+        [ARTICLE_TYPES.CREATE_ARTICLE_ERROR]: (state, action) => {
+            const errorState = createPromiseState.error(action.payload);
+            return setImmutableState(state, 'createComment', errorState);
         },
     },
     articleState,

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 // container
 import LoginContainer from 'container/auth/login';
@@ -28,7 +29,9 @@ export default function MobileLayout({ children }) {
 function MobileHeader() {
     return (
         <MobileHeaderView>
-            <Logo>MediaStock</Logo>
+            <Link href="/">
+                <Logo>MediaStock</Logo>
+            </Link>
         </MobileHeaderView>
     );
 }
