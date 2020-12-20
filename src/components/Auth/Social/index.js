@@ -1,4 +1,4 @@
 import dynamic from 'next/dynamic';
 
-export const SocialButton = dynamic(()=>import('./Button'));
-export const SocialWrapper = dynamic(()=>import('./Wrapper'));
+export const SocialKakaoButton = dynamic(() => import('./Kakao'));
+export const SocialGoogleButton = dynamic(() => import('./Google'));

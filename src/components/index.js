@@ -1,5 +1,6 @@
 // default components
 export * from './Layout';
+export * from './Header';
 export * from './Helmet';
 export * from './Spinner';
 export * from './Modal';

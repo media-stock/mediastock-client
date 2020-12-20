@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 
 // components
-import { ArticleList } from 'components';
+import { ArticleList, ArticleListSearch } from 'components';
 
 export default function MobileArticleListContainer() {
     const router = useRouter();
@@ -19,6 +19,7 @@ export default function MobileArticleListContainer() {
 
     return (
         <>
+            <ArticleListSearch />
             <ArticleList articles={data} />
         </>
     );

@@ -1,23 +1,20 @@
 import { createAction, handleActions } from 'redux-actions';
-import { fromJS } from 'immutable';
-
 import { articleState } from './state';
 import { ARTICLE_TYPES } from './type';
 import * as articleAPI from 'services/article';
 import {
     createPromiseThunk,
     createPromiseState,
+    createInitialState,
+    setStateFromData,
+    setStatePageAndOffset,
+    setInitialState,
     setImmutableState,
     getDataPageAndOffset,
     getAccessTokenFromState,
 } from '../redux';
 
 export const setState = createAction(ARTICLE_TYPES.SET_STATE);
-export const setPage = createAction(ARTICLE_TYPES.SET_PAGE);
-
-export const onResetArticleState = ({ dispatch, data }) => {
-    dispatch({ type: ARTICLE_TYPES.RESET });
-};
 
 export const onGetArticles = createPromiseThunk(
     ARTICLE_TYPES.GET_ARTICLES,
@@ -31,29 +28,27 @@ export const onCreateArticle = createPromiseThunk(
     ARTICLE_TYPES.CREATE_ARTICLE,
     articleAPI.onCreateArticle,
     getAccessTokenFromState,
-    { after: [onResetArticleState] },
+    { after: [(props) => setInitialState(props, ARTICLE_TYPES.SET_RESET, 'create')] },
+);
+
+// export const onDeleteArticle = createPromiseThunk(
+//     ARTICLE_TYPES.DELETE_ARTICLE,
+//     //
+// )
+
+export const onUpdateArticle = createPromiseThunk(
+    ARTICLE_TYPES.UPDATE_ARTICLE,
+    articleAPI.onUpdateArticle,
+    getAccessTokenFromState,
+    { after: [(props) => setInitialState(props, ARTICLE_TYPES.SET_RESET, 'update')] },
 );
 
 export default handleActions(
     {
-        [ARTICLE_TYPES.RESET]: (state, action) => {
-            return state
-                .set('create', articleState.get('create'))
-                .set('update', articleState.get('update'))
-                .set('delete', articleState.get('delete'));
-        },
-        [ARTICLE_TYPES.SET_STATE]: (state, action) => {
-            return fromJS(action.payload);
-        },
-        [ARTICLE_TYPES.SET_PAGE]: (state, action) => {
-            const { page, offset, type = 'articles' } = action.payload;
-
-            let nextState = state;
-            if (page >= 0) nextState = nextState.setIn([type, 'page'], page);
-            if (offset >= 0) nextState = nextState.setIn([type, 'offset'], offset);
-
-            return nextState;
-        },
+        [ARTICLE_TYPES.SET_STATE]: setStateFromData,
+        [ARTICLE_TYPES.SET_PAGE]: setStatePageAndOffset,
+        [ARTICLE_TYPES.SET_RESET]: (state, action) =>
+            createInitialState(state, action, articleState),
         [ARTICLE_TYPES.GET_ARTICLES]: (state, action) => {
             const pendingState = createPromiseState.pending();
             return setImmutableState(state, 'articles', pendingState);

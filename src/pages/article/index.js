@@ -1,7 +1,7 @@
 import React from 'react';
 
 // helmet
-import { Helmet } from 'components';
+import { Helmet, Header } from 'components';
 import { articleListHelmet as helmet } from 'config';
 
 // redux
@@ -13,31 +13,19 @@ import * as articleActions from 'stores/article';
 // container
 import MobileArticleListContainer from 'container/article/list-mobile';
 
-export default function ArticleList({ article }) {
+export default function ArticleList() {
     const dispatch = useDispatch();
-    const { setState } = bindActionCreators(articleActions, dispatch);
+    const { onGetArticles } = bindActionCreators(articleActions, dispatch);
 
     React.useEffect(() => {
-        setState(article);
-    }, [article]);
+        onGetArticles();
+    }, []);
 
     return (
         <>
             <Helmet helmet={helmet()} />
+            <Header logo={`Media's Talk`} />
             <MobileArticleListContainer />
         </>
     );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
-    if (typeof window === 'undefined') {
-        const { dispatch, getState } = store;
-        await dispatch(articleActions.onGetArticles());
-
-        const article = getState()?.article.toJS();
-
-        return {
-            props: { article },
-        };
-    }
-});

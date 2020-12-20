@@ -22,3 +22,12 @@ export const onCreateArticle = async ({ accessToken, article }) => {
     const response = await Request.onRequestPost({ url, headers, params });
     return response;
 };
+
+export const onUpdateArticle = async ({ accessToken, id, article }) => {
+    const url = `/articles/${id}`;
+    const params = article;
+    const headers = Request.getAuthorizationHeader(accessToken);
+
+    const response = await Request.onRequestPatch({ url, params, headers });
+    return response;
+};

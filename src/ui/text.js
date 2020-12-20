@@ -37,7 +37,7 @@ export const UIText = styled.p`
         const theme = props?.theme;
         const info = props?.info;
 
-        if (info) return `font-size: ${theme.fontSizeInfo};`;
+        if (info) return `font-size: ${theme.fontSizeInfo}; color: ${theme.infoTextColor};`;
         return ``;
     }}
 `;
