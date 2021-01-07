@@ -32,3 +32,10 @@ export const onGetHome = async ({ page = 0, offset = 6 }) => {
         };
     }
 };
+
+export const onGetMediaTalkRanking = async () => {
+    const url = '/ipos';
+
+    const response = await Request.onRequestGet({ url });
+    return response;
+};

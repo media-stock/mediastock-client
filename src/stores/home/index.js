@@ -31,6 +31,11 @@ export const onGetHome = createPromiseThunk(HOME_TYPES.GET_HOME, homeAPI.onGetHo
     after: [setChannelRealTime, setChannelNew],
 });
 
+export const onGetMediaTalkRanking = createPromiseThunk(
+    HOME_TYPES.GET_MEDIA_TALK_RANKING,
+    homeAPI.onGetMediaTalkRanking,
+);
+
 export default handleActions(
     {
         [HOME_TYPES.SET_STATE]: (state, action) => {
@@ -48,6 +53,21 @@ export default handleActions(
         [HOME_TYPES.GET_HOME_ERROR]: (state, action) => {
             const errorState = createPromiseState.error(action.payload);
             return setImmutableState(state, 'home', errorState);
+        },
+        [HOME_TYPES.GET_MEDIA_TALK_RANKING]: (state, _) => {
+            const pendingState = createPromiseState.pending();
+            return setImmutableState(state, 'mediaTalkRanking', pendingState);
+        },
+        [HOME_TYPES.GET_MEDIA_TALK_RANKING_DONE]: (state, action) => {
+            const doneState = createPromiseState.done(
+                action.payload?.ipos,
+                action.payload?.totalCount,
+            );
+            return setImmutableState(state, 'mediaTalkRanking', doneState);
+        },
+        [HOME_TYPES.GET_MEDIA_TALK_RANKING_ERROR]: (state, action) => {
+            const errorState = createPromiseState.error(action.payload);
+            return setImmutableState(state, 'mediaTalkRanking', errorState);
         },
     },
     homeState,

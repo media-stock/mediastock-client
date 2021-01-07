@@ -5,4 +5,5 @@ export const homeState = Map({
     home: initialDataState.object,
     channelRealTime: initialDataState.list,
     channelNew: initialDataState.list,
+    mediaTalkRanking: initialDataState.list,
 });

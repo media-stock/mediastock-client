@@ -15,15 +15,18 @@ export default function ChannelRealTime({ rankings = [] }) {
         [clicked],
     );
 
-    const rankingList = rankings?.map((ranking, index) => (
-        <RankingItem
-            ranking={ranking}
-            isList
-            isFirst={index === 0}
-            clicked={clicked}
-            onClick={onClick}
-        />
-    ));
+    const rankingList = rankings
+        ?.slice(0, 10)
+        .map((ranking, index) => (
+            <RankingItem
+                isFirst={index === 0}
+                isList
+                index={index}
+                ranking={ranking}
+                clicked={clicked}
+                onClick={onClick}
+            />
+        ));
 
     return (
         <ChannelRealTimeView>
@@ -42,11 +45,11 @@ export default function ChannelRealTime({ rankings = [] }) {
     );
 }
 
-function RankingItem({ ranking, isList = true, isFirst, clicked, onClick }) {
+function RankingItem({ index, ranking, isList = true, isFirst, clicked, onClick }) {
     const percent = null;
     return (
         <RankingItemView isList={isList}>
-            <Ranking>{ranking?.index}</Ranking>
+            <Ranking>{isFirst ? 1 : index + 1}</Ranking>
             <Profile src={ranking?.thumbnail || '/sample-profile.png'} />
             <Name>{ranking?.name}</Name>
             {ranking?.curPrice && <Talk>{ranking.curPrice}톡</Talk>}
