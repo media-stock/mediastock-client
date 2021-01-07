@@ -1,5 +1,5 @@
-import React from 'react';
-import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+// import { useRouter } from 'next/router';
 
 // redux
 import { useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ export default function MobileArticleListContainer() {
     const { articles } = useSelector((state) => ({
         articles: state.article.toJS().articles,
     }));
+
     const { data, pending, error } = articles;
 
     return (

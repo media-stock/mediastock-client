@@ -32,11 +32,6 @@ export const onCreateArticle = createPromiseThunk(
     { after: [(props) => setInitialState(props, ARTICLE_TYPES.SET_RESET, 'create')] },
 );
 
-// export const onDeleteArticle = createPromiseThunk(
-//     ARTICLE_TYPES.DELETE_ARTICLE,
-//     //
-// )
-
 export const onUpdateArticle = createPromiseThunk(
     ARTICLE_TYPES.UPDATE_ARTICLE,
     articleAPI.onUpdateArticle,

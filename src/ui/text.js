@@ -41,3 +41,8 @@ export const UIText = styled.p`
         return ``;
     }}
 `;
+
+export const UIAccentText = styled.span`
+    font-weight: bold;
+    color: ${(props) => props.theme.primaryColor};
+`;

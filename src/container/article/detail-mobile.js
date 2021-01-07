@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 // import { useRouter } from 'next/router';
 
 // redux
@@ -14,14 +14,15 @@ import {
     ArticleDetailCommentInput,
 } from 'components';
 
-export default function MobileArticleDetailContainer() {
+export default function MobileArticleDetailContainer({ articleId }) {
     const [content, setContent] = useState('');
 
     const dispatch = useDispatch();
-    const { onCreateArticleComment } = bindActionCreators(articleActions, dispatch);
+    const { onGetArticle, onCreateArticleComment } = bindActionCreators(articleActions, dispatch);
 
-    const { article } = useSelector((state) => ({
+    const { article, createComment } = useSelector((state) => ({
         article: state.article?.toJS().article,
+        createComment: state.article?.toJS().createComment,
     }));
     const { data } = article;
 
@@ -37,11 +38,17 @@ export default function MobileArticleDetailContainer() {
         if (content !== '') onCreateArticleComment({ id: data?.id, content });
     }, [content]);
 
+    useEffect(() => {
+        if (createComment?.done) onGetArticle({ id: articleId });
+    }, [createComment?.done]);
+
+    console.log(`ArticleData`, data);
+
     return (
         <>
             <ArticleDetailHeader article={data} />
             <ArticleDetailContent article={data} />
-            <ArticleDetailCommentList article={data} />
+            <ArticleDetailCommentList comments={data?.comments} />
 
             <ArticleDetailCommentInput value={content} onChange={onChange} onCreate={onCreate} />
         </>

@@ -30,7 +30,7 @@ export default function ArticleDetailPage() {
     return (
         <>
             <Helmet helmet={helmet(data?.title)} />
-            <MobileArticleDetailContainer />
+            <MobileArticleDetailContainer articleId={id} />
         </>
     );
 }

@@ -42,6 +42,10 @@ const ArticleItemView = styled.div`
 
     border-bottom: 1px solid #ddd;
     cursor: pointer;
+
+    &:last-child {
+        border-bottom: 0;
+    }
 `;
 
 const InfoView = styled.div`
