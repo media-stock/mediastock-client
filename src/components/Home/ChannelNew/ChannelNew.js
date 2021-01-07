@@ -13,8 +13,7 @@ const dummy = {
 
 export default function ChannelNew({ channels = [] }) {
     // console.log(channels);
-
-    if (channels?.length === 0) channels = createDummyList(12, dummy);
+    // if (channels?.length === 0) channels = createDummyList(12, dummy);
 
     const channelList = channels.map((channel, index) => (
         <ChannelNewItem key={channel?.id} index={index} channel={channel} />

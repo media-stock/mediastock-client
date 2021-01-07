@@ -4,13 +4,12 @@ import React from 'react';
 import HomeContainer from 'container/home';
 
 // redux
-import { wrapper } from 'stores';
-import { useDispatch, useSelector } from 'react-redux';
+// import { wrapper } from 'stores';
+import { useDispatch } from 'react-redux';
 import * as homeActions from 'stores/home';
 
 export default function IndexPage() {
     const dispatch = useDispatch();
-
     React.useEffect(() => {
         dispatch(homeActions.onGetHome());
     }, []);

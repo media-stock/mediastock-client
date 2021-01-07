@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,15 +6,8 @@ import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 import { createDummyList, getPercentData } from 'lib/utils';
 
-const dummy = {
-    name: '감스트 팬',
-    profile: '/sample-profile.png',
-    talk: 10000,
-    top: 11700,
-};
-
-export default function MediaTalkRanking({ rankings = [] }) {
-    if (rankings?.length === 0) rankings = createDummyList(6, dummy);
+export default function MediaTalkRanking({ sort, setSort, rankings = [] }) {
+    // if (rankings?.length === 0) rankings = createDummyList(6, dummy);
 
     const rankingList = rankings?.map((ranking) => (
         <MediaTalkRankingItem key={ranking?.id} ranking={ranking} />
@@ -25,10 +18,18 @@ export default function MediaTalkRanking({ rankings = [] }) {
             <MediaTalkRankingTopView>
                 <Title>미톡랭킹</Title>
                 <FilterList>
-                    <FilterItem active>수익률</FilterItem>
-                    <FilterItem>상한가</FilterItem>
-                    <FilterItem>하한가</FilterItem>
-                    <FilterItem>거래량</FilterItem>
+                    <FilterItem active={sort === 1} onClick={() => setSort(1)}>
+                        수익률
+                    </FilterItem>
+                    <FilterItem active={sort === 2} onClick={() => setSort(2)}>
+                        상한가
+                    </FilterItem>
+                    <FilterItem active={sort === 3} onClick={() => setSort(3)}>
+                        하한가
+                    </FilterItem>
+                    <FilterItem active={sort === 4} onClick={() => setSort(4)}>
+                        거래량
+                    </FilterItem>
                 </FilterList>
             </MediaTalkRankingTopView>
             <MediaTalkRankingList>{rankingList}</MediaTalkRankingList>
@@ -90,7 +91,7 @@ const FilterList = styled.div`
 const FilterItem = styled.p`
     margin-left: 7px;
 
-    font-size: 10px;
+    font-size: 12px;
     color: ${(props) => (props.active ? 'red' : '#7d7d7d')};
 `;
 

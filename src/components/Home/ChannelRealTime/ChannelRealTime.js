@@ -1,44 +1,62 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 export default function ChannelRealTime({ rankings = [] }) {
-    if (!rankings || rankings?.length === 0)
-        rankings = [
-            {
-                id: 1,
-                index: 1,
-                name: '임영웅',
-                talk: 10000,
-                up: 11500,
-                percent: 30,
-            },
-        ];
-
+    const [clicked, setClicked] = useState(false);
     const recentRanking = rankings?.length > 0 ? rankings[0] : null;
+
+    const onClick = useCallback(
+        (e) => {
+            setClicked(!clicked);
+        },
+        [clicked],
+    );
+
+    const rankingList = rankings?.map((ranking, index) => (
+        <RankingItem
+            ranking={ranking}
+            isList
+            isFirst={index === 0}
+            clicked={clicked}
+            onClick={onClick}
+        />
+    ));
 
     return (
         <ChannelRealTimeView>
             <Title>실시간 검색 채널 순위</Title>
-            <RankingItem ranking={recentRanking} />
+            {!clicked && (
+                <RankingItem
+                    ranking={recentRanking}
+                    isList={false}
+                    isFirst
+                    clicked={clicked}
+                    onClick={onClick}
+                />
+            )}
+            {clicked && <RankingListView>{rankingList}</RankingListView>}
         </ChannelRealTimeView>
     );
 }
 
-function RankingItem({ ranking }) {
+function RankingItem({ ranking, isList = true, isFirst, clicked, onClick }) {
+    const percent = null;
     return (
-        <RankingItemView>
+        <RankingItemView isList={isList}>
             <Ranking>{ranking?.index}</Ranking>
-            <Profile src={ranking?.profile || '/sample-profile.png'} />
+            <Profile src={ranking?.thumbnail || '/sample-profile.png'} />
             <Name>{ranking?.name}</Name>
-            <Talk>{ranking?.talk}톡</Talk>
+            {ranking?.curPrice && <Talk>{ranking.curPrice}톡</Talk>}
             <Up>{ranking?.up}</Up>
-            <Percent>{ranking?.percent}%</Percent>
-            <AngelDown>
-                <FontAwesomeIcon icon={faAngleDown} color="#B5B5B5" />
-            </AngelDown>
+            {percent && <Percent>{percent}%</Percent>}
+            {isFirst && (
+                <AngelDown onClick={onClick}>
+                    <FontAwesomeIcon icon={clicked ? faAngleUp : faAngleDown} color="#B5B5B5" />
+                </AngelDown>
+            )}
         </RankingItemView>
     );
 }
@@ -56,6 +74,15 @@ const Title = styled.h1`
     font-weight: bold;
 `;
 
+const RankingListView = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+
+    border: 2px solid ${(props) => props.theme.primaryColor};
+    border-radius: 6px;
+`;
+
 const RankingItemView = styled.div`
     padding: 0 8px;
     padding-top: 11px;
@@ -67,6 +94,8 @@ const RankingItemView = styled.div`
 
     border: 2px solid ${(props) => props.theme.primaryColor};
     border-radius: 6px;
+
+    ${(props) => props.isList && 'border: 0;'};
 `;
 
 const Ranking = styled.p`

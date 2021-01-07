@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // components
@@ -14,6 +14,8 @@ import {
 import { useSelector } from 'react-redux';
 
 export default function HomeContainer() {
+    const [sort, setSort] = useState(1);
+
     const { channelRealTime, channelNew } = useSelector((state) => ({
         channelRealTime: state.home.toJS().channelRealTime,
         channelNew: state.home.toJS().channelNew,
@@ -23,9 +25,9 @@ export default function HomeContainer() {
         <HomeView>
             <HomeSearchInput />
             <Carousel />
-            <HomeChannelRealTime />
-            <HomeChannelNew />
-            <HomeMediaTalkRanking />
+            <HomeChannelRealTime rankings={channelRealTime?.data} />
+            <HomeChannelNew channels={channelNew?.data} />
+            <HomeMediaTalkRanking sort={sort} setSort={setSort} />
         </HomeView>
     );
 }

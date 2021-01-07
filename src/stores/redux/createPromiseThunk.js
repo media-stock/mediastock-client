@@ -20,6 +20,17 @@ const getLastAction = (args, type = 'after') => {
     return args[args.length - 1][type] || null;
 };
 
+const onBeforeAction = (args, { dispatch, getState }) => {
+    const beforeAction = getLastAction(args, 'before');
+    if (!beforeAction || !Array.isArray(beforeAction)) return null;
+
+    beforeAction.forEach((before) => {
+        if (typeof before === 'function') {
+            before({ dispatch, getState });
+        }
+    });
+};
+
 const onLastAfterAction = (args, { dispatch, data, getState }) => {
     const afterAction = getLastAction(args);
     if (!afterAction || !Array.isArray(afterAction)) return null;
@@ -48,6 +59,7 @@ export const createPromiseThunk = (type, promise, ...args) => {
     return (data) => async (dispatch, getState) => {
         const param = { ...data, ...getParams(args, getState, dispatch) };
 
+        onBeforeAction(args, { dispatch, getState });
         dispatch({ type });
 
         try {
