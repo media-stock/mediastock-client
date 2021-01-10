@@ -16,7 +16,7 @@
         "@fortawesome/free-solid-svg-icons": "5.15.1",
         "@fortawesome/react-fontawesome": "0.1.13",
         "antd": "4.6.6",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "immutable": "4.0.0-rc.12",
         "jwt-decode": "3.0.0-beta.2",
         "moment": "2.29.1",
