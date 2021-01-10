@@ -1,9 +1,9 @@
 import Request from './request';
 
-export const onGetArticles = async () => {
+export const onGetArticles = async ({ ...query }) => {
     const url = `/articles`;
 
-    const response = await Request.onRequestGet({ url });
+    const response = await Request.onRequestGet({ url, query });
     return response;
 };
 

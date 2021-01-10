@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { API_URL, isDev as dev } from 'config';
+import queryString from 'query-string';
+import { API_URL, isDev as dev } from '../config';
 
 export default class Request {
     static onError(error) {
@@ -26,17 +27,9 @@ export default class Request {
 
     static onQuery(query = null) {
         if (!query) return '';
+        if (Object.keys(query)?.length === 0) return '';
 
-        let queryString = null;
-
-        for (const [key, value] of Object.entries(query)) {
-            if (value) {
-                if (!queryString) queryString = `?${key}=${value}`;
-                else queryString += `&${key}=${value}`;
-            }
-        }
-
-        return queryString || '';
+        return `?${queryString.stringify(query)}`;
     }
 
     static getEndpoint() {

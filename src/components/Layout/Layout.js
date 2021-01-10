@@ -5,10 +5,10 @@ import { useRouter } from 'next/router';
 import PCLayout from './PCLayout';
 import MobileLayout from './MobileLayout';
 
-// import { useMobileCheck } from 'lib/hooks';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Layout({ children }) {
-    // useMobileCheck();
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' });
 
     return (
         <>
@@ -21,8 +21,8 @@ export default function Layout({ children }) {
             </Head>
 
             <LandingPageLayout>{children}</LandingPageLayout>
-            <MobileLayout>{children}</MobileLayout>
-            <PCLayout>{children}</PCLayout>
+            {isMobile && <MobileLayout>{children}</MobileLayout>}
+            {!isMobile && <PCLayout>{children}</PCLayout>}
         </>
     );
 }

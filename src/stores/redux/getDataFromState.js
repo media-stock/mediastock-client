@@ -10,5 +10,5 @@ export const getUserIdFromState = (getState) => {
 
 export const getDataPageAndOffset = (getState, reducer, key) => {
     const { page, offset } = getState()[reducer].toJS()[key];
-    return { page, offset };
+    return { offset: page * offset, limit: offset };
 };
