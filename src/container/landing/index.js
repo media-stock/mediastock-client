@@ -10,10 +10,10 @@ import * as mainActions from 'stores/main';
 import { MainCover, MainEmail, MainFooter, MainAlert, Spinner } from 'components';
 
 // utils
-import { useMobileCheck } from 'lib/hooks';
+import { useMediaQuery } from 'react-responsive';
 
 export default function LandingContainer() {
-    const isMobile = useMobileCheck();
+    const isMobile = useMediaQuery({ query: '(max-width: 700px)' });
 
     const [error, setError] = useState('');
 

@@ -1,4 +1,3 @@
-import { TYPE_DONE, TYPE_ERROR } from '../utils';
 import { initialFetchType } from 'lib';
 
 export const ARTICLE_TYPES = {
