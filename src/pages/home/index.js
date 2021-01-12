@@ -4,19 +4,19 @@ import React from 'react';
 import HomeContainer from 'container/home';
 
 // redux
-// import { wrapper } from 'stores';
-import { useDispatch } from 'react-redux';
-import * as homeActions from 'stores/home';
+import { wrapperComponent } from 'stores';
+import { onGetHome } from 'stores/home';
 
-export default function IndexPage() {
-    const dispatch = useDispatch();
+function IndexPage({ state, dispatch }) {
     React.useEffect(() => {
-        dispatch(homeActions.onGetHome());
+        dispatch(onGetHome());
     }, []);
 
     return (
         <>
-            <HomeContainer />
+            <HomeContainer state={state} dispatch={dispatch} />
         </>
     );
 }
+
+export default wrapperComponent(IndexPage, onGetHome);

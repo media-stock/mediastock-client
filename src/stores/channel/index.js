@@ -1,15 +1,16 @@
 import { createAction, handleActions } from 'redux-actions';
-import { channelState } from './state';
-import { CHANNEL_TYPES } from './type';
+import { channelState } from 'stores/channel/state';
+import { CHANNEL_TYPES } from 'stores/channel/type';
+
+import { createPromiseThunk, getDataPageAndOffset } from 'lib';
+
 import {
-    createPromiseThunk,
     createPromiseState,
     createInitialState,
     setStateFromData,
     setStatePageAndOffset,
     setInitialState,
     setImmutableState,
-    getDataPageAndOffset,
     getAccessTokenFromState,
 } from '../redux';
 import * as channelAPI from 'services/channel';
@@ -20,7 +21,7 @@ export const setPage = createAction(CHANNEL_TYPES.SET_PAGE);
 export const onGetChannels = createPromiseThunk(
     CHANNEL_TYPES.GET_CHANNELS,
     channelAPI.onGetChannels,
-    (getState) => getDataPageAndOffset(getState, 'channel', 'channels'),
+    (props) => getDataPageAndOffset(props)('channel', 'channels'),
 );
 
 export const onGetChannel = createPromiseThunk(CHANNEL_TYPES.GET_CHANNEL, channelAPI.onGetChannel);
@@ -28,20 +29,20 @@ export const onGetChannel = createPromiseThunk(CHANNEL_TYPES.GET_CHANNEL, channe
 export const onGetChannelVideos = createPromiseThunk(
     CHANNEL_TYPES.GET_CHANNEL_VIDEOS,
     channelAPI.onGetChannelVideos,
-    (getState) => getDataPageAndOffset(getState, 'channel', 'channelVideos'),
+    (props) => getDataPageAndOffset(props)('channel', 'channelVideos'),
 );
 
 export const onGetChannelStatistics = createPromiseThunk(
     CHANNEL_TYPES.GET_CHANNEL_STATISTICS,
     channelAPI.onGetChannelStatistics,
-    (getState) => getDataPageAndOffset(getState, 'channel', 'channelStatistics'),
+    (props) => getDataPageAndOffset(props)('channel', 'channelStatistics'),
 );
 
 export const onGetMyChannels = createPromiseThunk(
     CHANNEL_TYPES.GET_MY_CHANNEL,
     channelAPI.onGetMyChannels,
     getAccessTokenFromState,
-    (getState) => getDataPageAndOffset(getState, 'channel', 'myChannels'),
+    (props) => getDataPageAndOffset(props)('channel', 'myChannels'),
 );
 
 export default handleActions(

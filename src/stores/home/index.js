@@ -1,16 +1,13 @@
 import { handleActions } from 'redux-actions';
+import { HOME_TYPES } from 'stores/home/type';
+import { homeState } from 'stores/home/state';
 
-import { HOME_TYPES } from './type';
-import { homeState } from './state';
-import { createPromiseThunk, createPromiseState, setImmutableState } from '../redux';
+import { createPromiseThunk, createFetchState, setImmutableState } from 'lib';
 import * as homeAPI from 'services/home';
 
 const setChannelRealTime = ({ dispatch, data }) => {
     const channelRealTime = data?.realTime;
-    const nextState = createPromiseState.done(
-        channelRealTime?.channels,
-        channelRealTime?.totalCount,
-    );
+    const nextState = createFetchState.done(channelRealTime?.channels, channelRealTime?.totalCount);
     dispatch({
         type: HOME_TYPES.SET_STATE,
         payload: { reducer: 'channelRealTime', nextState },
@@ -19,7 +16,7 @@ const setChannelRealTime = ({ dispatch, data }) => {
 
 const setChannelNew = ({ dispatch, data }) => {
     const channelNew = data?.new;
-    const nextState = createPromiseState.done(channelNew?.channels, channelNew?.totalCount);
+    const nextState = createFetchState.done(channelNew?.channels, channelNew?.totalCount);
 
     dispatch({
         type: HOME_TYPES.SET_STATE,
@@ -42,33 +39,22 @@ export default handleActions(
             const { reducer, nextState } = action.payload;
             return setImmutableState(state, reducer, nextState);
         },
-        [HOME_TYPES.GET_HOME]: (state, _) => {
-            const pendingState = createPromiseState.pending();
-            return setImmutableState(state, 'home', pendingState);
-        },
-        [HOME_TYPES.GET_HOME_DONE]: (state, action) => {
-            const doneState = createPromiseState.done({});
-            return setImmutableState(state, 'home', doneState);
-        },
-        [HOME_TYPES.GET_HOME_ERROR]: (state, action) => {
-            const errorState = createPromiseState.error(action.payload);
-            return setImmutableState(state, 'home', errorState);
-        },
-        [HOME_TYPES.GET_MEDIA_TALK_RANKING]: (state, _) => {
-            const pendingState = createPromiseState.pending();
-            return setImmutableState(state, 'mediaTalkRanking', pendingState);
-        },
-        [HOME_TYPES.GET_MEDIA_TALK_RANKING_DONE]: (state, action) => {
-            const doneState = createPromiseState.done(
-                action.payload?.ipos,
-                action.payload?.totalCount,
-            );
-            return setImmutableState(state, 'mediaTalkRanking', doneState);
-        },
-        [HOME_TYPES.GET_MEDIA_TALK_RANKING_ERROR]: (state, action) => {
-            const errorState = createPromiseState.error(action.payload);
-            return setImmutableState(state, 'mediaTalkRanking', errorState);
-        },
+        [HOME_TYPES.GET_HOME]: (state, _) =>
+            setImmutableState(state, 'home', createFetchState.pending()),
+        [HOME_TYPES.GET_HOME_DONE]: (state, action) =>
+            setImmutableState(state, 'home', createFetchState.done()),
+        [HOME_TYPES.GET_HOME_ERROR]: (state, action) =>
+            setImmutableState(state, 'home', createFetchState.error()),
+        [HOME_TYPES.GET_MEDIA_TALK_RANKING]: (state, _) =>
+            setImmutableState(state, 'mediaTalkRanking', createFetchState.pending()),
+        [HOME_TYPES.GET_MEDIA_TALK_RANKING_DONE]: (state, action) =>
+            setImmutableState(
+                state,
+                'mediaTalkRanking',
+                createFetchState.done(action.payload?.ipos, action.payload?.totalCount),
+            ),
+        [HOME_TYPES.GET_MEDIA_TALK_RANKING_ERROR]: (state, action) =>
+            setImmutableState(state, 'mediaTalkRanking', createFetchState.error(action.payload)),
     },
     homeState,
 );

@@ -1,4 +1,4 @@
-import Request from './request';
+import { Request } from 'lib';
 
 export const onGetArticles = async ({ ...query }) => {
     const url = `/articles`;

@@ -1,11 +1,6 @@
-import { TYPE_DONE, TYPE_ERROR } from '../utils';
+import { initialFetchType } from 'lib';
 
 export const AUTH_TYPES = {
-    ON_LOGIN: 'auth/ON_LOGIN',
-    ON_LOGIN_DONE: TYPE_DONE('auth/ON_LOGIN'),
-    ON_LOGIN_ERROR: TYPE_ERROR('auth/ON_LOGIN'),
-
-    ON_REGISTER: 'auth/ON_REGISTER',
-    ON_REGISTER_DONE: TYPE_DONE('auth/ON_REGISTER'),
-    ON_REGISTER_ERROR: TYPE_ERROR('auth/ON_REGISTER'),
+    ...initialFetchType('ON_LOGIN', 'auth/ON_LOGIN'),
+    ...initialFetchType('ON_REGISTER', 'auth/ON_REGISTER'),
 };

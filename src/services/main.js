@@ -1,4 +1,4 @@
-import Request from './request';
+import { Request } from 'lib';
 
 export const onEmail = async ({ email }) => {
     const url = `/pre-subscriptions`;

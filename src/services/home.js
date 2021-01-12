@@ -1,25 +1,25 @@
-import Request from 'services/request';
+import { Request } from 'lib';
 
-export const onGetHomeChannelRealTime = async ({ page = 0, offset = 6 }) => {
+export const onGetHomeChannelRealTime = async () => {
     const url = '/channels';
-    const query = { offset: page * offset, limit: offset, state: 'all' };
+    const query = { offset: 0, limit: 6, state: 'all' };
 
     const response = await Request.onRequestGet({ url, query });
     return response;
 };
 
-export const onGetHomeChannelNew = async ({ page = 0, offset = 6 }) => {
+export const onGetHomeChannelNew = async () => {
     const url = '/channels';
-    const query = { state: 'ipo', sort: 'desc', page, offset, order: 'createdAt' };
+    const query = { state: 'ipo', sort: 'desc', offset: 0, limit: 6, order: 'createdAt' };
 
     const response = await Request.onRequestGet({ url, query });
     return response;
 };
 
-export const onGetHome = async ({ page = 0, offset = 6 }) => {
+export const onGetHome = async () => {
     const [response1, response2] = await Promise.all([
-        onGetHomeChannelRealTime({ page, offset }),
-        onGetHomeChannelNew({ page, offset }),
+        onGetHomeChannelRealTime(),
+        onGetHomeChannelNew(),
     ]);
 
     if (response1?.status === 200 && response2?.status === 200) {

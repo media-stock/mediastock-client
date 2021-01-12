@@ -1,10 +1,10 @@
 import { Map } from 'immutable';
-import { initialDataState } from '../utils';
+import { initialFetchState } from 'lib';
 
 export const channelState = Map({
-    channels: initialDataState.list,
-    channel: initialDataState.object,
-    channelVideos: initialDataState.list,
-    channelStatistics: initialDataState.list,
-    myChannels: initialDataState.list,
+    channels: initialFetchState.list,
+    channel: initialFetchState.object,
+    channelVideos: initialFetchState.list,
+    channelStatistics: initialFetchState.list,
+    myChannels: initialFetchState.list,
 });

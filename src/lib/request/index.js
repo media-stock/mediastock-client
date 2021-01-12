@@ -1,8 +1,11 @@
 import axios from 'axios';
 import queryString from 'query-string';
-import { API_URL, isDev as dev } from '../config';
 
-export default class Request {
+const dev = process.env.NODE_ENV === 'development' && typeof window !== 'undefined';
+const DEV_SERVER = 'https://8r6rvn3xd8.execute-api.ap-northeast-2.amazonaws.com/dev';
+const SERVER = DEV_SERVER;
+
+export class Request {
     static onError(error) {
         if (error.response) {
             // 반응은 왔지만 에러 발생
@@ -29,11 +32,18 @@ export default class Request {
         if (!query) return '';
         if (Object.keys(query)?.length === 0) return '';
 
-        return `?${queryString.stringify(query)}`;
+        Object.entries(query).map(([key, value]) => {
+            if (typeof value !== 'number' && typeof value !== 'boolean' && !value)
+                delete query[key];
+        });
+
+        const parsedQueryString = queryString.stringify(query);
+        return `?${parsedQueryString}`;
     }
 
     static getEndpoint() {
-        return API_URL;
+        const url = dev ? DEV_SERVER : SERVER;
+        return url;
     }
 
     static getAuthorizationHeader(accessToken) {
@@ -54,7 +64,7 @@ export default class Request {
         const response = await axios.get(url, { headers });
         const status = response?.status;
         const data = response?.data;
-        dev && console.log(`tryRequestGet`, url, query, headers, response);
+        dev && console.log(`tryRequestGet`, url, headers, response);
 
         return { status, data };
     }
@@ -73,7 +83,8 @@ export default class Request {
         const response = await axios.post(url, params, { headers });
         const status = response?.status;
         const data = response?.data;
-        dev && console.log(`tryRequestPost`, url, query, params, headers, response);
+
+        dev && console.log(`tryRequestPost`, url, params, headers, response);
 
         return { status, data };
     }
@@ -97,7 +108,8 @@ export default class Request {
         });
         const status = response?.status;
         const data = response?.data;
-        dev && console.log(`tryRequestPatch`, url, query, params, headers, response);
+
+        dev && console.log(`tryRequestPatch`, url, params, headers, response);
 
         return { status, data };
     }
@@ -121,7 +133,8 @@ export default class Request {
         });
         const status = response?.status;
         const data = response?.data;
-        dev && console.log(`tryRequestDelete`, url, query, params, headers, response);
+
+        dev && console.log(`tryRequestPatch`, url, params, headers, response);
 
         return { status, data };
     }

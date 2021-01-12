@@ -14,16 +14,11 @@ import {
     HomeMediaTalkRanking,
 } from 'components';
 
-export default function HomeContainer() {
-    const dispatch = useDispatch();
-
+export default function HomeContainer({ dispatch, state }) {
     const [sort, setSort] = useState(1);
 
-    const { channelRealTime, channelNew, mediaTalkRanking } = useSelector((state) => ({
-        channelRealTime: state.home.toJS().channelRealTime,
-        channelNew: state.home.toJS().channelNew,
-        mediaTalkRanking: state.home.toJS().mediaTalkRanking,
-    }));
+    const { home } = state;
+    const { channelRealTime, channelNew, mediaTalkRanking } = home?.toJS();
 
     useEffect(() => {
         dispatch(homeActions.onGetMediaTalkRanking({ sort }));

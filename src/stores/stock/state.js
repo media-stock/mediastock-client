@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
-import { initialDataState } from '../utils';
+import { initialFetchState } from 'lib';
 
 export const stockState = Map({
-    ipos: initialDataState.list,
-    ipo: initialDataState.object,
+    ipos: initialFetchState.list,
+    ipo: initialFetchState.object,
 });

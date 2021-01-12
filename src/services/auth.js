@@ -1,4 +1,4 @@
-import Request from './request';
+import { Request } from 'lib';
 
 export const onLogin = async ({ email, password }) => {
     const url = `/sign-in`;

@@ -1,11 +1,11 @@
 import { Map } from 'immutable';
-import { initialDataState } from '../utils';
+import { initialFetchState } from 'lib';
 
 export const articleState = Map({
-    articles: initialDataState.list,
-    article: initialDataState.object,
-    create: initialDataState.object,
-    delete: initialDataState.object,
-    update: initialDataState.object,
-    createComment: initialDataState.object,
+    articles: initialFetchState.list,
+    article: initialFetchState.object,
+    create: initialFetchState.object,
+    delete: initialFetchState.object,
+    update: initialFetchState.object,
+    createComment: initialFetchState.object,
 });

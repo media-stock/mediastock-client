@@ -1,9 +1,13 @@
 import { Map, List } from 'immutable';
 
+export * from './createPromiseThunk';
+export * from './immutable';
+export * from './getDataFromState';
+
 export const TYPE_DONE = (type) => `${type}_DONE`;
 export const TYPE_ERROR = (type) => `${type}_ERROR`;
 
-export const initialDataState = {
+export const initialFetchState = {
     list: Map({
         pending: false,
         done: false,
@@ -20,3 +24,9 @@ export const initialDataState = {
         data: Map({}),
     }),
 };
+
+export const initialFetchType = (key, value) => ({
+    [key]: `${value}`,
+    [TYPE_DONE(key)]: TYPE_DONE(value),
+    [TYPE_ERROR(key)]: TYPE_ERROR(value),
+});

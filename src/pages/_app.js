@@ -1,9 +1,10 @@
 import React from 'react';
+import App from 'next/app';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 // redux
-import { useStore } from 'react-redux';
 import { wrapper } from 'stores';
+import { ReactReduxContext } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 // components
@@ -14,39 +15,57 @@ const isBrowser = () => typeof window !== 'undefined';
 
 export const GlobalStyle = createGlobalStyle`
     html,
-    body, h1, h2, h3, h4, h5, p {
+    body {
         margin: 0;
     }
-
     * {
         box-sizing: border-box;
     }
 `;
 
-function MyApp({ Component, pageProps }) {
-    const store = useStore((state) => state);
+class WrappedApp extends App {
+    static getInitialProps = async ({ Component, ctx }) => {
+        const page = isBrowser() ? 'client' : 'server';
+        ctx.store.dispatch({ type: 'PAGE', payload: page });
 
-    return isBrowser() ? (
-        <PersistGate persistor={store.__persistor} loading={null}>
-            <GlobalStyle />
-            <DefaultHelmet />
-            <ThemeProvider theme={theme}>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </ThemeProvider>
-        </PersistGate>
-    ) : (
-        <>
-            <GlobalStyle />
-            <DefaultHelmet />
-            <ThemeProvider theme={theme}>
-                <Layout>
-                    <Component {...pageProps} />
-                </Layout>
-            </ThemeProvider>
-        </>
-    );
+        return {
+            pageProps: {
+                ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
+                appProp: ctx.pathname,
+            },
+            store: ctx.store,
+        };
+    };
+
+    render() {
+        const { Component, pageProps } = this.props;
+
+        return isBrowser() ? (
+            <>
+                <DefaultHelmet />
+                <ReactReduxContext.Consumer>
+                    {({ store }) => (
+                        <PersistGate persistor={store.__persistor}>
+                            <ThemeProvider theme={theme}>
+                                <Layout>
+                                    <Component {...pageProps} />
+                                </Layout>
+                            </ThemeProvider>
+                        </PersistGate>
+                    )}
+                </ReactReduxContext.Consumer>
+            </>
+        ) : (
+            <>
+                <DefaultHelmet />
+                <ThemeProvider theme={theme}>
+                    <Layout>
+                        <Component {...pageProps} />
+                    </Layout>
+                </ThemeProvider>
+            </>
+        );
+    }
 }
 
-export default wrapper.withRedux(MyApp);
+export default wrapper.withRedux(WrappedApp);

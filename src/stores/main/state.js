@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
-import { initialDataState } from '../utils';
+import { initialFetchState } from 'lib';
 
 export const mainState = Map({
-    email: initialDataState.object,
+    email: initialFetchState.object,
 });

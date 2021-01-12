@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
-import { initialDataState } from '../utils';
+import { initialFetchState } from 'lib';
 
 export const authState = Map({
-    login: initialDataState.object,
-    register: initialDataState.object,
+    login: initialFetchState.object,
+    register: initialFetchState.object,
 });

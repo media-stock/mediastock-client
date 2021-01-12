@@ -1,31 +1,15 @@
 import { TYPE_DONE, TYPE_ERROR } from '../utils';
+import { initialFetchType } from 'lib';
 
 export const ARTICLE_TYPES = {
     SET_STATE: 'aritcle/SET_STATE',
     SET_RESET: 'article/SET_RESET',
     SET_PAGE: 'article/SET_PAGE',
 
-    GET_ARTICLES: 'article/GET_ARTICLES',
-    GET_ARTICLES_DONE: TYPE_DONE('article/GET_ARTICLES'),
-    GET_ARTICLES_ERROR: TYPE_ERROR('article/GET_ARTICLES'),
-
-    GET_ARTICLE: 'article/GET_ARTICLE',
-    GET_ARTICLE_DONE: TYPE_DONE('article/GET_ARTICLE'),
-    GET_ARTICLE_ERROR: TYPE_ERROR('article/GET_ARTICLE'),
-
-    CREATE_ARTICLE: 'article/CREATE_ARTICLE',
-    CREATE_ARTICLE_DONE: TYPE_DONE('article/CREATE_ARTICLE'),
-    CREATE_ARTICLE_ERROR: TYPE_ERROR('article/CREATE_ARTICLE'),
-
-    DELETE_ARTICLE: 'article/DELETE_ARTICLE',
-    DELETE_ARTICLE_DONE: TYPE_DONE('article/DELETE_ARTICLE'),
-    DELETE_ARTICLE_ERROR: TYPE_ERROR('article/DELETE_ARTICLE'),
-
-    UPDATE_ARTICLE: 'article/UPDATE_ARTICLE',
-    UPDATE_ARTICLE_DONE: TYPE_DONE('article/DELETE_ARTICLE'),
-    UPDATE_ARTICLE_ERROR: TYPE_ERROR('article/DELETE_ARTICLE'),
-
-    CREATE_COMMENT: 'article/CREATE_COMMENT',
-    CREATE_COMMENT_DONE: TYPE_DONE('article/CREATE_COMMENT'),
-    CREATE_COMMENT_ERROR: TYPE_ERROR('article/CREATE_COMMENT'),
+    ...initialFetchType('GET_ARTICLES', 'article/GET_ARTICLES'),
+    ...initialFetchType('GET_ARTICLE', 'article/GET_ARTICLE'),
+    ...initialFetchType('CREATE_ARTICLE', 'article/CREATE_ARTICLE'),
+    ...initialFetchType('DELETE_ARTICLE', 'article/DELETE_ARTICLE'),
+    ...initialFetchType('UPDATE_ARTICLE', 'article/UPDATE_ARTICLE'),
+    ...initialFetchType('CREATE_COMMENT', 'article/CREATE_COMMENT'),
 };

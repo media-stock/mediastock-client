@@ -1,9 +1,9 @@
 import { Map } from 'immutable';
-import { initialDataState } from '../utils';
+import { initialFetchState } from 'lib';
 
 export const homeState = Map({
-    home: initialDataState.object,
-    channelRealTime: initialDataState.list,
-    channelNew: initialDataState.list,
-    mediaTalkRanking: initialDataState.list,
+    home: initialFetchState.object,
+    channelRealTime: initialFetchState.list,
+    channelNew: initialFetchState.list,
+    mediaTalkRanking: initialFetchState.list,
 });
