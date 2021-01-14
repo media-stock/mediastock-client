@@ -3,6 +3,7 @@ import { Map, List } from 'immutable';
 export * from './createPromiseThunk';
 export * from './immutable';
 export * from './getDataFromState';
+export * from './setDataFromDispatch';
 
 export const TYPE_DONE = (type) => `${type}_DONE`;
 export const TYPE_ERROR = (type) => `${type}_ERROR`;

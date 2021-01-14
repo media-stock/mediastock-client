@@ -40,7 +40,7 @@ const columns = () => [
 export default function ChannelVideoList() {
     const router = useRouter();
     const subPage = router.query?.subPage;
-    if (subPage !== 'list') return null;
+    if (subPage !== 'request-list') return null;
 
     const dispatch = useDispatch();
     const { setPage, setState, onGetChannels } = bindActionCreators(channelActions, dispatch);
@@ -62,7 +62,7 @@ export default function ChannelVideoList() {
 
     const onReload = () => {
         setState();
-        setPage({ page: 0, offset, type: 'channels' });
+        setPage({ page: 0, offset, type: 'channels', state: 'ipo' });
         onGetChannels();
     };
 
@@ -72,7 +72,7 @@ export default function ChannelVideoList() {
     }, [subPage]);
 
     React.useEffect(() => {
-        onGetChannels();
+        onGetChannels({ state: 'ipo' });
     }, [page, offset]);
 
     return (

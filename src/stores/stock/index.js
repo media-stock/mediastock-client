@@ -1,54 +1,48 @@
-import { createAction, handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
 import { stockState } from './state';
 import { STOCK_TYPES } from './type';
 import {
     createPromiseThunk,
-    createPromiseState,
+    createFetchState,
     setImmutableState,
     getDataPageAndOffset,
-} from '../redux';
+    onSetPageDispatch,
+    onSetStateDispatch,
+    TYPE_PAGE,
+    TYPE_STATE,
+    setPageState,
+    setInitialState,
+} from 'lib';
 import * as stockAPI from 'services/stock';
 
-export const setIPOsReset = createAction(STOCK_TYPES.SET_IPOS_RESET);
-export const setIPOsPage = createAction(STOCK_TYPES.SET_IPOS_PAGE);
+export const setPage = onSetPageDispatch('stock');
+export const setState = onSetStateDispatch('stock');
 
 export const onGetIPOs = createPromiseThunk(STOCK_TYPES.GET_IPOS, stockAPI.onGetIPOs, (getState) =>
-    getDataPageAndOffset(getState, 'stock', 'ipos'),
+    getDataPageAndOffset(getState)('stock', 'ipos'),
 );
 export const onGetIPO = createPromiseThunk(STOCK_TYPES.GET_IPO, stockAPI.onGetIPO);
 
 export default handleActions(
     {
-        [STOCK_TYPES.GET_IPOS]: (state, action) => {
-            const pendingState = createPromiseState.pending();
-            return setImmutableState(state, 'ipos', pendingState);
-        },
-        [STOCK_TYPES.GET_IPOS_DONE]: (state, action) => {
-            return state
-                .setIn(['ipos', 'pending'], false)
-                .setIn(['ipos', 'error'], null)
-                .setIn(
-                    ['ipos', 'data'],
-                    [...state.getIn(['ipos', 'data']), ...action.payload?.ipos],
-                )
-                .setIn(['ipos', 'dataCount'], action.payload?.totalCount);
-        },
-        [STOCK_TYPES.GET_IPOS_ERROR]: (state, action) => {
-            const errorState = createPromiseState.error(action.payload);
-            return setImmutableState(state, 'ipos', errorState);
-        },
-        [STOCK_TYPES.GET_IPO]: (state, action) => {
-            const pendingState = createPromiseState.pending();
-            return setImmutableState(state, 'ipo', pendingState);
-        },
-        [STOCK_TYPES.GET_IPO_DONE]: (state, action) => {
-            const doneState = createPromiseState.done(action.payload?.ipo);
-            return setImmutableState(state, 'ipo', doneState);
-        },
-        [STOCK_TYPES.GET_IPO_ERROR]: (state, action) => {
-            const errorState = createPromiseState.error(action.payload);
-            return setImmutableState(state, 'ipo', errorState);
-        },
+        [TYPE_PAGE('stock')]: setPageState,
+        [TYPE_STATE('stock')]: (...props) => setInitialState(...props, stockState),
+        [STOCK_TYPES.GET_IPOS]: (state, action) =>
+            setImmutableState(state, 'ipos', createFetchState.pending()),
+        [STOCK_TYPES.GET_IPOS_DONE]: (state, action) =>
+            setImmutableState(
+                state,
+                'ipos',
+                createFetchState.done(action.payload?.ipos, action.payload?.totalCount),
+            ),
+        [STOCK_TYPES.GET_IPOS_ERROR]: (state, action) =>
+            setImmutableState(state, 'ipos', createFetchState.error(action.payload)),
+        [STOCK_TYPES.GET_IPO]: (state, action) =>
+            setImmutableState(state, 'ipo', createFetchState.pending()),
+        [STOCK_TYPES.GET_IPO_DONE]: (state, action) =>
+            setImmutableState(state, 'ipo', action.payload?.ipo),
+        [STOCK_TYPES.GET_IPO_ERROR]: (state, action) =>
+            setImmutableState(state, 'ipo', createFetchState.error(action.payload)),
     },
     stockState,
 );

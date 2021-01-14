@@ -4,6 +4,8 @@ export const onGetChannels = async (query) => {
     const url = `/channels`;
 
     const response = await Request.onRequestGet({ url, query });
+
+    console.log(url, query, response);
     return response;
 };
 

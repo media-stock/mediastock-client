@@ -81,6 +81,13 @@ export default function AdminLayout({ children }) {
                             >
                                 채널 목록
                             </Menu.Item>
+
+                            <Menu.Item
+                                key="channel-request-list"
+                                onClick={() => onClickMenu('channel', 'request-list')}
+                            >
+                                등록 채널 목록
+                            </Menu.Item>
                         </SubMenu>
 
                         <SubMenu key="article" icon={<TeamOutlined />} title="게시판">
@@ -92,12 +99,30 @@ export default function AdminLayout({ children }) {
                             </Menu.Item>
                         </SubMenu>
 
-                        <SubMenu key="stock" icon={<TeamOutlined />} title="주식">
+                        <SubMenu key="stock" icon={<TeamOutlined />} title="경매">
                             <Menu.Item
                                 key="ipo-list"
                                 onClick={() => onClickMenu('stock', 'ipo-list')}
                             >
-                                IPO 목록
+                                경매 목록
+                            </Menu.Item>
+                            <Menu.Item
+                                key="ipo-request-list"
+                                onClick={() => onClickMenu('stock', 'ipo-request-list')}
+                            >
+                                경매 대기 목록
+                            </Menu.Item>
+                            <Menu.Item
+                                key="ipo-done-list"
+                                onClick={() => onClickMenu('stock', 'ipo-done-list')}
+                            >
+                                경매 마감 목록
+                            </Menu.Item>
+                            <Menu.Item
+                                key="ipo-delete-list"
+                                onClick={() => onClickMenu('stock', 'ipo-delete-list')}
+                            >
+                                경매 삭제 목록
                             </Menu.Item>
                         </SubMenu>
 

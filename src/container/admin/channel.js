@@ -2,16 +2,19 @@ import React from 'react';
 
 import {
     AdminChannelList,
+    AdminRequestChannelList,
     AdminChannelDetail,
     AdminChannelVideoList,
     AdminChannelVideoDetail,
 } from 'components';
 
 export default function AdminChannelContainer({ subPage }) {
+    console.log(`AdminChannelContainer`, subPage);
     return (
         <>
             <AdminChannelList />
-            <AdminChannelDetail />
+            <AdminRequestChannelList />
+            {subPage === 'detail' && <AdminChannelDetail />}
             <AdminChannelVideoDetail />
         </>
     );

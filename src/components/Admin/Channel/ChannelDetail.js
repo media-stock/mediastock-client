@@ -15,7 +15,7 @@ export default function AdminChannelDetail() {
     const router = useRouter();
     const subPage = router.query?.subPage;
     const id = router.query?.channelId;
-    if (!id || subPage !== 'list') return null;
+    if (!id) return null;
 
     const dispatch = useDispatch();
     const { onGetChannel, onGetChannelStatistics } = bindActionCreators(channelActions, dispatch);

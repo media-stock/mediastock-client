@@ -1,22 +1,24 @@
-import { createAction, handleActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
 import { channelState } from 'stores/channel/state';
 import { CHANNEL_TYPES } from 'stores/channel/type';
 
-import { createPromiseThunk, getDataPageAndOffset } from 'lib';
-
 import {
-    createPromiseState,
-    createInitialState,
-    setStateFromData,
-    setStatePageAndOffset,
-    setInitialState,
+    createPromiseThunk,
+    createFetchState,
     setImmutableState,
+    getDataPageAndOffset,
     getAccessTokenFromState,
-} from '../redux';
+    onSetPageDispatch,
+    onSetStateDispatch,
+    TYPE_PAGE,
+    TYPE_STATE,
+    setPageState,
+    setInitialState,
+} from 'lib';
 import * as channelAPI from 'services/channel';
 
-export const setState = createAction(CHANNEL_TYPES.SET_STATE);
-export const setPage = createAction(CHANNEL_TYPES.SET_PAGE);
+export const setPage = onSetPageDispatch('channel');
+export const setState = onSetStateDispatch('channel');
 
 export const onGetChannels = createPromiseThunk(
     CHANNEL_TYPES.GET_CHANNELS,
@@ -47,81 +49,46 @@ export const onGetMyChannels = createPromiseThunk(
 
 export default handleActions(
     {
-        [CHANNEL_TYPES.SET_STATE]: setStateFromData,
-        [CHANNEL_TYPES.SET_PAGE]: setStatePageAndOffset,
-        [CHANNEL_TYPES.SET_RESET]: (state, action) =>
-            createInitialState(state, action, channelState),
-
-        [CHANNEL_TYPES.GET_CHANNELS]: (state, _) => {
-            const pendingState = createPromiseState.pending();
-            return setImmutableState(state, 'channels', pendingState);
-        },
-        [CHANNEL_TYPES.GET_CHANNELS_DONE]: (state, action) => {
-            const doneState = createPromiseState.done(
-                action.payload?.channels,
-                action.payload?.totalCount,
-            );
-            return setImmutableState(state, 'channels', doneState);
-        },
-        [CHANNEL_TYPES.GET_CHANNELS_ERROR]: (state, action) => {
-            const errorState = createPromiseState.error(action?.payload);
-            return setImmutableState(state, 'channels', errorState);
-        },
-        [CHANNEL_TYPES.GET_CHANNEL]: (state, _) => {
-            const pendingState = createPromiseState.pending();
-            return setImmutableState(state, 'channel', pendingState);
-        },
-        [CHANNEL_TYPES.GET_CHANNEL_DONE]: (state, action) => {
-            const doneState = createPromiseState.done(action.payload?.channel);
-            return setImmutableState(state, 'channel', doneState);
-        },
-        [CHANNEL_TYPES.GET_CHANNEL_ERROR]: (state, action) => {
-            const errorState = createPromiseState.error(action?.payload);
-            return setImmutableState(state, 'channel', errorState);
-        },
-        [CHANNEL_TYPES.GET_CHANNEL_VIDEOS]: (state, _) => {
-            const pendingState = createPromiseState.pending();
-            return setImmutableState(state, 'channelVideos', pendingState);
-        },
-        [CHANNEL_TYPES.GET_CHANNEL_VIDEOS_DONE]: (state, action) => {
-            const { totalCount, videos } = action.payload;
-
-            const doneState = createPromiseState.done(videos, totalCount);
-            return setImmutableState(state, 'channelVideos', doneState);
-        },
-        [CHANNEL_TYPES.GET_CHANNEL_VIDEOS_ERROR]: (state, action) => {
-            const errorState = createPromiseState.error(action?.payload);
-            return setImmutableState(state, 'channelVideos', errorState);
-        },
-        [CHANNEL_TYPES.GET_CHANNEL_STATISTICS]: (state, action) => {
-            const pendingState = createPromiseState.pending();
-            return setImmutableState(state, 'channelStatistics', pendingState);
-        },
-        [CHANNEL_TYPES.GET_CHANNEL_STATISTICS_DONE]: (state, action) => {
-            const { statistics } = action.payload;
-
-            return state
-                .setIn(['channelStatistics', 'pending'], false)
-                .setIn(['channelStatistics', 'error'], null)
-                .setIn(['channelStatistics', 'dataCount'], statistics?.length)
-                .setIn(['channelStatistics', 'data'], statistics);
-        },
-        [CHANNEL_TYPES.GET_CHANNEL_STATISTICS_ERROR]: (state, action) => {
-            const errorState = createPromiseState.error(action.payload);
-            return setImmutableState(state, 'channelStatistics', errorState);
-        },
-        [CHANNEL_TYPES.GET_MY_CHANNEL]: (state, action) => {
-            const pendingState = createPromiseState.pending();
-            return setImmutableState(state, 'myChannels', pendingState);
-        },
-        [CHANNEL_TYPES.GET_MY_CHANNEL_DONE]: (state, action) => {
-            const doneState = createPromiseState.done([]);
-            return setImmutableState(state, 'myChannels', doneState);
-        },
-        [CHANNEL_TYPES.GET_MY_CHANNEL]: (state, action) => {
-            const errorState = createPromiseState.error(action.payload);
-            return setImmutableState(state, 'myChannels', errorState);
-        },
+        [TYPE_PAGE('channel')]: setPageState,
+        [TYPE_STATE('channel')]: (...props) => setInitialState(...props, channelState),
+        [CHANNEL_TYPES.GET_CHANNELS]: (state, _) =>
+            setImmutableState(state, 'channels', createFetchState.pending()),
+        [CHANNEL_TYPES.GET_CHANNELS_DONE]: (state, action) =>
+            setImmutableState(
+                state,
+                'channels',
+                createFetchState.done(action.payload?.channels, action.payload?.totalCount),
+            ),
+        [CHANNEL_TYPES.GET_CHANNELS_ERROR]: (state, action) =>
+            setImmutableState(state, 'channels', createFetchState.error(action.payload)),
+        [CHANNEL_TYPES.GET_CHANNEL]: (state, _) =>
+            setImmutableState(state, 'channel', createFetchState.pending()),
+        [CHANNEL_TYPES.GET_CHANNEL_DONE]: (state, action) =>
+            setImmutableState(state, 'channel', createFetchState.done()),
+        [CHANNEL_TYPES.GET_CHANNEL_ERROR]: (state, action) =>
+            setImmutableState(state, 'channel', createFetchState.error(action.payload)),
+        [CHANNEL_TYPES.GET_CHANNEL_VIDEOS]: (state, _) =>
+            setImmutableState(state, 'channelVideos', createFetchState.pending()),
+        [CHANNEL_TYPES.GET_CHANNEL_VIDEOS_DONE]: (state, action) =>
+            setImmutableState(
+                state,
+                'channelVideos',
+                createFetchState.done(action.payload?.videos, action.payload?.totalCount),
+            ),
+        [CHANNEL_TYPES.GET_CHANNEL_VIDEOS_ERROR]: (state, action) =>
+            setImmutableState(state, 'channelVideos', createFetchState.error(action.payload)),
+        [CHANNEL_TYPES.GET_CHANNEL_STATISTICS]: (state, action) =>
+            setImmutableState(state, 'channelStatistics', createFetchState.pending()),
+        [CHANNEL_TYPES.GET_CHANNEL_STATISTICS_DONE]: (state, action) =>
+            setImmutableState(state, 'channelStatistics', createFetchState.done()),
+        [CHANNEL_TYPES.GET_CHANNEL_STATISTICS_ERROR]: (state, action) =>
+            setImmutableState(state, 'channelStatistics', createFetchState.error(action.payload)),
+        [CHANNEL_TYPES.GET_MY_CHANNEL]: (state, action) =>
+            setImmutableState(state, 'myChannels', createFetchState.pending()),
+        [CHANNEL_TYPES.GET_MY_CHANNEL_DONE]: (state, action) =>
+            setImmutableState(state, 'myChannels', createFetchState.done(action.payload)),
+        [CHANNEL_TYPES.GET_MY_CHANNEL]: (state, action) =>
+            setImmutableState(state, 'myChannels', createFetchState.error(action.payload)),
     },
     channelState,
 );
