@@ -9,7 +9,7 @@ import { metalkMarketHelmet as helmet } from 'config';
 import { wrapperComponent } from 'stores';
 import { onGetMarkets } from 'stores/market';
 
-const query = {};
+const query = { state: 'ipo' };
 
 function MetalkMarktetPage({ state, dispatch }) {
     React.useEffect(() => {
