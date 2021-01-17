@@ -6,8 +6,11 @@ import { faSearch, faStream } from '@fortawesome/free-solid-svg-icons';
 import { Header, MarketMainList, MarketDetailList } from 'components';
 import { UIHeaderText, UIInput, UIText } from 'ui';
 
-export default function MeTalkMarktetContainer() {
+export default function MeTalkMarktetContainer({ state, dispatch }) {
     const [active, setActive] = useState('main');
+
+    const markets = state.market?.toJS()?.markets;
+    const data = markets?.data;
 
     const onClickAlign = () => {
         if (active === 'main') setActive('detail');
@@ -28,18 +31,12 @@ export default function MeTalkMarktetContainer() {
                 <Text>정렬기준</Text>
             </AlignWrapper>
             <ListWrapper>
-                <MarketMainList active={active} />
+                <MarketMainList active={active} markets={data} />
                 <MarketDetailList active={active} />
             </ListWrapper>
         </>
     );
 }
-
-const HeaderText = styled(UIHeaderText)`
-    margin-bottom: 10px;
-
-    text-align: center;
-`;
 
 const SearchInputView = styled.div`
     margin-bottom: 1rem;

@@ -3,17 +3,17 @@ import styled, { css } from 'styled-components';
 
 import { UIText, UIHeaderText } from 'ui';
 
-export default function MarketMainListItem({ profile, name = '감스트' }) {
+export default function MarketMainListItem({ market }) {
     return (
         <ItemWrapper>
-            <ItemProfile src="/sample-profile.png" alt="profile" />
+            <ItemProfile src={market?.thumbnail} alt="profile" />
             <ItemNameWrapper>
-                <ProfileName size="h3">{name}</ProfileName>
+                <ProfileName size="h3">{market?.name}</ProfileName>
                 유튜브
             </ItemNameWrapper>
             <ItemMoneyWrapper>
                 <TokText text>현재가</TokText>
-                <TokText type="red">30,000톡</TokText>
+                <TokText type="red">{market?.initialPrice}톡</TokText>
             </ItemMoneyWrapper>
             <ItemPercentWrapper>
                 <PercentText type="red">▲2,500</PercentText>

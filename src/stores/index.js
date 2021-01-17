@@ -19,6 +19,7 @@ import channel from 'stores/channel';
 import stock from 'stores/stock';
 
 import home from 'stores/home';
+import market from 'stores/market';
 
 const rootReducers = combineReducers({
     auth,
@@ -29,6 +30,7 @@ const rootReducers = combineReducers({
     stock,
 
     home,
+    market,
 });
 
 const getReducers = (state = {}, action) =>

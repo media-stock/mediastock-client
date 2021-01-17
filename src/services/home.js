@@ -33,9 +33,9 @@ export const onGetHome = async () => {
     }
 };
 
-export const onGetMediaTalkRanking = async () => {
+export const onGetMediaTalkRanking = async (query) => {
     const url = '/ipos';
 
-    const response = await Request.onRequestGet({ url });
+    const response = await Request.onRequestGet({ url, query });
     return response;
 };

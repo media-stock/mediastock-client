@@ -2,22 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import MarketMainListItem from './MainListItem';
 
-export default function MarketMainList({ active }) {
+export default function MarketMainList({ active, markets }) {
     if (active === 'detail') return null;
-    return (
-        <ListWrapper>
-            <MarketMainListItem />
-            <MarketMainListItem />
-            <MarketMainListItem />
-            <MarketMainListItem />
-            <MarketMainListItem />
-            <MarketMainListItem />
-            <MarketMainListItem />
-            <MarketMainListItem />
-            <MarketMainListItem />
-            <MarketMainListItem />
-        </ListWrapper>
-    );
+
+    const marketList = markets?.map((market) => (
+        <MarketMainListItem key={market?.id} market={market} />
+    ));
+
+    return <ListWrapper>{marketList}</ListWrapper>;
 }
 
 const ListWrapper = styled.div`

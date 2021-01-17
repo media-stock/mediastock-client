@@ -5,11 +5,22 @@ import MeTalkMarktetContainer from 'container/market';
 import { Helmet } from 'components';
 import { metalkMarketHelmet as helmet } from 'config';
 
-export default function MeTalkMarktetPage() {
+// redux
+import { wrapperComponent } from 'stores';
+import { onGetMarkets } from 'stores/market';
+
+const query = {};
+
+function MetalkMarktetPage({ state, dispatch }) {
+    React.useEffect(() => {
+        dispatch(onGetMarkets(query));
+    }, []);
     return (
         <>
             <Helmet helmet={helmet} />
-            <MeTalkMarktetContainer />
+            <MeTalkMarktetContainer state={state} dispatch={dispatch} />
         </>
     );
 }
+
+export default wrapperComponent(MetalkMarktetPage, () => onGetMarkets(query));

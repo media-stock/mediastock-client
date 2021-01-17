@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import * as homeActions from 'stores/home';
+import { onGetMediaTalkRanking } from 'stores/home';
 
 // components
 import {
@@ -21,7 +20,7 @@ export default function HomeContainer({ dispatch, state }) {
     const { channelRealTime, channelNew, mediaTalkRanking } = home?.toJS();
 
     useEffect(() => {
-        dispatch(homeActions.onGetMediaTalkRanking({ sort }));
+        dispatch(onGetMediaTalkRanking({ sort }));
     }, [sort]);
 
     return (
