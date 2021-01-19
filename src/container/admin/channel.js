@@ -14,7 +14,7 @@ export default function AdminChannelContainer({ subPage }) {
         <>
             <AdminChannelList />
             <AdminRequestChannelList />
-            {subPage === 'detail' && <AdminChannelDetail />}
+            <AdminChannelDetail />
             <AdminChannelVideoDetail />
         </>
     );

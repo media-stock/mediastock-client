@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as channelActions from 'stores/channel';
+import * as adminActions from 'stores/admin';
 
 // components
 import { AdminTable, AdminButton } from 'components';
@@ -43,10 +43,10 @@ export default function ChannelVideoList() {
     if (subPage !== 'request-list') return null;
 
     const dispatch = useDispatch();
-    const { setPage, setState, onGetChannels } = bindActionCreators(channelActions, dispatch);
+    const { setPage, onGetChannels } = bindActionCreators(adminActions, dispatch);
 
-    const channels = useSelector((state) => state.channel.toJS().channels);
-    const { data, dataCount, pending, page, offset } = channels;
+    const channels = useSelector((state) => state.admin.toJS().channels);
+    const { data, dataCount, page, offset } = channels;
 
     const onItemClick = useCallback((id) => {
         router.push({
@@ -55,20 +55,14 @@ export default function ChannelVideoList() {
         });
     });
 
-    const setPagination = (state) => {
-        const { page, offset } = state;
+    const setPagination = ({ page, offset }) => {
         setPage({ page, offset, type: 'channels' });
     };
 
-    const onReload = () => {
-        setState();
-        setPage({ page: 0, offset, type: 'channels', state: 'ipo' });
-        onGetChannels();
-    };
+    const onReload = () => {};
 
     React.useEffect(() => {
         if (subPage !== 'list') return null;
-        onReload();
     }, [subPage]);
 
     React.useEffect(() => {

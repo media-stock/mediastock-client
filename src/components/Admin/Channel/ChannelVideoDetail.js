@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 
 // antd
 import { Modal } from 'antd';
@@ -11,7 +10,7 @@ import { AdminTable, AdminSpinner, AdminError } from 'components';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as channelActions from 'stores/channel';
+import * as adminActions from 'stores/admin';
 
 const columns = () => [
     {
@@ -40,60 +39,49 @@ export default function AdminChannelDetail() {
     const router = useRouter();
     const video = router.query?.video;
     const channelId = router.query?.channelId;
-    if (video !== 'true') return null;
+    if (video !== 'true' || !channelId) return null;
 
     const dispatch = useDispatch();
-    const { setPage, onGetChannelVideos } = bindActionCreators(channelActions, dispatch);
+    const { setPage, onGetChannelVideos } = bindActionCreators(adminActions, dispatch);
 
-    const { channelVideos } = useSelector((state) => ({
-        channelVideos: state.channel.toJS().channelVideos,
-    }));
+    const channelVideos = useSelector((state) => state.admin.toJS().channelVideos);
     const { data, dataCount, pending, error, page, offset } = channelVideos;
 
-    const onItemClick = useCallback((id) => {
+    const onItemClick = (id) => {
         console.log(`AdminChannelDetail`, id);
-    });
+    };
 
-    const setPagination = useCallback((state) => {
-        const { page, offset } = state;
+    const setPagination = ({ page, offset }) => {
         setPage({ page, offset, type: 'channelVideos' });
-    });
+    };
 
-    const onCancel = useCallback(() => {
+    const onCancel = () => {
         router.back();
-    });
+    };
 
     useEffect(() => {
         onGetChannelVideos({ id: channelId, sort: 'viewCount' });
     }, [channelId]);
 
-    useEffect(() => {
-        onGetChannelVideos({ id: channelId, sort: 'viewCount' });
-    }, [page, offset]);
-
     return (
-        <>
-            <Modal
-                title={`채널 자세히 보기 - ${channelId}`}
-                centered
-                width="95%"
-                visible={!!channelId}
-                onCancel={onCancel}
-            >
-                <AdminTable
-                    columns={columns}
-                    data={data}
-                    dataCount={dataCount}
-                    page={page}
-                    offset={offset}
-                    onItemClick={onItemClick}
-                    setPagination={setPagination}
-                />
-                <AdminSpinner view={pending} />
-                <AdminError view={!!error} error={error} />
-            </Modal>
-        </>
+        <Modal
+            title={`채널 자세히 보기 - ${channelId}`}
+            centered
+            width="95%"
+            visible={!!channelId}
+            onCancel={onCancel}
+        >
+            <AdminTable
+                columns={columns}
+                data={data}
+                dataCount={dataCount}
+                page={page}
+                offset={offset}
+                onItemClick={onItemClick}
+                setPagination={setPagination}
+            />
+            <AdminSpinner view={pending} />
+            <AdminError view={!!error} error={error} />
+        </Modal>
     );
 }
-
-const AdminChannelDetailView = styled.div``;

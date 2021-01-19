@@ -4,4 +4,6 @@ import { initialFetchState } from 'lib';
 export const adminState = Map({
     channels: initialFetchState.list,
     channel: initialFetchState.object,
+    channelVideos: initialFetchState.list,
+    channelStatistics: initialFetchState.list,
 });

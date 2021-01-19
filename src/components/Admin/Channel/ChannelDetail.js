@@ -9,7 +9,7 @@ import { AdminSpinner, AdminError, AdminButton } from 'components';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as channelActions from 'stores/channel';
+import * as adminActions from 'stores/admin';
 
 export default function AdminChannelDetail() {
     const router = useRouter();
@@ -18,11 +18,11 @@ export default function AdminChannelDetail() {
     if (!id) return null;
 
     const dispatch = useDispatch();
-    const { onGetChannel, onGetChannelStatistics } = bindActionCreators(channelActions, dispatch);
+    const { onGetChannel, onGetChannelStatistics } = bindActionCreators(adminActions, dispatch);
 
     const { channel, channelStatistics } = useSelector((state) => ({
-        channel: state.channel.toJS().channel,
-        channelStatistics: state.channel.toJS().channelStatistics,
+        channel: state.admin.toJS().channel,
+        channelStatistics: state.admin.toJS().channelStatistics,
     }));
     const { data, pending, error } = channel;
     const recentStatistics =
