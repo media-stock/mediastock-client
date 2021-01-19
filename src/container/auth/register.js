@@ -60,9 +60,11 @@ export default function RegisterContainer() {
     }, []);
 
     React.useEffect(() => {
-        if (done) {
-            router.replace('/auth/login');
-        }
+        if (done)
+            router.replace({
+                pathname: router.pathname,
+                query: { ...router.query, auth: 'login' },
+            });
     }, [done]);
 
     if (!view) return null;

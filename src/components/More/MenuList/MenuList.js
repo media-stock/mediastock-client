@@ -39,9 +39,11 @@ export default function MenuList() {
                 </MenuItemView>
             </Link>
 
-            <MenuItemView>
-                <UIText>로그아웃</UIText>
-            </MenuItemView>
+            <Link href="/logout">
+                <MenuItemView>
+                    <UIText>로그아웃</UIText>
+                </MenuItemView>
+            </Link>
         </MenuListView>
     );
 }
