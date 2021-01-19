@@ -8,7 +8,7 @@ import { AdminSpinner, AdminError } from 'components';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as articleActions from 'stores/article';
+import * as adminActions from 'stores/admin';
 
 const { Search } = Input;
 // const { Option } = Select;
@@ -19,14 +19,9 @@ export default function AdminArticleCreate({ width = 1000 }) {
     if (create !== 'true') return null;
 
     const dispatch = useDispatch();
-    const { setPage, onGetArticles, onCreateArticle } = bindActionCreators(
-        articleActions,
-        dispatch,
-    );
+    const { setPage, onGetArticles, onCreateArticle } = bindActionCreators(adminActions, dispatch);
 
-    const { createArticle } = useSelector((state) => ({
-        createArticle: state.article.toJS().create,
-    }));
+    const createArticle = useSelector((state) => state.admin.toJS().createArticle);
     const { done, pending, error } = createArticle;
 
     const [input, setInput] = useState({

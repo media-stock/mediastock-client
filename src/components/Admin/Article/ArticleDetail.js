@@ -8,29 +8,29 @@ import { AdminSpinner, AdminError } from 'components';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as articleActions from 'stores/article';
+import * as adminActions from 'stores/admin';
 
-export default function AdminArticleDetail({ subPage }) {
+export default function AdminArticleDetail() {
     const router = useRouter();
     const id = router.query?.articleId;
 
     const dispatch = useDispatch();
-    const { onGetArticle } = bindActionCreators(articleActions, dispatch);
+    const { onGetArticle } = bindActionCreators(adminActions, dispatch);
 
-    const { article } = useSelector((state) => ({
-        article: state.article.toJS().article,
-    }));
+    const article = useSelector((state) => state.admin.toJS().article);
     const { data, pending, error } = article;
 
-    const onCancel = useCallback(() => {
+    const onCancel = () => {
         router.back();
-    });
+    };
 
     useEffect(() => {
-        if (id) {
-            onGetArticle({ id });
-        }
+        if (!id) return;
+
+        onGetArticle({ id });
     }, [id]);
+
+    if (!id) return null;
 
     return (
         <Modal

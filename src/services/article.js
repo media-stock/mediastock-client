@@ -1,6 +1,6 @@
 import { Request } from 'lib';
 
-export const onGetArticles = async ({ ...query }) => {
+export const onGetArticles = async (query) => {
     const url = `/articles`;
 
     const response = await Request.onRequestGet({ url, query });

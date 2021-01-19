@@ -6,4 +6,10 @@ export const adminState = Map({
     channel: initialFetchState.object,
     channelVideos: initialFetchState.list,
     channelStatistics: initialFetchState.list,
+
+    articles: initialFetchState.list,
+    article: initialFetchState.object,
+    createArticle: initialFetchState.object,
+    deleteArticle: initialFetchState.object,
+    updateArticle: initialFetchState.object,
 });

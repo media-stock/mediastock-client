@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as articleActions from 'stores/article';
+import * as adminActions from 'stores/admin';
 
 // components
 import { AdminTable, AdminButton, Spinner, AdminError } from 'components';
@@ -45,11 +45,9 @@ export default function ArticleList() {
     if (subPage !== 'list') return null;
 
     const dispatch = useDispatch();
-    const { setPage, onGetArticles } = bindActionCreators(articleActions, dispatch);
+    const { setPage, onGetArticles } = bindActionCreators(adminActions, dispatch);
 
-    const { articles } = useSelector((state) => ({
-        articles: state.article.toJS().articles,
-    }));
+    const articles = useSelector((state) => state.admin.toJS().articles);
     const { data, dataCount, page, offset, pending, error } = articles;
 
     const onItemClick = useCallback((id) => {
@@ -66,8 +64,7 @@ export default function ArticleList() {
         });
     });
 
-    const setPagination = (state) => {
-        const { page, offset } = state;
+    const setPagination = ({ page, offset }) => {
         setPage({ page: 0, offset, type: 'articles' });
     };
 
@@ -76,9 +73,9 @@ export default function ArticleList() {
         onGetArticles();
     };
 
-    React.useEffect(() => {
-        onReload();
-    }, [subPage]);
+    useEffect(() => {
+        onGetArticles();
+    }, [page, offset]);
 
     return (
         <>
