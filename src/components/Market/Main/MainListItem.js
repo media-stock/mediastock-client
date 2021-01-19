@@ -4,8 +4,12 @@ import styled, { css } from 'styled-components';
 import { UIText, UIHeaderText } from 'ui';
 
 export default function MarketMainListItem({ market }) {
+    const onItemClick = React.useCallback(() => {
+        alert('준비중인 서비스입니다.');
+    }, [market]);
+
     return (
-        <ItemWrapper>
+        <ItemWrapper onClick={onItemClick}>
             <ItemProfile src={market?.thumbnail} alt="profile" />
             <ItemNameWrapper>
                 <ProfileName size="h3">{market?.name}</ProfileName>

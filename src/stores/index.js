@@ -11,6 +11,8 @@ import ReduxThunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // reducers
+import admin from 'stores/admin';
+
 import auth from 'stores/auth';
 import user from 'stores/user';
 import main from 'stores/main';
@@ -22,6 +24,8 @@ import home from 'stores/home';
 import market from 'stores/market';
 
 const rootReducers = combineReducers({
+    admin,
+
     auth,
     user,
     main,

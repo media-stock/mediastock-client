@@ -27,11 +27,3 @@ export const onGetChannelStatistics = async ({ id, ...query }) => {
     const response = await Request.onRequestGet({ url, query });
     return response;
 };
-
-export const onGetMyChannels = async ({ accessToken }) => {
-    const url = `/me/channels`;
-    const headers = Request.getAuthorizationHeader(accessToken);
-
-    const response = await Request.onRequestGet({ url, headers });
-    return response;
-};
