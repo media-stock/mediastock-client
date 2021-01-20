@@ -26,6 +26,10 @@ export const articleDetailHelmet = (title) => ({
     title: `${title} - 미디어스톡`,
 });
 
+export const articleUploadHelmet = {
+    title: '게시글 업로드 - 미디어스톡',
+};
+
 export const moreHelmet = {
     title: '더보기 - 미디어스톡',
 };

@@ -1,11 +1,11 @@
 import React from 'react';
 
 // helmet
-import { Helmet, Header } from 'components';
+import { Helmet } from 'components';
 import { articleListHelmet as helmet } from 'config';
 
 // redux
-import { wrapper } from 'stores';
+// import { wrapper } from 'stores';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as articleActions from 'stores/article';
@@ -24,7 +24,6 @@ export default function ArticleList() {
     return (
         <>
             <Helmet helmet={helmet()} />
-            <Header logo={`Media's Talk`} />
             <MobileArticleListContainer />
         </>
     );

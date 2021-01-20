@@ -34,19 +34,3 @@ export default function ArticleDetailPage() {
         </>
     );
 }
-
-// export const getServerSideProps = wrapper.getServerSideProps(
-//     async ({ store, req, res, params }) => {
-//         // console.log(`getServerSideProps`, store.getState());
-//         const { id } = params;
-
-//         const { dispatch, getState } = store;
-//         await dispatch(articleActions.onGetArticle({ id }));
-
-//         const article = getState()?.article.toJS();
-
-//         return {
-//             props: { article },
-//         };
-//     },
-// );
