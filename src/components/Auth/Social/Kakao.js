@@ -23,7 +23,7 @@ const KakaoView = styled.div`
 const Kakao = styled(UIButton)`
     width: 100%;
 
-    color: ${(props) => props.theme.textBoldColor};
+    color: ${(props) => props.theme.boldTextColor};
     background-color: yellow;
     border: 0;
 `;

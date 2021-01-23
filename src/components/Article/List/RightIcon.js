@@ -20,7 +20,7 @@ export default function RightIcon() {
 const RightIconWrapper = styled.div`
     position: absolute;
     right: 28px;
-    margin-top: -61.5px;
+    margin-top: -46px;
 
     cursor: pointer;
 `;

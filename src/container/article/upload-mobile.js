@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import {
@@ -8,8 +8,16 @@ import {
     ArticleUploadButton,
 } from 'components';
 
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { onCreateArticle } from 'stores/article';
+
 export default function ArticleUploadContainer() {
     const router = useRouter();
+
+    const dispatch = useDispatch();
+    const accessToken = useSelector((state) => state.user?.toJS().logined?.accessToken);
+    const createArticle = useSelector((state) => state.article.toJS().createArticle);
 
     const [input, setInput] = useState({
         title: '',
@@ -26,13 +34,27 @@ export default function ArticleUploadContainer() {
 
     const onSave = useCallback(() => {
         console.log(`onSave`, input);
+
+        if (!accessToken) {
+            alert('로그인을 먼저 해주세요!');
+            return;
+        }
+
+        dispatch(onCreateArticle({ article: input }));
     }, [input]);
 
     const onCancel = useCallback(() => {
         setInput({ title: '', content: '' });
     }, [input]);
 
-    console.log(`ArticleUpload`, input);
+    useEffect(() => {
+        if (createArticle?.done) {
+            router.replace('/article');
+        }
+        if (createArticle?.error) {
+            alert('글을 작성하는데 오류가 발생하였습니다.');
+        }
+    }, [createArticle?.done, createArticle?.error]);
 
     return (
         <>

@@ -17,9 +17,6 @@ import {
 } from 'lib';
 import * as channelAPI from 'services/channel';
 
-export const setPage = onSetPageDispatch('channel');
-export const setState = onSetStateDispatch('channel');
-
 export const onGetChannels = createPromiseThunk(
     CHANNEL_TYPES.GET_CHANNELS,
     channelAPI.onGetChannels,
@@ -49,8 +46,6 @@ export const onGetMyChannels = createPromiseThunk(
 
 export default handleActions(
     {
-        [TYPE_PAGE('channel')]: setPageState,
-        [TYPE_STATE('channel')]: (...props) => setInitialState(...props, channelState),
         [CHANNEL_TYPES.GET_CHANNELS]: (state, _) =>
             setImmutableState(state, 'channels', createFetchState.pending()),
         [CHANNEL_TYPES.GET_CHANNELS_DONE]: (state, action) =>

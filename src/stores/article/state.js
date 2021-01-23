@@ -4,8 +4,8 @@ import { initialFetchState } from 'lib';
 export const articleState = Map({
     articles: initialFetchState.list,
     article: initialFetchState.object,
-    create: initialFetchState.object,
-    delete: initialFetchState.object,
-    update: initialFetchState.object,
+    createArticle: initialFetchState.object,
+    deleteArticle: initialFetchState.object,
+    updateArticle: initialFetchState.object,
     createComment: initialFetchState.object,
 });

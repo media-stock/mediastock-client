@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const UIButton = styled.button`
-    padding: 7px 16px;
+    padding: 10px 16px;
     border: none;
     border-radius: 4px;
     outline: none;

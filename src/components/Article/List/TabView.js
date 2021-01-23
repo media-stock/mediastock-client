@@ -20,10 +20,10 @@ export default function TabView({ sort, setSort }) {
 }
 
 const TabViewWrapper = styled.div`
+    padding: 10px 0;
+
     display: flex;
     align-items: center;
-
-    border-bottom: 1px solid #ddd;
 `;
 
 const TabViewItem = styled(UIText)`

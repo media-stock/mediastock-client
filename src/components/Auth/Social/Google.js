@@ -21,7 +21,7 @@ const GoogleButtonView = styled.div`
 
 const Google = styled(UIButton)`
     width: 100%;
-    color: ${(props) => props.theme.textBoldColor};
+    color: ${(props) => props.theme.boldTextColor};
 
     border: 1px solid #d3d3d3;
     box-shadow: 10px 5px 5px #eee;
