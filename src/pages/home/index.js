@@ -19,4 +19,4 @@ function IndexPage({ state, dispatch }) {
     );
 }
 
-export default wrapperComponent(IndexPage, onGetHome);
+export default wrapperComponent(IndexPage, [onGetHome]);

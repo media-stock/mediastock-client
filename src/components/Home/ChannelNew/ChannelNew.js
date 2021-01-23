@@ -12,9 +12,6 @@ const dummy = {
 };
 
 export default function ChannelNew({ channels = [] }) {
-    // console.log(channels);
-    // if (channels?.length === 0) channels = createDummyList(12, dummy);
-
     const channelList = channels.map((channel, index) => (
         <ChannelNewItem key={channel?.id} index={index} channel={channel} />
     ));
@@ -32,7 +29,7 @@ function ChannelNewItem({ index, channel }) {
 
     return (
         <ChanneNewItemView index={index}>
-            <Profile src={channel?.profile} />
+            <Profile src={channel?.thumbnail} />
             <Name>{channel?.name}</Name>
             <Start>시작가 {channel.now}톡</Start>
             <Top>
@@ -63,8 +60,7 @@ const ChannelNewListTitle = styled.h1`
 `;
 
 const ChanneNewItemView = styled.div`
-    width: 32%;
-    ${(props) => (props.index % 3 === 1 ? `margin: 0 2%` : ``)};
+    width: 50%;
 
     display: flex;
     flex-wrap: wrap;
@@ -73,7 +69,8 @@ const ChanneNewItemView = styled.div`
 `;
 
 const Profile = styled.img`
-    width: 100%;
+    width: 90%;
+    object-fit: cover;
 `;
 
 const Name = styled.p`
@@ -83,8 +80,9 @@ const Name = styled.p`
 `;
 
 const Start = styled.p`
-    width: 96%;
+    width: 80%;
     margin: 0 auto;
+    margin-top: 10px;
     text-align: start;
 
     font-size: 9px;
@@ -92,4 +90,6 @@ const Start = styled.p`
     color: red;
 `;
 
-const Top = styled(Start)``;
+const Top = styled(Start)`
+    margin-top: 4px;
+`;

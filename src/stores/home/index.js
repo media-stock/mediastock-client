@@ -58,7 +58,7 @@ export default handleActions(
             setImmutableState(
                 state,
                 'mediaTalkRanking',
-                createFetchState.done(action.payload?.ipos, action.payload?.totalCount),
+                createFetchState.done(action.payload?.channels, action.payload?.totalCount),
             ),
         [HOME_TYPES.GET_MEDIA_TALK_RANKING_ERROR]: (state, action) =>
             setImmutableState(state, 'mediaTalkRanking', createFetchState.error(action.payload)),

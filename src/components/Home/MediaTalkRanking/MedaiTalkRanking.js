@@ -4,30 +4,33 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
-import { createDummyList, getPercentData } from 'lib/utils';
+import { getPercentData } from 'lib/utils';
 
-export default function MediaTalkRanking({ sort, setSort, rankings = [] }) {
-    // if (rankings?.length === 0) rankings = createDummyList(6, dummy);
-
-    const rankingList = rankings?.map((ranking) => (
-        <MediaTalkRankingItem key={ranking?.id} ranking={ranking} />
+export default function MediaTalkRanking({ order, setOrder, rankings = [] }) {
+    const rankingList = rankings?.map((ranking, index) => (
+        <MediaTalkRankingItem key={ranking?.id} ranking={ranking} index={index} />
     ));
+
+    console.log(`MediaTalkRanking`, rankings);
 
     return (
         <MediaTalkRankingView>
             <MediaTalkRankingTopView>
                 <Title>미톡랭킹</Title>
                 <FilterList>
-                    <FilterItem active={sort === 1} onClick={() => setSort(1)}>
+                    <FilterItem active={order === 'yield'} onClick={() => setOrder('yield')}>
                         수익률
                     </FilterItem>
-                    <FilterItem active={sort === 2} onClick={() => setSort(2)}>
+                    <FilterItem active={order === 'maxPrice'} onClick={() => setOrder('maxPrice')}>
                         상한가
                     </FilterItem>
-                    <FilterItem active={sort === 3} onClick={() => setSort(3)}>
+                    <FilterItem active={order === 'minPrice'} onClick={() => setOrder('minPrice')}>
                         하한가
                     </FilterItem>
-                    <FilterItem active={sort === 4} onClick={() => setSort(4)}>
+                    <FilterItem
+                        active={order === 'transactionCount'}
+                        onClick={() => setOrder('transactionCount')}
+                    >
                         거래량
                     </FilterItem>
                 </FilterList>
@@ -37,14 +40,14 @@ export default function MediaTalkRanking({ sort, setSort, rankings = [] }) {
     );
 }
 
-function MediaTalkRankingItem({ ranking }) {
+function MediaTalkRankingItem({ index, ranking }) {
     const { diff, color, percent } = getPercentData(ranking?.talk + ranking?.top, ranking?.top);
 
     return (
         <MediaTalkRankingItemView color={color}>
             <LeftSection>
-                <Ranking>{ranking?.id}</Ranking>
-                <Profile src={ranking?.profile} />
+                <Ranking>{index + 1}</Ranking>
+                <Profile src={ranking?.thumbnail} />
             </LeftSection>
             <RightSection>
                 <Name>{ranking?.name}</Name>
@@ -138,6 +141,7 @@ const Ranking = styled.p`
 
 const Profile = styled.img`
     margin-left: 6px;
+    margin-right: 5px;
 
     width: 50px;
     height: 50px;

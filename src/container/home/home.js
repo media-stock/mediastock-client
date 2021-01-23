@@ -14,14 +14,14 @@ import {
 } from 'components';
 
 export default function HomeContainer({ dispatch, state }) {
-    const [sort, setSort] = useState(1);
+    const [order, setOrder] = useState('yield');
 
     const { home } = state;
     const { channelRealTime, channelNew, mediaTalkRanking } = home?.toJS();
 
     useEffect(() => {
-        dispatch(onGetMediaTalkRanking({ sort }));
-    }, [sort]);
+        dispatch(onGetMediaTalkRanking({ order }));
+    }, [order]);
 
     return (
         <HomeView>
@@ -29,7 +29,11 @@ export default function HomeContainer({ dispatch, state }) {
             <Carousel />
             <HomeChannelRealTime rankings={channelRealTime?.data} />
             <HomeChannelNew channels={channelNew?.data} />
-            <HomeMediaTalkRanking sort={sort} setSort={setSort} rankings={mediaTalkRanking?.data} />
+            <HomeMediaTalkRanking
+                order={order}
+                setOrder={setOrder}
+                rankings={mediaTalkRanking?.data}
+            />
         </HomeView>
     );
 }

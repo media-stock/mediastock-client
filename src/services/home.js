@@ -42,7 +42,7 @@ export const onGetHome = async () => {
 };
 
 export const onGetMediaTalkRanking = async (query) => {
-    const url = '/ipos';
+    const url = '/channels';
 
     const response = await Request.onRequestGet({ url, query });
     return response;
