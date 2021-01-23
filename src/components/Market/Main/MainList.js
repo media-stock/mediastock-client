@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MarketMainListItem from './MainListItem';
 
-export default function MarketMainList({ active, markets }) {
-    if (active === 'detail') return null;
-
+export default function MarketMainList({ markets }) {
     const marketList = markets?.map((market) => (
         <MarketMainListItem key={market?.id} market={market} />
     ));

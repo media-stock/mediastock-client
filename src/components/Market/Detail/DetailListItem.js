@@ -4,18 +4,26 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 
-export default function MarketDetailListItem() {
+import { getPercent } from 'lib/utils';
+
+export default function MarketDetailListItem({ market }) {
+    const onItemClick = React.useCallback(() => {
+        alert('준비중인 서비스입니다.');
+    }, [market]);
+
+    const info = getPercent(market);
+
     return (
-        <ItemWrapper>
+        <ItemWrapper onClick={onItemClick}>
             <Item>
-                <ProfileImg src="/sample-profile.png" />
+                <ProfileImg src={market?.thumbnail} />
                 <ProfileName>
-                    감스트 <br /> 인물
+                    {market?.name} <br /> 인물
                 </ProfileName>
             </Item>
-            <Item>55,000</Item>
+            <Item>{market?.curPrice}</Item>
             <Item width="20%" color>
-                ▲5,000 <br /> +10%
+                ▲{info?.diff} <br /> +{info?.percent}%
             </Item>
             <Item width="30%" right>
                 10,000,000

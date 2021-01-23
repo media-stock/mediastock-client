@@ -2,8 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import MarketDetailListItem from './DetailListItem';
 
-export default function MarketDetailList({ active }) {
-    if (active === 'main') return null;
+export default function MarketDetailList({ markets }) {
+    const marketList = markets?.map((market) => <MarketDetailListItem market={market} />);
 
     return (
         <ListWrapper>
@@ -23,22 +23,7 @@ export default function MarketDetailList({ active }) {
                     거래량
                 </ListHeaderItem>
             </ListHeaderWrapper>
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
-            <MarketDetailListItem />
+            {marketList}
         </ListWrapper>
     );
 }
