@@ -10,3 +10,4 @@ export * from './Error';
 export * from './Channel';
 export * from './Article';
 export * from './Stock';
+export * from './Banner';

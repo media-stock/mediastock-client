@@ -16,10 +16,18 @@ export const onGetHomeChannelNew = async () => {
     return response;
 };
 
+export const onGetBanners = async () => {
+    const url = '/banners';
+
+    const response = await Request.onRequestGet({ url });
+    return response;
+};
+
 export const onGetHome = async () => {
     const [response1, response2] = await Promise.all([
         onGetHomeChannelRealTime(),
         onGetHomeChannelNew(),
+        // onGetBanners(),
     ]);
 
     if (response1?.status === 200 && response2?.status === 200) {

@@ -12,4 +12,7 @@ export const adminState = Map({
     createArticle: initialFetchState.object,
     deleteArticle: initialFetchState.object,
     updateArticle: initialFetchState.object,
+
+    banners: initialFetchState.list,
+    createBanner: initialFetchState.object,
 });

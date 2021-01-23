@@ -5,6 +5,7 @@ import UserContainer from './user';
 import ArticleContainer from './article';
 import ChannelContainer from './channel';
 import StockContainer from './stock';
+import BannerContainer from './banner';
 
 export default function AdminContainer() {
     const router = useRouter();
@@ -16,6 +17,7 @@ export default function AdminContainer() {
             {page === 'article' && <ArticleContainer subPage={subPage} />}
             {page === 'channel' && <ChannelContainer subPage={subPage} />}
             {page === 'stock' && <StockContainer subPage={subPage} />}
+            {page === 'banner' && <BannerContainer subPage={subPage} />}
         </>
     );
 }

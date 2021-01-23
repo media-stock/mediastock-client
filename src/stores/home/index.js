@@ -25,12 +25,14 @@ const setChannelNew = ({ dispatch, data }) => {
 };
 
 const setBanners = ({ dispatch, data }) => {
-    const nextState = createFetchState.done(data?.banners);
-    dispatch({ type: HOME_TYPES.SET_STATE, payload: { reducer: 'banners', nextState } });
+    return;
+
+    // const nextState = createFetchState.done(data?.banners);
+    // dispatch({ type: HOME_TYPES.SET_STATE, payload: { reducer: 'banners', nextState } });
 };
 
 export const onGetHome = createPromiseThunk(HOME_TYPES.GET_HOME, homeAPI.onGetHome, {
-    after: [setChannelRealTime, setChannelNew],
+    after: [setChannelRealTime, setChannelNew, setBanners],
 });
 
 export const onGetMediaTalkRanking = createPromiseThunk(

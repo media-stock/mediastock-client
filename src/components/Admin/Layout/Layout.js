@@ -126,6 +126,21 @@ export default function AdminLayout({ children }) {
                             </Menu.Item>
                         </SubMenu>
 
+                        <SubMenu key="banner" icon={<FileOutlined />} title="배너">
+                            <Menu.Item
+                                key="banner-list"
+                                onClick={() => onClickMenu('banner', 'list')}
+                            >
+                                배너 목록
+                            </Menu.Item>
+                            <Menu.Item
+                                key="banner-upload"
+                                onClick={() => onClickMenu('banner', 'upload')}
+                            >
+                                배너 업로드
+                            </Menu.Item>
+                        </SubMenu>
+
                         <SubMenu key="file" icon={<FileOutlined />} title="파일">
                             <Menu.Item key="file-list" onClick={() => onClickMenu('file', 'list')}>
                                 파일 목록
