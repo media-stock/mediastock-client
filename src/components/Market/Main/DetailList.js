@@ -2,8 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import MarketDetailListItem from './DetailListItem';
 
-export default function MarketDetailList({ markets }) {
-    const marketList = markets?.map((market) => <MarketDetailListItem market={market} />);
+export default function MarketDetailList({ markets, onMarketItemClick }) {
+    const marketList = markets?.map((market) => (
+        <MarketDetailListItem market={market} onMarketItemClick={onMarketItemClick} />
+    ));
 
     return (
         <ListWrapper>

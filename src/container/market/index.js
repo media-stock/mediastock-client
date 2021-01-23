@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from 'react';
+import { useRouter } from 'next/router';
+
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faStream } from '@fortawesome/free-solid-svg-icons';
@@ -7,14 +9,29 @@ import { Header, MarketMainList, MarketDetailList } from 'components';
 import { UIHeaderText, UIInput, UIText } from 'ui';
 
 export default function MeTalkMarktetContainer({ state, dispatch }) {
+    const router = useRouter();
     const [active, setActive] = useState(false);
 
     const markets = state.market?.toJS()?.markets;
-    const data = markets?.data;
+    const { data, done } = markets;
 
     const onClickAlign = useCallback(() => {
         setActive(!active);
     }, [active]);
+
+    const onMarketItemClick = useCallback(
+        (id) => {
+            // alert('준비중인 서비스입니다.');
+            // return;
+
+            router.push(`/market/${id}`);
+
+            if (!id || !done) {
+                alert('잘못된 접근입니다.');
+            }
+        },
+        [done],
+    );
 
     return (
         <>
@@ -30,8 +47,10 @@ export default function MeTalkMarktetContainer({ state, dispatch }) {
                 <Text>정렬기준</Text>
             </AlignWrapper>
             <ListWrapper>
-                {!active && <MarketMainList markets={data} />}
-                {active && <MarketDetailList markets={data} />}
+                {!active && <MarketMainList markets={data} onMarketItemClick={onMarketItemClick} />}
+                {active && (
+                    <MarketDetailList markets={data} onMarketItemClick={onMarketItemClick} />
+                )}
             </ListWrapper>
         </>
     );

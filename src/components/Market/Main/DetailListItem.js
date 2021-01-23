@@ -6,15 +6,11 @@ import { faStar } from '@fortawesome/free-regular-svg-icons';
 
 import { getPercent } from 'lib/utils';
 
-export default function MarketDetailListItem({ market }) {
-    const onItemClick = React.useCallback(() => {
-        alert('준비중인 서비스입니다.');
-    }, [market]);
-
+export default function MarketDetailListItem({ market, onMarketItemClick }) {
     const info = getPercent(market);
 
     return (
-        <ItemWrapper onClick={onItemClick}>
+        <ItemWrapper onClick={() => onMarketItemClick(market?.id)}>
             <Item>
                 <ProfileImg src={market?.thumbnail} />
                 <ProfileName>

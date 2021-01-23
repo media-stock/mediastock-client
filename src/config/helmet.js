@@ -41,3 +41,7 @@ export const myChannelHelmet = {
 export const metalkMarketHelmet = {
     title: '미톡마켓 - 미디어스톡',
 };
+
+export const metalkMarketDetailHelemt = (title) => ({
+    title: `${title || ''} 마켓 - 미디어스톡`,
+});

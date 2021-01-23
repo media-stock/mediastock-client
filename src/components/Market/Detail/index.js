@@ -1,2 +1,1 @@
-export { default as MarketDetailList } from './DetailList';
-export { default as MarketDetailListItem } from './DetailListItem';
+export { default as MarketDetailTabView } from './TabView';
