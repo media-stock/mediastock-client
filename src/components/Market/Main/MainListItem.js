@@ -2,11 +2,14 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import { UIText, UIHeaderText } from 'ui';
+import { getPercent } from 'lib/utils';
 
 export default function MarketMainListItem({ market }) {
     const onItemClick = React.useCallback(() => {
         alert('준비중인 서비스입니다.');
     }, [market]);
+
+    const info = getPercent(market);
 
     return (
         <ItemWrapper onClick={onItemClick}>
@@ -17,19 +20,19 @@ export default function MarketMainListItem({ market }) {
             </ItemNameWrapper>
             <ItemMoneyWrapper>
                 <TokText text>현재가</TokText>
-                <TokText type="red">{market?.initialPrice}톡</TokText>
+                <TokText type="red">{market?.curPrice || 0}톡</TokText>
             </ItemMoneyWrapper>
             <ItemPercentWrapper>
-                <PercentText type="red">▲2,500</PercentText>
-                <PercentText type="red">+15%</PercentText>
+                <PercentText type="red">▲{info?.diff}</PercentText>
+                <PercentText type="red">+{info?.percent}%</PercentText>
             </ItemPercentWrapper>
         </ItemWrapper>
     );
 }
 
 const ItemWrapper = styled.div`
-    width: 170px;
-    height: 250px;
+    flex: 1;
+    max-width: 50%;
 
     display: flex;
     flex-direction: column;

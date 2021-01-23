@@ -23,3 +23,17 @@ export const getPercentData = (start, end) => {
         percent,
     };
 };
+
+export const getPercent = ({ curPrice, lastPrice }) => {
+    const diff = curPrice - lastPrice || 0;
+    const percent = curPrice / lastPrice || 0;
+    let status = 1;
+    if (diff === 0) status = 0;
+    if (diff < 0) status = -1;
+
+    return {
+        diff,
+        percent,
+        status,
+    };
+};

@@ -17,7 +17,7 @@ export default function HomeContainer({ dispatch, state }) {
     const [order, setOrder] = useState('yield');
 
     const { home } = state;
-    const { channelRealTime, channelNew, mediaTalkRanking } = home?.toJS();
+    const { channelRealTime, channelNew, mediaTalkRanking, banners } = home?.toJS();
 
     useEffect(() => {
         dispatch(onGetMediaTalkRanking({ order }));
@@ -26,7 +26,7 @@ export default function HomeContainer({ dispatch, state }) {
     return (
         <HomeView>
             <HomeSearchInput />
-            <Carousel />
+            <Carousel images={banners?.data} />
             <HomeChannelRealTime rankings={channelRealTime?.data} />
             <HomeChannelNew channels={channelNew?.data} />
             <HomeMediaTalkRanking

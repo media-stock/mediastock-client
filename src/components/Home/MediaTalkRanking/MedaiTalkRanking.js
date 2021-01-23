@@ -52,17 +52,17 @@ function MediaTalkRankingItem({ index, ranking }) {
             <RightSection>
                 <Name>{ranking?.name}</Name>
                 <BottomView>
-                    <Talk>{ranking?.talk}톡</Talk>
+                    <Talk>{ranking?.curPrice}톡</Talk>
 
                     <FontAwesomeIcon
                         icon={diff ? faSortUp : faSortDown}
                         color={color}
                         style={{ marginLeft: '16px', marginRight: '3px' }}
                     />
-                    <Up>{Math.abs(ranking?.top - ranking?.talk)}</Up>
+                    {/* <Up>{Math.abs(ranking?.top - ranking?.talk)}</Up> */}
                 </BottomView>
             </RightSection>
-            <Percent>{percent}%</Percent>
+            {/* <Percent>{percent}%</Percent> */}
         </MediaTalkRankingItemView>
     );
 }

@@ -31,10 +31,10 @@ function ChannelNewItem({ index, channel }) {
         <ChanneNewItemView index={index}>
             <Profile src={channel?.thumbnail} />
             <Name>{channel?.name}</Name>
-            <Start>시작가 {channel.now}톡</Start>
+            <Start>시작가 {channel?.curPrice}톡</Start>
             <Top>
-                최고가 {channel.top}톡 ({up ? '+' : '-'}
-                {percent}%)
+                최고가 {channel?.maxPrice}톡
+                {channel?.curPrice ? (up ? `+${percent}%` : `-${percent}%`) : ''}
             </Top>
         </ChanneNewItemView>
     );

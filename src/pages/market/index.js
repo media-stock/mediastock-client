@@ -15,6 +15,7 @@ function MetalkMarktetPage({ state, dispatch }) {
     React.useEffect(() => {
         dispatch(onGetMarkets(query));
     }, []);
+
     return (
         <>
             <Helmet helmet={helmet} />
