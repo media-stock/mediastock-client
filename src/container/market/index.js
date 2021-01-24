@@ -21,14 +21,14 @@ export default function MeTalkMarktetContainer({ state, dispatch }) {
 
     const onMarketItemClick = useCallback(
         (id) => {
-            alert('준비중인 서비스입니다.');
-            return;
+            // alert('준비중인 서비스입니다.');
+            // return;
 
-            // router.push(`/market/${id}`);
+            router.push(`/market/${id}`);
 
-            // if (!id || !done) {
-            //     alert('잘못된 접근입니다.');
-            // }
+            if (!id || !done) {
+                alert('잘못된 접근입니다.');
+            }
         },
         [done],
     );

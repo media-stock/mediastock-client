@@ -36,7 +36,8 @@
         "redux-persist": "6.0.0",
         "redux-persist-transform-immutable": "5.0.0",
         "redux-thunk": "2.3.0",
-        "styled-components": "^5.0.1"
+        "styled-components": "^5.0.1",
+        "victory": "35.4.6"
     },
     "devDependencies": {
         "@babel/core": "7.11.6",

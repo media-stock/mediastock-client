@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { MarketDetailTabView } from 'components';
+import { MarketDetailTabView, PriceChart } from 'components';
 
 export default function MeTalkMarketDetailContainer({ state, dispatch }) {
     const [tab, setTab] = useState('price');
@@ -11,7 +11,8 @@ export default function MeTalkMarketDetailContainer({ state, dispatch }) {
     return (
         <>
             <MarketDetailTabView tab={tab} setTab={setTab} />
-            {JSON.stringify(market)}
+            {/* {JSON.stringify(market)} */}
+            {tab === 'chart' && <PriceChart />}
         </>
     );
 }

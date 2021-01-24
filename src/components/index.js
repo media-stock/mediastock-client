@@ -15,3 +15,4 @@ export * from './Article';
 export * from './Market';
 export * from './My';
 export * from './More';
+export * from './Victory';
