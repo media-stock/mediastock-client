@@ -4,7 +4,7 @@ import { Helmet } from 'components';
 import { metalkMarketDetailHelemt as helmet } from 'config';
 
 import { wrapperComponent } from 'stores';
-import { onGetMarket } from 'stores/market';
+import { onGetMarket, onGetMarketStockOrders } from 'stores/market';
 
 import MarketDetailContainer from 'container/market/detail';
 
@@ -20,4 +20,4 @@ function MarketDetailPage({ state, dispatch }) {
     );
 }
 
-export default wrapperComponent(MarketDetailPage, onGetMarket);
+export default wrapperComponent(MarketDetailPage, [onGetMarket, onGetMarketStockOrders]);

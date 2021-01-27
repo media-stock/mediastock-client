@@ -13,3 +13,12 @@ export const onGetMarket = async ({ id }) => {
     const response = await Request.onRequestGet({ url });
     return response;
 };
+
+export const onGetMarketStockOrders = async ({ id }) => {
+    const url = `/channels/${id}/stock-orders`;
+
+    const response = await Request.onRequestGet({ url });
+
+    console.log(`onGetMarketStockOrders`, url, response);
+    return response;
+};
