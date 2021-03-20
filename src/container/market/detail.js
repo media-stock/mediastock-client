@@ -8,6 +8,8 @@ export default function MeTalkMarketDetailContainer({ state, dispatch }) {
     const market = state.market?.toJS()?.market;
     const marketStockOrders = state.market.toJS()?.marketStockOrders;
 
+    console.log(`MarketStockOrders`, marketStockOrders);
+
     return (
         <>
             <MarketDetailTabView tab={tab} setTab={setTab} />

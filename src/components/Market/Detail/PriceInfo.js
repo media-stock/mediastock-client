@@ -5,11 +5,18 @@ import { UIText } from 'ui';
 export default function PriceInfo({ orderInfo }) {
     if (!orderInfo) return null;
 
+    console.log(orderInfo);
+
     return (
         <PriceInfoWrapper>
             <PriceInfoItemWrapper>
                 <PriceInfoKey>기준가</PriceInfoKey>
                 <PriceInfoValue>{orderInfo?.standardPrice}</PriceInfoValue>
+            </PriceInfoItemWrapper>
+
+            <PriceInfoItemWrapper>
+                <PriceInfoKey>시가</PriceInfoKey>
+                <PriceInfoValue>{orderInfo?.openPrice}</PriceInfoValue>
             </PriceInfoItemWrapper>
 
             <PriceInfoItemWrapper>
@@ -30,6 +37,16 @@ export default function PriceInfo({ orderInfo }) {
             <PriceInfoItemWrapper>
                 <PriceInfoKey>전일 거래량</PriceInfoKey>
                 <PriceInfoValue>{orderInfo?.prevTransactionVolume}</PriceInfoValue>
+            </PriceInfoItemWrapper>
+
+            <PriceInfoItemWrapper>
+                <PriceInfoKey>상한가</PriceInfoKey>
+                <PriceInfoValue>{Math.floor((orderInfo?.openPrice || 0) * 1.3)}</PriceInfoValue>
+            </PriceInfoItemWrapper>
+
+            <PriceInfoItemWrapper>
+                <PriceInfoKey>하한가</PriceInfoKey>
+                <PriceInfoValue>{Math.floor((orderInfo?.openPrice || 0) * 0.7)}</PriceInfoValue>
             </PriceInfoItemWrapper>
         </PriceInfoWrapper>
     );
